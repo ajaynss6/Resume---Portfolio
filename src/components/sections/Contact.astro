@@ -1,0 +1,25 @@
+---
+import Section from "../ui/Section.astro";
+import { profile } from "../../data/profile.js";
+
+const { email, phone, location } = profile.contact;
+const otherLinks = profile.links.filter((link) => link.label !== "Email");
+---
+
+<Section id="contact" title="Contact" subtitle="Let's connect.">
+  <ul class="stack">
+    <li>
+      <strong>Email:</strong>
+      <a href={`mailto:${email}`}>{email}</a>
+    </li>
+    <li><strong>Phone:</strong> {phone}</li>
+    <li><strong>Location:</strong> {location}</li>
+    {
+      otherLinks.map((link) => (
+        <li>
+          <strong>{link.label}:</strong> <a href={link.href}>{link.handle}</a>
+        </li>
+      ))
+    }
+  </ul>
+</Section>

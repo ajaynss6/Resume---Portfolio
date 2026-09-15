@@ -1,0 +1,14 @@
+---
+import Section from "../ui/Section.astro";
+import achievements from "../../data/achievements.js";
+---
+
+<Section id="achievements" title="Achievements" subtitle="Measurable impact across roles and products.">
+  <ul class="achievement-list">
+    {
+      achievements.map((item) => (
+        <li>{item}</li>
+      ))
+    }
+  </ul>
+</Section>

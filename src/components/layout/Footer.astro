@@ -1,0 +1,11 @@
+---
+import { profile } from "../../data/profile.js";
+
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="container">
+    <p>© {year} {profile.name}. Built with Astro.</p>
+  </div>
+</footer>

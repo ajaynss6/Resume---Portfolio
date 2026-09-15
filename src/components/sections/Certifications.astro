@@ -1,0 +1,20 @@
+---
+import Section from "../ui/Section.astro";
+import certifications from "../../data/certifications.js";
+---
+
+<Section id="certifications" title="Certifications">
+  <ol class="timeline">
+    {
+      certifications.map((item) => (
+        <li class="entry">
+          <div class="entry__header">
+            <h3 class="entry__title">{item.name}</h3>
+            {item.year && <span class="entry__period">{item.year}</span>}
+          </div>
+          <p class="entry__subtitle">{item.issuer}</p>
+        </li>
+      ))
+    }
+  </ol>
+</Section>

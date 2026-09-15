@@ -1,0 +1,23 @@
+{
+  "name": "ajay-krishna-portfolio",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Personal portfolio website for Ajay Krishna.",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check"
+  },
+  "engines": {
+    "node": ">=18.17.0"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.10",
+    "@types/node": "^26.5.1",
+    "astro": "^7.3.2",
+    "typescript": "^6.0.3"
+  }
+}

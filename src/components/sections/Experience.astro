@@ -1,0 +1,30 @@
+---
+import Section from "../ui/Section.astro";
+import experience from "../../data/experience.js";
+---
+
+<Section id="experience" title="Experience" subtitle="Roles across gaming, analytics, and platform systems.">
+  <ol class="timeline">
+    {
+      experience.map((role) => (
+        <li class="entry card">
+          <div class="entry__header">
+            <h3 class="entry__title">{role.title}</h3>
+            <span class="entry__period">
+              {role.start} – {role.end}
+            </span>
+          </div>
+          <p class="entry__subtitle">
+            {role.company}
+            <span class="entry__location"> · {role.location}</span>
+          </p>
+          <ul class="entry__highlights">
+            {role.highlights.map((highlight) => (
+              <li>{highlight}</li>
+            ))}
+          </ul>
+        </li>
+      ))
+    }
+  </ol>
+</Section>

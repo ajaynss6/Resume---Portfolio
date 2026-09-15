@@ -1,0 +1,8 @@
+---
+import Section from "../ui/Section.astro";
+import { profile } from "../../data/profile.js";
+---
+
+<Section id="about" title="Profile" subtitle="A quick introduction to my background and focus.">
+  <p class="stack">{profile.summary}</p>
+</Section>

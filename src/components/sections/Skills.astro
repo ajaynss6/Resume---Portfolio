@@ -1,0 +1,18 @@
+---
+import Section from "../ui/Section.astro";
+import TagList from "../ui/TagList.astro";
+import skills from "../../data/skills.js";
+---
+
+<Section id="skills" title="Skills" subtitle="Areas of product, analytics, and technical expertise.">
+  <div class="skills-grid">
+    {
+      skills.map((group) => (
+        <div class="skills-group">
+          <h3 class="skills-group__title">{group.category}</h3>
+          <TagList tags={group.items} label={`${group.category} skills`} />
+        </div>
+      ))
+    }
+  </div>
+</Section>

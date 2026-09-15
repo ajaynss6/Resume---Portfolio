@@ -1,0 +1,15 @@
+---
+// Reusable section wrapper: consistent heading, id and landmark labelling.
+const { id, title, subtitle } = Astro.props;
+const headingId = `${id}-heading`;
+---
+
+<section class="section" id={id} aria-labelledby={headingId}>
+  <div class="container">
+    <header class="section__header">
+      <h2 class="section__title" id={headingId}>{title}</h2>
+      {subtitle && <p class="section__subtitle">{subtitle}</p>}
+    </header>
+    <slot />
+  </div>
+</section>
