@@ -1,0 +1,88 @@
+---
+import Section from "../ui/Section.astro";
+import metrics from "../../data/metrics.js";
+---
+
+<Section
+  id="metrics"
+  index="04"
+  label="Impact"
+  title="Outcomes, not output."
+  aside="Measured impact drawn from product, analytics, and live-services roles."
+>
+  <div class="metrics" data-reveal-group data-stagger="0.07">
+    {
+      metrics.map((metric) => (
+        <div class="metric" data-reveal>
+          <span class="metric__value">
+            <span
+              data-count-to={metric.value}
+              data-count-prefix={metric.prefix || ""}
+              data-count-suffix={metric.suffix || ""}
+            >
+              {`${metric.prefix || ""}${metric.value}${metric.suffix || ""}`}
+            </span>
+          </span>
+          <span class="metric__label">{metric.label}</span>
+          {metric.detail && <span class="metric__detail">{metric.detail}</span>}
+        </div>
+      ))
+    }
+  </div>
+</Section>
+
+<style>
+  .metrics {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+  }
+
+  .metric {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    padding: clamp(1.75rem, 4vw, 3rem);
+    background: var(--bg);
+  }
+
+  .metric__value {
+    font-family: var(--font-display);
+    font-size: clamp(2.25rem, 1rem + 4.5vw, 4.5rem);
+    font-weight: 500;
+    letter-spacing: var(--tracking-tighter);
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .metric__label {
+    margin-top: var(--space-2);
+    font-size: var(--text-sm);
+    color: var(--text-secondary);
+    max-width: 22ch;
+  }
+
+  .metric__detail {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    color: var(--text-tertiary);
+  }
+
+  @media (max-width: 900px) {
+    .metrics {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 560px) {
+    .metrics {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+</style>

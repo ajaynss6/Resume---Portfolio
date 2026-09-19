@@ -1,0 +1,89 @@
+---
+// Fixed, non-interactive ambient background: a faint grid, a slow radial
+// glow and a fine film grain. Kept extremely subtle so it never competes with
+// content, and disabled under reduced motion.
+---
+
+<div class="bg-layer" aria-hidden="true">
+  <div class="bg-layer__grid"></div>
+  <div class="bg-layer__glow"></div>
+  <div class="bg-layer__grain"></div>
+</div>
+
+<style>
+  .bg-layer {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  /* Faint architectural grid, faded toward the edges */
+  .bg-layer__grid {
+    position: absolute;
+    inset: -1px;
+    background-image:
+      linear-gradient(to right, var(--border) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--border) 1px, transparent 1px);
+    background-size: 88px 88px;
+    opacity: 0.35;
+    mask-image: radial-gradient(
+      ellipse 80% 60% at 50% 0%,
+      #000 0%,
+      transparent 75%
+    );
+    -webkit-mask-image: radial-gradient(
+      ellipse 80% 60% at 50% 0%,
+      #000 0%,
+      transparent 75%
+    );
+  }
+
+  /* Slow, oversized colour wash for depth */
+  .bg-layer__glow {
+    position: absolute;
+    top: -30vh;
+    left: 50%;
+    width: 120vw;
+    height: 90vh;
+    translate: -50% 0;
+    background:
+      radial-gradient(
+        45% 55% at 30% 40%,
+        rgba(142, 166, 255, 0.12) 0%,
+        transparent 70%
+      ),
+      radial-gradient(
+        40% 50% at 75% 30%,
+        rgba(233, 220, 196, 0.05) 0%,
+        transparent 70%
+      );
+    filter: blur(20px);
+    animation: drift 46s var(--ease-in-out) infinite alternate;
+  }
+
+  /* Film grain */
+  .bg-layer__grain {
+    position: absolute;
+    inset: 0;
+    opacity: 0.035;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  @keyframes drift {
+    from {
+      transform: translate3d(-4%, -2%, 0) scale(1);
+    }
+    to {
+      transform: translate3d(4%, 3%, 0) scale(1.12);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .bg-layer__glow {
+      animation: none;
+    }
+  }
+</style>

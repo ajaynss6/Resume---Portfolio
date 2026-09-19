@@ -3,28 +3,126 @@ import Section from "../ui/Section.astro";
 import experience from "../../data/experience.js";
 ---
 
-<Section id="experience" title="Experience" subtitle="Roles across gaming, analytics, and platform systems.">
-  <ol class="timeline">
+<Section
+  id="experience"
+  index="02"
+  label="Experience"
+  title="Seven years across product, analytics, and platform systems."
+  aside="From decision science to product management — spanning gaming, live services, and AI-native platforms."
+>
+  <ol class="xp" data-reveal-group data-stagger="0.12">
     {
       experience.map((role) => (
-        <li class="entry card">
-          <div class="entry__header">
-            <h3 class="entry__title">{role.title}</h3>
-            <span class="entry__period">
-              {role.start} – {role.end}
+        <li class="xp__item" data-reveal>
+          <div class="xp__aside">
+            <span class="xp__period">
+              {role.start} — {role.end}
             </span>
+            <span class="xp__company">{role.company}</span>
+            <span class="xp__location">{role.location}</span>
           </div>
-          <p class="entry__subtitle">
-            {role.company}
-            <span class="entry__location"> · {role.location}</span>
-          </p>
-          <ul class="entry__highlights">
-            {role.highlights.map((highlight) => (
-              <li>{highlight}</li>
-            ))}
-          </ul>
+
+          <div class="xp__main">
+            <h3 class="xp__role">{role.title}</h3>
+            <ul class="xp__highlights">
+              {role.highlights.map((highlight) => (
+                <li>{highlight}</li>
+              ))}
+            </ul>
+          </div>
         </li>
       ))
     }
   </ol>
 </Section>
+
+<style>
+  .xp__item {
+    display: grid;
+    grid-template-columns: minmax(0, 14rem) minmax(0, 1fr);
+    gap: clamp(1.5rem, 5vw, 5rem);
+    padding-block: clamp(2rem, 5vw, 3.5rem);
+    border-top: 1px solid var(--border);
+  }
+
+  .xp__item:last-child {
+    border-bottom: 1px solid var(--border);
+  }
+
+  .xp__aside {
+    position: sticky;
+    top: 6rem;
+    align-self: start;
+    display: grid;
+    gap: var(--space-2);
+  }
+
+  .xp__period {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: var(--tracking-wide);
+    color: var(--accent);
+  }
+
+  .xp__company {
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    letter-spacing: var(--tracking-tight);
+  }
+
+  .xp__location {
+    font-size: var(--text-sm);
+    color: var(--text-tertiary);
+  }
+
+  .xp__role {
+    font-family: var(--font-display);
+    font-size: clamp(1.25rem, 1rem + 1.2vw, 1.75rem);
+    font-weight: 500;
+    letter-spacing: var(--tracking-tight);
+  }
+
+  .xp__highlights {
+    display: grid;
+    gap: var(--space-3);
+    margin-top: var(--space-5);
+    max-width: 64ch;
+  }
+
+  .xp__highlights li {
+    position: relative;
+    padding-left: 1.5rem;
+    font-size: var(--text-sm);
+    line-height: var(--leading-relaxed);
+    color: var(--text-secondary);
+  }
+
+  .xp__highlights li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.72em;
+    width: 0.5rem;
+    height: 1px;
+    background: var(--accent-line);
+  }
+
+  @media (max-width: 860px) {
+    .xp__item {
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-4);
+    }
+
+    .xp__aside {
+      position: static;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: var(--space-3);
+    }
+
+    .xp__location {
+      margin-left: auto;
+    }
+  }
+</style>

@@ -1,0 +1,74 @@
+---
+import Section from "../ui/Section.astro";
+import TagList from "../ui/TagList.astro";
+import skills from "../../data/skills.js";
+---
+
+<Section
+  id="capabilities"
+  index="03"
+  label="Capabilities"
+  title="Product, AI, and analytics capabilities."
+  aside="The toolkit used to take products from concept through to live operations."
+>
+  <div class="caps" data-reveal-group data-stagger="0.08">
+    {
+      skills.map((group, i) => (
+        <section class="cap" data-reveal>
+          <div class="cap__head">
+            <span class="cap__index">{String(i + 1).padStart(2, "0")}</span>
+            <h3 class="cap__title">{group.category}</h3>
+          </div>
+          <div class="cap__tags">
+            <TagList tags={group.items} label={`${group.category} skills`} />
+          </div>
+        </section>
+      ))
+    }
+  </div>
+</Section>
+
+<style>
+  .caps {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(2rem, 5vw, 4rem) clamp(2rem, 6vw, 6rem);
+  }
+
+  .cap {
+    padding-top: var(--space-5);
+    border-top: 1px solid var(--border);
+  }
+
+  .cap__head {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-4);
+    margin-bottom: var(--space-5);
+  }
+
+  .cap__index {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--accent);
+  }
+
+  .cap__title {
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    font-weight: 500;
+    letter-spacing: var(--tracking-tight);
+  }
+
+  .cap__tags .tag:hover {
+    color: var(--text);
+    border-color: var(--accent-line);
+    background: var(--accent-soft);
+  }
+
+  @media (max-width: 760px) {
+    .caps {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+</style>

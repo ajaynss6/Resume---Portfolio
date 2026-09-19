@@ -1,0 +1,116 @@
+/* ==========================================================================
+   Design tokens
+   Dark-first, editorial, high-contrast. Everything visual references these
+   variables so the identity can evolve without touching component markup.
+   ========================================================================== */
+
+:root {
+  /* --- Colour ---------------------------------------------------------- */
+  --bg: #08090a;
+  --bg-elev: #0e1013;
+  --bg-elev-2: #14171b;
+
+  --surface: rgba(255, 255, 255, 0.028);
+  --surface-hover: rgba(255, 255, 255, 0.05);
+
+  --border: rgba(255, 255, 255, 0.09);
+  --border-strong: rgba(255, 255, 255, 0.16);
+
+  --text: #ecedf0;
+  --text-secondary: #a3a9b2;
+  --text-tertiary: #70767e;
+  --text-inverse: #08090a;
+
+  --accent: #8ea6ff;
+  --accent-strong: #b3c3ff;
+  --accent-soft: rgba(142, 166, 255, 0.14);
+  --accent-line: rgba(142, 166, 255, 0.35);
+
+  --highlight: #e9dcc4; /* warm editorial accent, used sparingly */
+
+  /* --- Typography ------------------------------------------------------ */
+  --font-display: "Space Grotesk Variable", "Inter Variable", system-ui,
+    sans-serif;
+  --font-sans: "Inter Variable", system-ui, -apple-system, "Segoe UI", Roboto,
+    sans-serif;
+  --font-mono: "JetBrains Mono Variable", ui-monospace, SFMono-Regular, Menlo,
+    monospace;
+  --font-serif: "Instrument Serif", Georgia, "Times New Roman", serif;
+
+  /* Fluid type scale */
+  --text-xs: 0.75rem;
+  --text-sm: 0.8125rem;
+  --text-base: 0.9375rem;
+  --text-md: 1.0625rem;
+  --text-lg: clamp(1.125rem, 1rem + 0.5vw, 1.375rem);
+  --text-xl: clamp(1.375rem, 1.1rem + 1.1vw, 1.875rem);
+
+  --display-sm: clamp(1.75rem, 1.2rem + 2.2vw, 2.875rem);
+  --display-md: clamp(2.25rem, 1.3rem + 4vw, 4.5rem);
+  --display-lg: clamp(3rem, 1rem + 9vw, 9rem);
+
+  --leading-tight: 1.02;
+  --leading-snug: 1.18;
+  --leading-normal: 1.6;
+  --leading-relaxed: 1.75;
+
+  --tracking-tight: -0.03em;
+  --tracking-tighter: -0.045em;
+  --tracking-wide: 0.08em;
+  --tracking-wider: 0.18em;
+
+  /* --- Spacing (fluid) ------------------------------------------------- */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4rem;
+  --space-9: clamp(4rem, 8vw, 7rem);
+  --space-10: clamp(6rem, 14vw, 12rem);
+
+  /* --- Layout ---------------------------------------------------------- */
+  --container-max: 78rem;
+  --container-narrow: 46rem;
+  --gutter: clamp(1.25rem, 5vw, 4rem);
+  --section-pad: clamp(5rem, 12vw, 11rem);
+  --header-h: 4.5rem;
+
+  /* --- Shape ----------------------------------------------------------- */
+  --radius-xs: 6px;
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-pill: 999px;
+
+  /* --- Motion ---------------------------------------------------------- */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-instant: 120ms;
+  --dur-fast: 220ms;
+  --dur: 420ms;
+  --dur-slow: 700ms;
+  --dur-reveal: 900ms;
+
+  /* --- Depth ----------------------------------------------------------- */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 18px 40px -22px rgba(0, 0, 0, 0.75);
+  --shadow-lg: 0 40px 80px -40px rgba(0, 0, 0, 0.85);
+
+  /* --- Layers ---------------------------------------------------------- */
+  --z-background: -1;
+  --z-base: 1;
+  --z-sticky: 50;
+  --z-overlay: 100;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --dur-fast: 0ms;
+    --dur: 0ms;
+    --dur-slow: 0ms;
+    --dur-reveal: 0ms;
+  }
+}

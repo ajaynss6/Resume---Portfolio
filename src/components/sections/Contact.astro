@@ -3,23 +3,118 @@ import Section from "../ui/Section.astro";
 import { profile } from "../../data/profile.js";
 
 const { email, phone, location } = profile.contact;
-const otherLinks = profile.links.filter((link) => link.label !== "Email");
+const linkedin = profile.links.find((link) => link.label === "LinkedIn");
 ---
 
-<Section id="contact" title="Contact" subtitle="Let's connect.">
-  <ul class="stack">
-    <li>
-      <strong>Email:</strong>
-      <a href={`mailto:${email}`}>{email}</a>
-    </li>
-    <li><strong>Phone:</strong> {phone}</li>
-    <li><strong>Location:</strong> {location}</li>
-    {
-      otherLinks.map((link) => (
-        <li>
-          <strong>{link.label}:</strong> <a href={link.href}>{link.handle}</a>
-        </li>
-      ))
-    }
-  </ul>
+<Section
+  id="contact"
+  index="06"
+  label="Contact"
+  title="Let's build something."
+  aside="Transitioning into product management, with a background across AI, gaming, and platform systems."
+>
+  <div class="contact">
+    <ul class="channels" data-reveal-group data-stagger="0.12">
+      <li class="channel" data-reveal>
+        <span class="channel__label">Email</span>
+        <a class="channel__link" href={`mailto:${email}`}>
+          <span class="channel__value">{email}</span>
+          <span class="channel__arrow" aria-hidden="true">→</span>
+        </a>
+      </li>
+
+      {
+        linkedin && (
+          <li class="channel" data-reveal>
+            <span class="channel__label">LinkedIn</span>
+            <a class="channel__link" href={linkedin.href} rel="noopener">
+              <span class="channel__value">{linkedin.handle}</span>
+              <span class="channel__arrow" aria-hidden="true">→</span>
+            </a>
+          </li>
+        )
+      }
+    </ul>
+
+    <ul class="contact__meta" data-reveal>
+      <li>
+        <a class="text-link" href={`tel:${phone.replace(/\s+/g, "")}`}>
+          {phone}
+        </a>
+      </li>
+      <li><span class="contact__location">{location}</span></li>
+    </ul>
+  </div>
 </Section>
+
+<style>
+  .contact {
+    display: grid;
+    gap: clamp(2.5rem, 6vw, 4rem);
+    padding-top: var(--space-4);
+  }
+
+  .channels {
+    display: grid;
+    gap: clamp(1.5rem, 4vw, 2.5rem);
+  }
+
+  .channel {
+    display: grid;
+    gap: var(--space-3);
+    padding-top: var(--space-5);
+    border-top: 1px solid var(--border);
+  }
+
+  .channel__label {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: var(--tracking-wider);
+    text-transform: uppercase;
+    color: var(--text-tertiary);
+  }
+
+  .channel__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35em;
+    width: fit-content;
+    max-width: 100%;
+    font-family: var(--font-display);
+    font-size: clamp(1.35rem, 0.9rem + 2.6vw, 2.75rem);
+    font-weight: 500;
+    letter-spacing: var(--tracking-tighter);
+    line-height: 1.05;
+    color: var(--text);
+    transition: color var(--dur) var(--ease-out);
+  }
+
+  .channel__value {
+    overflow-wrap: anywhere;
+  }
+
+  .channel__arrow {
+    color: var(--accent);
+    transition: transform var(--dur) var(--ease-out);
+  }
+
+  .channel__link:hover {
+    color: var(--accent-strong);
+  }
+
+  .channel__link:hover .channel__arrow {
+    transform: translateX(0.18em);
+  }
+
+  .contact__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-5);
+    font-size: var(--text-sm);
+    color: var(--text-secondary);
+  }
+
+  .contact__location {
+    color: var(--text-tertiary);
+  }
+</style>

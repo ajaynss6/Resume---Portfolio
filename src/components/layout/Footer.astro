@@ -5,7 +5,69 @@ const year = new Date().getFullYear();
 ---
 
 <footer class="site-footer">
-  <div class="container">
-    <p>© {year} {profile.name}. Built with Astro.</p>
+  <div class="container footer__inner">
+    <div class="footer__meta">
+      <span class="mono">© {year} {profile.name}</span>
+      <span class="mono footer__built">Built with Astro · Motion</span>
+    </div>
+
+    <ul class="footer__links">
+      {
+        profile.links.map((link) => (
+          <li>
+            <a class="text-link" href={link.href} rel="noopener">
+              {link.label}
+            </a>
+          </li>
+        ))
+      }
+      <li>
+        <a class="text-link footer__top" href="#top">Back to top ↑</a>
+      </li>
+    </ul>
   </div>
 </footer>
+
+<style>
+  .site-footer {
+    padding-block: var(--space-7) var(--space-8);
+    border-top: 1px solid var(--border);
+  }
+
+  .footer__inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-5);
+  }
+
+  .footer__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+    align-items: center;
+  }
+
+  .footer__built {
+    color: var(--text-tertiary);
+  }
+
+  .footer__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-5);
+    font-size: var(--text-sm);
+  }
+
+  .footer__top {
+    color: var(--text-secondary);
+  }
+
+  @media (max-width: 640px) {
+    .footer__inner {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+</style>

@@ -1,70 +1,98 @@
 # Ajay Krishna — Portfolio
 
-Personal portfolio website. Built with [Astro](https://astro.build), output as a
-fully static site that deploys to GitHub Pages.
+A premium, dark-first personal portfolio for Ajay Krishna — built as a fully
+static site that deploys to GitHub Pages.
 
 ## Stack
 
-- **Astro** — static HTML output, component-based, near-zero client JavaScript.
-- **Plain CSS** with design tokens in `:root` (no CSS framework).
-- No runtime dependencies. Astro and TypeScript are build-time only.
+- **[Astro](https://astro.build)** — static HTML output, component-based, no
+  runtime framework.
+- **[Motion](https://motion.dev)** (vanilla) — scroll reveals, text reveals,
+  parallax, count-ups, hover and micro-interactions.
+- **Plain CSS with design tokens** — dark-first system in `src/styles/tokens.css`.
+- **Self-hosted fonts** (Fontsource, latin-subsetted): Space Grotesk (display),
+  Inter (body), JetBrains Mono (metadata), Instrument Serif (editorial accents).
+- Build-time dependencies only. No UI framework, no CSS framework.
 
 ## Structure
 
 ```
 .
 ├── .github/workflows/deploy.yml   # GitHub Pages deployment
-├── public/                        # Static assets copied as-is (favicon, robots.txt, .nojekyll)
+├── public/                        # favicon, robots.txt, .nojekyll
 ├── src/
 │   ├── components/
-│   │   ├── layout/                # BaseLayout, Header, Footer
-│   │   ├── sections/              # One component per page section
-│   │   └── ui/                    # Reusable primitives (Section, TagList)
-│   ├── data/                      # ALL editable content lives here
-│   │   ├── profile.js             # Name, summary, contact, links
-│   │   ├── navigation.js          # Nav items / section list
-│   │   ├── experience.js          # Work experience
-│   │   ├── projects.js            # Projects / product work
-│   │   ├── skills.js              # Skill groups
-│   │   ├── education.js           # Education
-│   │   ├── certifications.js      # Certifications
-│   │   └── achievements.js        # Impact highlights
-│   ├── pages/index.astro          # Homepage — assembles the sections
-│   └── styles/global.css          # Design tokens + base styles
-└── astro.config.mjs               # site/base configuration
+│   │   ├── layout/                # BaseLayout, Header, Footer, Background
+│   │   ├── sections/              # Hero, Work, Experience, Capabilities,
+│   │   │                          # Metrics, About, Contact, ProjectVisual
+│   │   └── ui/                    # Section, SplitText, TagList
+│   ├── data/                      # ALL editable content (see below)
+│   ├── scripts/
+│   │   ├── motion-system.js       # attribute-driven animation engine
+│   │   ├── nav.js                 # scroll progress, active section, mobile menu
+│   │   └── projects.js            # work-section hover interactions
+│   ├── pages/index.astro          # homepage — assembles the sections
+│   └── styles/                    # tokens.css, base.css, utilities.css, global.css
+└── astro.config.mjs
 ```
 
-**Content and presentation are separated.** To update text, edit the files in
-`src/data/`. Components never contain hardcoded professional information.
+### Content
+
+All professional content lives in `src/data/` — components never hardcode it:
+
+| File                 | Contents                          |
+| -------------------- | --------------------------------- |
+| `profile.js`         | Name, summary, contact, links     |
+| `navigation.js`      | Nav items / section list          |
+| `experience.js`      | Work experience                   |
+| `projects.js`        | Selected work / product work      |
+| `skills.js`          | Capability groups                 |
+| `metrics.js`         | Impact numbers (count-up)         |
+| `education.js`       | Education                         |
+| `certifications.js`  | Certifications                    |
+| `achievements.js`    | Achievement highlights            |
+
+## Motion system
+
+Animations are declared with data attributes and driven centrally by
+`src/scripts/motion-system.js`, so timing and easing stay consistent:
+
+| Attribute               | Effect                                    |
+| ----------------------- | ----------------------------------------- |
+| `data-reveal`           | Fade + rise into view                     |
+| `data-reveal-delay`     | Extra delay (seconds)                     |
+| `data-reveal-group`     | Stagger `[data-reveal]` children          |
+| `data-split`            | Animate `[data-split-word]` (via SplitText) |
+| `data-parallax="0.12"`  | Scroll-linked vertical drift              |
+| `data-count-to="45"`    | Count-up number (prefix/suffix supported) |
+
+The same system respects `prefers-reduced-motion`: animations are skipped and
+content is rendered immediately.
 
 ## Local development
 
-Requires Node 18.17+ (Node 22+ recommended).
+Requires Node 22+.
 
 ```bash
-npm install      # install build-time dependencies
-npm run dev      # start dev server at http://localhost:4321/Resume---Portfolio/
-npm run build    # build static output to dist/
-npm run preview  # preview the production build locally
-npm run check    # type/accessibility checks
+npm install
+npm run dev      # http://localhost:4321/Resume---Portfolio/
+npm run build    # static output -> dist/
+npm run preview  # preview the production build
+npm run check    # type + Astro diagnostics
 ```
 
 ## Deployment (GitHub Pages)
 
-Deployment is automated via `.github/workflows/deploy.yml`:
+`.github/workflows/deploy.yml` builds and publishes on push to `main`.
 
-1. Push to the `main` branch.
-2. In the repository, go to **Settings → Pages** and set the **Source** to
-   **GitHub Actions** (one-time setup).
-3. The workflow builds and publishes the site to:
-   `https://ajaynss6.github.io/Resume---Portfolio/`
+One-time setup: **Settings → Pages → Source → GitHub Actions**.
 
-`astro.config.mjs` reads two environment variables, already set in the workflow:
+`astro.config.mjs` reads two environment variables (set in the workflow):
 
-| Variable    | Value                            | Purpose                        |
-| ----------- | -------------------------------- | ------------------------------ |
-| `SITE_URL`  | `https://ajaynss6.github.io`     | Canonical base URL             |
-| `BASE_PATH` | `/Resume---Portfolio`            | Sub-path the site is served at |
+| Variable    | Value                         |
+| ----------- | ----------------------------- |
+| `SITE_URL`  | `https://ajaynss6.github.io`  |
+| `BASE_PATH` | `/Resume---Portfolio`         |
 
-If the repository is renamed, update these two values in the workflow and in the
-defaults inside `astro.config.mjs`.
+If the repository is renamed, update those values in the workflow and in
+`astro.config.mjs`.

@@ -1,0 +1,154 @@
+---
+import Section from "../ui/Section.astro";
+import TagList from "../ui/TagList.astro";
+import ProjectVisual from "./ProjectVisual.astro";
+import projects from "../../data/projects.js";
+
+const palettes = [
+  { accent: "#8ea6ff", tone: "#1b2440" },
+  { accent: "#e9dcc4", tone: "#2a2620" },
+  { accent: "#9fe8d8", tone: "#0f2a26" },
+  { accent: "#d3b9ff", tone: "#241a33" },
+  { accent: "#ffc9a8", tone: "#2e1d14" },
+];
+---
+
+<Section
+  id="work"
+  index="01"
+  label="Selected Work"
+  title="Product work, shipped end to end."
+  aside="0-1 platform builds and live-services analytics from Liquidnitro Games and Electronic Arts."
+>
+  <ol class="work-list" data-work-list data-reveal-group data-stagger="0.09">
+    {
+      projects.map((project, i) => {
+        const palette = palettes[i % palettes.length];
+        const number = String(i + 1).padStart(2, "0");
+        return (
+          <li class="work-row" data-work-row data-reveal>
+            <article class="work-row__inner">
+              <div class="work-row__body">
+                <div class="work-row__head">
+                  <span class="work-row__index" data-work-index>
+                    {number}
+                  </span>
+                  <h3 class="work-row__title" data-work-title>
+                    {project.title}
+                  </h3>
+                </div>
+                {project.context && (
+                  <p class="work-row__context" data-work-meta>
+                    {project.context}
+                  </p>
+                )}
+                <p class="work-row__desc">{project.description}</p>
+                <div class="work-row__tags">
+                  <TagList
+                    tags={project.tags}
+                    label={`${project.title} tags`}
+                  />
+                </div>
+              </div>
+
+              <div class="work-visual" data-work-visual>
+                <ProjectVisual
+                  index={number}
+                  accent={palette.accent}
+                  tone={palette.tone}
+                  label={project.tags[0]}
+                />
+              </div>
+            </article>
+          </li>
+        );
+      })
+    }
+  </ol>
+</Section>
+
+<style>
+  .work-list {
+    display: grid;
+  }
+
+  .work-row {
+    border-top: 1px solid var(--border);
+  }
+
+  .work-row:last-child {
+    border-bottom: 1px solid var(--border);
+  }
+
+  .work-row__inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(14rem, 20rem);
+    gap: clamp(2rem, 5vw, 5rem);
+    align-items: center;
+    padding-block: clamp(2rem, 5vw, 3.5rem);
+    will-change: transform;
+  }
+
+  .work-row__head {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-4);
+  }
+
+  .work-row__index {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--text-tertiary);
+    opacity: 0.45;
+    transition: color var(--dur-fast) var(--ease-out);
+  }
+
+  .work-row__title {
+    font-family: var(--font-display);
+    font-size: clamp(1.4rem, 1rem + 1.8vw, 2.4rem);
+    font-weight: 500;
+    letter-spacing: var(--tracking-tighter);
+    line-height: 1.08;
+    will-change: transform;
+  }
+
+  .work-row__context {
+    margin-top: var(--space-2);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    color: var(--accent);
+    opacity: 0.7;
+  }
+
+  .work-row__desc {
+    margin-top: var(--space-4);
+    max-width: 58ch;
+    color: var(--text-secondary);
+  }
+
+  .work-row__tags {
+    margin-top: var(--space-5);
+  }
+
+  .work-visual {
+    perspective: 900px;
+    will-change: transform;
+  }
+
+  @media (max-width: 860px) {
+    .work-row__inner {
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-6);
+    }
+
+    .work-row__desc {
+      font-size: var(--text-sm);
+    }
+  }
+</style>
+
+<script>
+  import "../../scripts/projects.js";
+</script>

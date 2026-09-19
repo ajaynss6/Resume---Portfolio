@@ -1,19 +1,164 @@
 ---
+import SplitText from "../ui/SplitText.astro";
 import { profile } from "../../data/profile.js";
+
+const linkedin = profile.links.find((link) => link.label === "LinkedIn");
 ---
 
-<section class="hero container" id="top">
-  <h1 class="hero__headline">{profile.name}</h1>
-  <p class="hero__title">{profile.headline}</p>
-  <p class="hero__meta">{profile.location}</p>
+<section class="hero" id="top">
+  <div class="container hero__inner">
+    <div class="hero__top" data-reveal>
+      <span class="eyebrow">Product · AI · Analytics</span>
+      <span class="hero__location mono">{profile.location}</span>
+    </div>
 
-  <ul class="hero__links">
-    {
-      profile.links.map((link) => (
-        <li>
-          <a href={link.href}>{link.label}</a>
-        </li>
-      ))
-    }
-  </ul>
+    <h1 class="hero__title display">
+      <SplitText text={profile.name} />
+    </h1>
+
+    <p class="hero__statement" data-reveal data-reveal-delay="0.15">
+      Product manager and analyst building{" "}
+      <span class="serif">AI-native</span> platforms and live-services products
+      across gaming, data, and platform systems.
+    </p>
+
+    <div class="hero__actions" data-reveal data-reveal-delay="0.25">
+      <a class="button button--primary" href="#work">Selected work</a>
+      <a class="button" href={`mailto:${profile.contact.email}`}>
+        {profile.contact.email}
+      </a>
+      {
+        linkedin && (
+          <a class="button" href={linkedin.href} rel="noopener">
+            {linkedin.label}
+          </a>
+        )
+      }
+    </div>
+  </div>
+
+  <div class="hero__foot container" data-reveal data-reveal-delay="0.35">
+    <span class="mono">7 years in product & analytics</span>
+    <span class="hero__scroll mono" aria-hidden="true">
+      Scroll
+      <span class="hero__scroll-line"></span>
+    </span>
+  </div>
 </section>
+
+<style>
+  .hero {
+    position: relative;
+    min-height: calc(100svh - var(--header-h));
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: var(--space-8);
+    padding-block: clamp(5rem, 12vh, 8rem) var(--space-7);
+  }
+
+  .hero__inner {
+    display: grid;
+    gap: clamp(1.5rem, 4vh, 3rem);
+  }
+
+  .hero__top {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+  }
+
+  .hero__location {
+    color: var(--text-secondary);
+  }
+
+  .hero__title {
+    font-size: var(--display-lg);
+    text-transform: uppercase;
+    letter-spacing: -0.05em;
+    line-height: 0.92;
+  }
+
+  .hero__statement {
+    max-width: 34ch;
+    font-size: var(--text-xl);
+    line-height: 1.35;
+    color: var(--text-secondary);
+    letter-spacing: var(--tracking-tight);
+  }
+
+  .hero__statement .serif {
+    color: var(--text);
+    font-size: 1.08em;
+  }
+
+  .hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    padding-top: var(--space-2);
+  }
+
+  .hero__foot {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: var(--space-4);
+  }
+
+  .hero__foot .mono {
+    color: var(--text-tertiary);
+  }
+
+  .hero__scroll {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-3);
+  }
+
+  .hero__scroll-line {
+    position: relative;
+    display: block;
+    width: 4rem;
+    height: 1px;
+    background: var(--border-strong);
+    overflow: hidden;
+  }
+
+  .hero__scroll-line::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: var(--accent-strong);
+    transform: translateX(-100%);
+    animation: scroll-hint 2.6s var(--ease-in-out) infinite;
+  }
+
+  @keyframes scroll-hint {
+    0% {
+      transform: translateX(-100%);
+    }
+    50%,
+    100% {
+      transform: translateX(100%);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero__scroll-line::after {
+      animation: none;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .hero__statement {
+      font-size: var(--text-lg);
+    }
+
+    .hero__scroll-line {
+      width: 2.5rem;
+    }
+  }
+</style>
