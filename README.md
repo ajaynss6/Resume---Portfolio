@@ -3,6 +3,8 @@
 A premium, dark-first personal portfolio for Ajay Krishna — built as a fully
 static site that deploys to GitHub Pages.
 
+**Live:** https://ajaynss6.github.io/Resume---Portfolio/
+
 ## Stack
 
 - **[Astro](https://astro.build)** — static HTML output, component-based, no
