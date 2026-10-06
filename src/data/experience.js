@@ -11,14 +11,13 @@ export const experience = [
     start: "May 2024",
     end: "Present",
     current: true,
-    // Products here are unreleased and under NDA: describe the role and the
-    // way of working, never the product itself.
+    // Website copy: Liquidnitro products are unreleased and under NDA. Never
+    // describe the product, its features, AI systems or numbers here. The full
+    // detail belongs only on the resume sent directly to employers.
     highlights: [
-      "As acting product manager, led the product function for an unreleased 0-1 AI-native platform for live games, working with a cross-functional team across engineering, design, data and AI.",
-      "Authored the PRDs, feature specs and UX requirements, and owned prioritization and tradeoff decisions end to end across sprints.",
+      "As acting product manager, owned the product function end to end at a Series A gaming studio, working with a cross-functional team across engineering, design, data and AI.",
+      "Authored the PRDs, feature specs and UX requirements, and owned prioritization and tradeoff decisions across sprints.",
       "Built functional prototypes with AI to validate concepts before engineering committed to them.",
-      "Designed multi-agent AI workflows that automate insight generation for live operations.",
-      "Built self-serve AI tools that let non-technical stakeholders answer their own questions without waiting on the data team.",
       "Established the studio's founding data function as its first data hire: competitive analysis, player insights and business intelligence for leadership.",
       "Partnered with the founders on client pitches, GTM strategy and business development.",
       "Product lead on the internal product tech team through its early growth, contributing to hiring, onboarding and early org structure.",

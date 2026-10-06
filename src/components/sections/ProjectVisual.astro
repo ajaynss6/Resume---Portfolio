@@ -1,20 +1,10 @@
 ---
 // Diagrammatic artwork per project. Each variant depicts what the project
-// actually is (a redacted brief for NDA work, a de-duplicated ledger, a
-// workout logger, a wall of dashboards, an anomaly on a revenue line).
+// actually is (a de-duplicated ledger, a workout logger, a wall of
+// dashboards, an anomaly on a revenue line).
 // Purely presentational: hidden from assistive tech.
-const { variant = "redacted", index = "01" } = Astro.props;
+const { variant = "ledger", index = "01" } = Astro.props;
 
-// Redacted brief: line widths for a confidential document.
-const redactLines = [
-  { w: 220, hidden: false },
-  { w: 300, hidden: true },
-  { w: 260, hidden: true },
-  { w: 180, hidden: false },
-  { w: 290, hidden: true },
-  { w: 240, hidden: false },
-  { w: 200, hidden: true },
-];
 
 
 // Deterministic pseudo-random series so the art is stable between builds.
@@ -44,29 +34,6 @@ const sets = [
 <div class="visual" data-work-visual-inner data-variant={variant} aria-hidden="true">
   <span class="visual__index">{index}</span>
   <svg viewBox="0 0 400 300" class="visual__svg" role="presentation">
-    {
-      variant === "redacted" && (
-        <g>
-          <rect x="60" y="24" width="280" height="252" rx="8" class="doc" />
-          <text x="84" y="56" class="t-mono">PRD · CONFIDENTIAL</text>
-          {redactLines.map((line, i) => (
-            <rect
-              x="84"
-              y={76 + i * 26}
-              width={line.w * 0.78}
-              height={line.hidden ? 14 : 6}
-              rx="2"
-              class={line.hidden ? "redact" : "text-line"}
-              transform={line.hidden ? "" : "translate(0 4)"}
-            />
-          ))}
-          <g class="stamp" transform="rotate(-12 292 214)">
-            <rect x="244" y="194" width="96" height="40" rx="6" />
-            <text x="292" y="220" text-anchor="middle">NDA</text>
-          </g>
-        </g>
-      )
-    }
     {
       variant === "dashboards" && (
         <g>
@@ -196,35 +163,6 @@ const sets = [
   }
 
   .t-signal {
-    fill: var(--accent);
-  }
-
-  /* Redacted */
-  .doc {
-    fill: var(--surface);
-    stroke: var(--border-strong);
-  }
-
-  .text-line {
-    fill: var(--border-strong);
-  }
-
-  .redact {
-    fill: var(--text);
-    opacity: 0.85;
-  }
-
-  .stamp rect {
-    fill: none;
-    stroke: var(--accent);
-    stroke-width: 2;
-  }
-
-  .stamp text {
-    font-family: var(--font-mono);
-    font-size: 18px;
-    font-weight: 700;
-    letter-spacing: 0.2em;
     fill: var(--accent);
   }
 
