@@ -47,7 +47,9 @@ Common edits:
 - **Booking link:** set `bookingUrl` in `profile.js`. Empty falls back to a prefilled email.
 - **New case study:** add an entry to `projects.js`. `decisions` and `learnings`
   are optional and render only when present. `draft: true` hides it.
-  The `finance-app` entry is a draft slot waiting for content.
+- **Repo links:** personal prototypes carry `repo: { url, public: false }`.
+  Flip `public` to `true` once the GitHub repo is public and a
+  "View the code" button appears on the case study.
 - **Section order:** reorder in `navigation.js` and `src/pages/index.astro`.
 
 ## Resume PDF and social card

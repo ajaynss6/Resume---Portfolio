@@ -8,20 +8,21 @@ export const profile = {
   name: "Ajay Krishna",
   firstName: "Ajay",
   lastName: "Krishna",
-  headline: "Product Manager · Consumer Apps & Gaming",
-  role: "Product Manager",
+  headline: "AI Product Manager · Consumer Apps & Gaming",
+  role: "AI Product Manager",
   location: "Hyderabad, India",
   timezone: "Asia/Kolkata",
 
   // One-line positioning used in the hero, meta tags and social cards.
   positioning:
-    "Product manager for consumer apps and games. Seven years in product and analytics, including live games played by millions, now owning the product end to end.",
+    "AI product manager and builder for consumer apps and games. Seven years in product and analytics, from live games played by millions to AI products I design and ship end to end.",
 
   // Short, scannable pitch for recruiters (30-second read).
   pitch: [
     "Acting PM at a Series A gaming startup: led a 0-1 AI-native live-services platform from PRD to six shipped modules.",
     "2+ years at Electronic Arts on Bejeweled, Plants vs. Zombies, NFS No Limits and The Sims Mobile (5M+ DAU, $45M+ annual revenue).",
     "Experimentation and monetization by trade: A/B tests, telemetry, ad monetization, $500K+ incremental revenue.",
+    "Builds with AI: designed a multi-agent insights system at work, and prototypes consumer apps end to end with AI coding agents.",
   ],
 
   summary:
@@ -32,11 +33,12 @@ export const profile = {
     "I started in decision science at Mu Sigma, building forecasts and models for Fortune 100 and 500 clients. That taught me to start from the decision, not the dashboard.",
     "At Electronic Arts I moved inside live games: Bejeweled, Plants vs. Zombies, Need for Speed No Limits, The Sims Mobile. Telemetry, A/B tests, ad monetization, and the weekly rhythm of live ops across a portfolio of 5M+ daily players.",
     "At Liquidnitro Games I joined as the first data hire and ended up running product. I wrote every PRD, prototyped with AI before engineering touched it, and shipped six modules of a 0-1 platform while the team grew from under 5 to 20+.",
+    "Outside work I build consumer app prototypes with AI coding agents: a finance tracker for Indian iPhone users and a gym log for beginners. I write the PRD and the product rules, direct the build, and test every version on my own phone. It keeps my product instincts close to real users and real code.",
   ],
 
   // What I'm looking for. Shown in the contact section.
   seeking:
-    "Product Manager roles in consumer apps and gaming: live services, growth, monetization, or AI-powered player experiences.",
+    "AI product and product manager roles in consumer apps and gaming: AI-powered user experiences, live services, growth and monetization.",
 
   contact: {
     email: "ajaynss6@gmail.com",

@@ -11,7 +11,7 @@ const home = import.meta.env.BASE_URL.replace(/\/?$/, "/");
 <Section
   id="work"
   title="Product work, *shipped* end to end."
-  aside="0-1 platform builds and live-services analytics from Liquidnitro Games and Electronic Arts."
+  aside="A 0-1 AI platform, consumer apps I prototype with AI, and live-services work at Electronic Arts."
 >
   <ol class="work-list" data-work-list data-reveal-group data-stagger="0.09">
     {
@@ -37,7 +37,7 @@ const home = import.meta.env.BASE_URL.replace(/\/?$/, "/");
                 </div>
                 {project.context && (
                   <p class="work-row__context" data-work-meta>
-                    {project.context}
+                    {project.status ? `${project.status} · ${project.context}` : project.context}
                   </p>
                 )}
                 <p class="work-row__desc">{project.description}</p>

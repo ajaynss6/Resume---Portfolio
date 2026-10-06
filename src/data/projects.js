@@ -1,20 +1,25 @@
 // ---------------------------------------------------------------------------
 // Projects / case studies.
-// Every statement maps to the resume; nothing is invented. Each project gets
-// a page at /work/<slug>/.
+// Professional work maps to the resume; personal prototypes map to their own
+// repos. Nothing is invented. Each project gets a page at /work/<slug>/.
 //
 // Fields
 //   slug, visual          URL and artwork variant (see ProjectVisual.astro)
 //   title, context        list heading and one-line context
 //   description           list summary
 //   company, role, period, team
-//   problem               why it mattered (stated or directly implied by the resume)
+//   status                OPTIONAL short label, e.g. "Prototype"
+//   audience, needs[]     OPTIONAL who it's for and what they need
+//   problem               why it mattered (stated or directly implied by the source)
 //   approach[]            what I did
 //   shipped[]             what went live
-//   outcomes[]            { value, label } headline numbers
+//   outcomes[]            OPTIONAL { value, label } headline numbers
 //   decisions[]           OPTIONAL { title, body } key calls and tradeoffs
 //   learnings[]           OPTIONAL what I'd keep / change
+//   repo                  OPTIONAL { url, public }; the button shows only when public
 //   draft                 true = excluded from the site until filled in
+//   visual variants       modules, agents, selfserve, dashboards, monetization,
+//                         ledger, workout
 //
 // To strengthen a case study, add `decisions` and `learnings`. Sections render
 // only when present.
@@ -27,8 +32,10 @@
  *   slug: string, visual: string, title: string, context: string,
  *   description: string, tags: string[], company: string, role: string,
  *   period: string, team: string, problem: string, approach: string[],
- *   shipped: string[], outcomes: Outcome[], decisions?: Decision[],
- *   learnings?: string[], draft?: boolean
+ *   shipped: string[], outcomes?: Outcome[], decisions?: Decision[],
+ *   learnings?: string[], status?: string, audience?: string,
+ *   needs?: string[], repo?: { url: string, public: boolean },
+ *   draft?: boolean
  * }} Project
  */
 
@@ -67,6 +74,137 @@ export const projects = [
       { value: "0-1", label: "Product function led end to end" },
       { value: "<5 → 20+", label: "Internal product tech team growth" },
     ],
+  },
+  {
+    // Source: ajaynss6/finance_tracker (private for now). Prototype: no
+    // numbers on purpose.
+    slug: "finance-tracker",
+    visual: "ledger",
+    status: "AI prototype",
+    title: "Finance Tracker: One Clean Ledger for Your Money",
+    context: "iOS · Consumer fintech",
+    description:
+      "An iPhone app that turns bank alerts, receipts and statements into one clean, de-duplicated ledger, scores your money habits every day, and answers questions about your spending in plain English. Everything runs on the phone.",
+    tags: ["AI Product", "Consumer", "Fintech", "iOS", "Gamification"],
+    company: "Personal prototype",
+    role: "Product owner and builder",
+    period: "2026",
+    team: "Solo, with Claude Code as the engineering team",
+    audience:
+      "Salaried iPhone users in India juggling UPI, cards and EMIs across several banks, who want to know where their money goes without becoming bookkeepers.",
+    needs: [
+      "See where the money went without typing every payment in.",
+      "Trust the totals: no double counting, no guessed merges.",
+      "Know what's due before it's due: EMIs and credit card bills.",
+      "Keep financial data private and on the phone.",
+    ],
+    problem:
+      "Most Indian money apps track spending by reading bank SMS. iPhones can't read SMS, so iPhone users either type every payment by hand or go without. And the moment you pull from more than one source, the same payment shows up twice and the totals stop being trustworthy.",
+    approach: [
+      "Picked a data strategy that works within iOS limits: bank alerts and receipts from Gmail, reconciled against statements uploaded now and then.",
+      "Wrote the product rules down as invariants before any feature: one payment is stored once, statements are the source of truth, money is never floating point, secrets live only in the Keychain.",
+      "Ran the build as product owner with an AI coding agent as the engineering team: issue, small PR, CI, then testing each build on my own iPhone and feeding the fixes back.",
+      "Brought live-game retention design to personal finance: a daily Money Score, streaks, quests and badges, all recomputed from real transactions so they can't be gamed.",
+    ],
+    decisions: [
+      {
+        title: "Email plus statements, not SMS",
+        body: "iOS blocks SMS access, which rules out the approach most Indian finance apps take. Gmail alerts give near real-time coverage, statements fill the gaps and settle disputes for their period. Reconciling the two became the core of the product rather than a workaround.",
+      },
+      {
+        title: "Never merge on a guess",
+        body: "Payments match on an exact bank reference first, then on account, amount, date and merchant together. Anything still ambiguous goes to a review queue instead of being merged. One extra tap costs less trust than one wrong total.",
+      },
+      {
+        title: "AI where it helps, never for the maths",
+        body: "Rules on the phone read bank alerts; a model only handles receipts the rules can't read. In Ask, totals are computed on the device and handed to the model, and any change it proposes applies only after the user taps Confirm.",
+      },
+      {
+        title: "Tag once, never again",
+        body: "Categorising payments is the chore that kills finance apps. Tagging one payment to a new merchant becomes a rule: past payments follow and new ones arrive tagged, even straight from a lock-screen notification.",
+      },
+      {
+        title: "Onboarding that ends on your data",
+        body: "One decision per screen, the read-only Gmail promise shown at the exact moment access is asked for, every permission skippable, and a live \"Building your ledger\" screen that ends on what was found instead of an empty dashboard.",
+      },
+    ],
+    shipped: [
+      "Read-only Gmail sync on device",
+      "Bank alert parsing",
+      "De-duplicating match engine",
+      "Review queue",
+      "Tags that learn",
+      "Money Score, streaks and quests",
+      "Ask: AI chat over your ledger",
+      "EMI and card bill reminders",
+      "Face ID lock and privacy mode",
+    ],
+    repo: { url: "https://github.com/ajaynss6/finance_tracker", public: false },
+  },
+  {
+    // Source: ajaynss6/Workout-Log (private for now). Prototype: no numbers
+    // on purpose; the PRD's success metrics are targets, not results.
+    slug: "workout-log",
+    visual: "workout",
+    status: "AI prototype",
+    title: "Workout Log: A Gym Tracker Built for Beginners",
+    context: "iOS · Consumer fitness",
+    description:
+      "A workout tracker designed around the beginner lifter: log the set you just did in as few taps as possible, with sensible defaults and early signs of progress, so new lifters keep showing up long enough for the habit to stick.",
+    tags: ["AI Product", "Consumer", "Fitness", "iOS", "UX Research"],
+    company: "Personal prototype",
+    role: "Product owner and builder",
+    period: "2026",
+    team: "Solo, AI-assisted build",
+    audience:
+      "Beginner and casual lifters who want to start tracking their training but get lost in apps built for power users.",
+    needs: [
+      "Log a set fast, one-handed, with the phone propped on a rack.",
+      "Not be asked for weights, reps or rest times they don't know yet.",
+      "See progress early, long before it shows in the mirror.",
+      "Never lose a workout or feel punished for a skipped set.",
+    ],
+    problem:
+      "Popular gym trackers are built for experienced lifters: jargon like RPE and 1RM up front, setup before the first set, and an empty progress screen on day one. Beginners quit before the habit forms, and the app becomes one more thing they stopped using.",
+    approach: [
+      "Wrote a PRD: vision, audience, core user flows, MVP scope and the success metrics to aim for.",
+      "Built the MVP, then audited it screen by screen through a beginner's eyes against leading trackers: Strong, Hevy, FitNotes, Liftd and Setlist.",
+      "Turned the audit into beginner-first design principles and shipped the highest-priority fixes first.",
+      "Rebuilt the core logging flow and covered the full logging journey with end-to-end UI tests.",
+    ],
+    decisions: [
+      {
+        title: "The fastest path to a logged set wins",
+        body: "The hero task is logging the set you just did. The logger became list-first and the only place to edit sets, so there is one obvious way to do the most common thing.",
+      },
+      {
+        title: "Defaults over decisions",
+        body: "Beginners don't know what weight or rest to use. Everything is pre-filled to confirm rather than configure, template weights are sensible, and jargon like RPE and 1RM stays out of the way until someone opts in.",
+      },
+      {
+        title: "One primary action per screen",
+        body: "The MVP had several ways to start a workout, and new users hesitated. They collapsed into a single start button.",
+      },
+      {
+        title: "No empty first impression",
+        body: "A day-one dashboard full of zeroes is a cold welcome. Empty states encourage the first workout instead, and progress shows up as early as there is any to show.",
+      },
+      {
+        title: "Forgiving by default",
+        body: "Gym sessions get interrupted. The rest timer and the workout survive the app being closed mid-session, so nobody loses a session to a phone call.",
+      },
+    ],
+    shipped: [
+      "List-first workout logger",
+      "Beginner onboarding",
+      "Single start button",
+      "Encouraging empty states",
+      "Rest timer that survives restarts",
+      "Finish summary",
+      "Exercise library",
+      "History and progress",
+    ],
+    repo: { url: "https://github.com/ajaynss6/Workout-Log", public: false },
   },
   {
     slug: "multi-agent-insights",
@@ -170,24 +308,6 @@ export const projects = [
     outcomes: [
       { value: "$45M+", label: "Annual revenue portfolio supported" },
     ],
-  },
-  {
-    // TODO: fill from Ajay's notes. Hidden until `draft` is removed.
-    slug: "finance-app",
-    visual: "modules",
-    draft: true,
-    title: "Finance App",
-    context: "",
-    description: "",
-    tags: ["Consumer", "Fintech"],
-    company: "",
-    role: "",
-    period: "",
-    team: "",
-    problem: "",
-    approach: [],
-    shipped: [],
-    outcomes: [],
   },
 ];
 

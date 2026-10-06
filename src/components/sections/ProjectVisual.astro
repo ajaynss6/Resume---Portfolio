@@ -24,6 +24,17 @@ const revenue = Array.from({ length: 24 }, (_, i) => {
 });
 const revenuePath = revenue.map(([x, y], i) => `${i ? "L" : "M"}${x},${y}`).join(" ");
 const bars = [38, 64, 52, 88, 71, 112, 96];
+const sources = [
+  { y: 40, title: "Gmail · bank alert", line: "₹1,240 · Swiggy" },
+  { y: 122, title: "Statement line", line: "₹1,240 · SWIGGY*BLR" },
+  { y: 204, title: "Receipt", line: "₹1,240 · order #4471" },
+];
+const sets = [
+  { y: 62, text: "40 kg × 8", state: "done" },
+  { y: 106, text: "40 kg × 8", state: "done" },
+  { y: 150, text: "42.5 kg × 6", state: "active" },
+  { y: 194, text: "42.5 kg × 6", state: "todo" },
+];
 ---
 
 <div class="visual" data-work-visual-inner data-variant={variant} aria-hidden="true">
@@ -103,6 +114,52 @@ const bars = [38, 64, 52, 88, 71, 112, 96];
           <circle cx={revenue[15][0]} cy={revenue[15][1]} r="16" class="ring" />
           <circle cx={revenue[15][0]} cy={revenue[15][1]} r="4" class="dot" />
           <text x={revenue[15][0] + 22} y={revenue[15][1] + 4} class="t-mono t-signal">anomaly</text>
+        </g>
+      )
+    }
+    {
+      variant === "ledger" && (
+        <g>
+          {sources.map((src, i) => (
+            <g class="source" style={`--d:${i * 0.3}s`}>
+              <rect x="20" y={src.y} width="156" height="56" rx="8" />
+              <text x="32" y={src.y + 22} class="t-mono">{src.title}</text>
+              <text x="32" y={src.y + 42} class="t-label t-small">{src.line}</text>
+              <path d={`M176 ${src.y + 28} C 201 ${src.y + 28}, 201 150, 226 150`} class="merge" />
+            </g>
+          ))}
+          <rect x="226" y="118" width="160" height="64" rx="10" class="record" />
+          <text x="240" y="142" class="t-label">Swiggy · ₹1,240</text>
+          <text x="240" y="166" class="t-mono t-signal">1 payment, 3 proofs</text>
+          <circle cx="330" cy="60" r="24" class="score-track" />
+          <circle cx="330" cy="60" r="24" class="score-arc" pathLength="100" transform="rotate(-90 330 60)" />
+          <text x="330" y="64" text-anchor="middle" class="t-mono">score</text>
+        </g>
+      )
+    }
+    {
+      variant === "workout" && (
+        <g>
+          <text x="24" y="40" class="t-label">Bench press</text>
+          <text x="226" y="40" class="t-mono" text-anchor="end">set · load</text>
+          {sets.map((set, i) => (
+            <g class:list={["set", `set--${set.state}`]}>
+              <rect x="20" y={set.y} width="216" height="36" rx="8" />
+              <text x="34" y={set.y + 23} class="t-mono">{i + 1}</text>
+              <text x="56" y={set.y + 23} class="t-label t-small">{set.text}</text>
+              {set.state === "done" && <text x="216" y={set.y + 23} text-anchor="end" class="t-mono t-signal">✓</text>}
+              {set.state === "active" && (
+                <g>
+                  <rect x="164" y={set.y + 7} width="64" height="22" rx="11" class="log" />
+                  <text x="196" y={set.y + 22} text-anchor="middle" class="t-mono t-dark">Log set</text>
+                </g>
+              )}
+            </g>
+          ))}
+          <circle cx="314" cy="146" r="46" class="score-track" />
+          <circle cx="314" cy="146" r="46" class="timer-arc" pathLength="100" transform="rotate(-90 314 146)" />
+          <text x="314" y="148" text-anchor="middle" class="t-label">1:30</text>
+          <text x="314" y="166" text-anchor="middle" class="t-mono">rest</text>
         </g>
       )
     }
@@ -239,6 +296,73 @@ const bars = [38, 64, 52, 88, 71, 112, 96];
     stroke: var(--accent);
   }
 
+  /* Ledger */
+  .source rect {
+    fill: var(--surface);
+    stroke: var(--border-strong);
+  }
+
+  .merge {
+    fill: none;
+    stroke: var(--accent-line);
+    stroke-width: 1.2;
+    stroke-dasharray: 4 6;
+    animation: flow 1.6s linear infinite;
+  }
+
+  .record {
+    fill: var(--accent-soft);
+    stroke: var(--accent);
+  }
+
+  .score-track {
+    fill: none;
+    stroke: var(--border-strong);
+    stroke-width: 4;
+  }
+
+  .score-arc,
+  .timer-arc {
+    fill: none;
+    stroke: var(--accent);
+    stroke-width: 4;
+    stroke-linecap: round;
+    stroke-dasharray: 72 100;
+  }
+
+  /* Workout */
+  .set rect {
+    fill: var(--surface);
+    stroke: var(--border);
+  }
+
+  .set--active > rect {
+    stroke: var(--accent);
+  }
+
+  .set--todo {
+    opacity: 0.45;
+  }
+
+  .set .log {
+    fill: var(--accent);
+    stroke: none;
+  }
+
+  .timer-arc {
+    stroke-dasharray: 60 100;
+    animation: tick 6s linear infinite;
+  }
+
+  @keyframes tick {
+    from {
+      stroke-dasharray: 100 100;
+    }
+    to {
+      stroke-dasharray: 0 100;
+    }
+  }
+
   /* Monetization */
   .line {
     fill: none;
@@ -284,7 +408,9 @@ const bars = [38, 64, 52, 88, 71, 112, 96];
   @media (prefers-reduced-motion: reduce) {
     .wire,
     .caret,
-    .ring {
+    .ring,
+    .merge,
+    .timer-arc {
       animation: none;
     }
   }
