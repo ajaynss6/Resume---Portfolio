@@ -11,15 +11,17 @@ export const experience = [
     start: "May 2024",
     end: "Present",
     current: true,
+    // Products here are unreleased and under NDA: describe the role and the
+    // way of working, never the product itself.
     highlights: [
-      "As acting product manager, led the product function for the 0-1 build of an AI-native platform for gaming analytics and live services, working alongside a cross-functional team of engineers, UX/UI designers, data analysts, data engineers, AI engineers, and data architects.",
-      "Scoped and shipped 6 core modules from the ground up: analytics dashboard, player segmentation, A/B experimentation, remote configuration, AI insights engine, and live-ops console.",
-      "Authored all PRDs, feature specs, and UX requirements, and built functional prototypes with AI to validate concepts before engineering; owned prioritization and tradeoff decisions end to end across sprints.",
-      "Designed a multi-agent AI system with specialized roles (Performance Analyst, Monetization Specialist, Hypothesis Builder) that automates insight generation for live game operations.",
-      "Built self-serve, AI-powered tools that let non-technical stakeholders run their own analyses, reducing dependency on data-team bandwidth.",
-      "Established the studio's founding data function as its first and only data hire, owning competitive analysis, player insights, and business intelligence for CXOs.",
-      "Led 10+ client pitches supporting multi-million-dollar co-development and live-services engagements; partnered with founders on GTM strategy and business development.",
-      "Served as the product lead on the company's internal product tech team, which scaled from under 5 to 20+, contributing to hiring, onboarding, and early org structure across engineering, data, and AI.",
+      "As acting product manager, led the product function for an unreleased 0-1 AI-native platform for live games, working with a cross-functional team across engineering, design, data and AI.",
+      "Authored the PRDs, feature specs and UX requirements, and owned prioritization and tradeoff decisions end to end across sprints.",
+      "Built functional prototypes with AI to validate concepts before engineering committed to them.",
+      "Designed multi-agent AI workflows that automate insight generation for live operations.",
+      "Built self-serve AI tools that let non-technical stakeholders answer their own questions without waiting on the data team.",
+      "Established the studio's founding data function as its first data hire: competitive analysis, player insights and business intelligence for leadership.",
+      "Partnered with the founders on client pitches, GTM strategy and business development.",
+      "Product lead on the internal product tech team through its early growth, contributing to hiring, onboarding and early org structure.",
     ],
   },
   {

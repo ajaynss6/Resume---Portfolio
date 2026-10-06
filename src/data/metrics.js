@@ -27,10 +27,10 @@ export const metrics = [
     detail: "Feature ideation & analysis",
   },
   {
-    value: 6,
+    value: 8,
     suffix: "",
-    label: "Core platform modules shipped",
-    detail: "0-1 AI-native platform",
+    label: "Years in product and analytics",
+    detail: "Mu Sigma → EA → startup",
   },
   {
     value: 50,

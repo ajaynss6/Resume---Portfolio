@@ -1,7 +1,8 @@
 // ---------------------------------------------------------------------------
 // Projects / case studies.
 // Professional work maps to the resume; personal projects map to their own
-// repos. Nothing is invented. Each project gets a page at /work/<slug>/.
+// repos. Nothing is invented. Liquidnitro work is unreleased and under NDA:
+// never name its features, modules, agents, clients or numbers. Each project gets a page at /work/<slug>/.
 //
 // Fields
 //   slug, visual          URL and artwork variant (see ProjectVisual.astro)
@@ -18,8 +19,8 @@
 //   learnings[]           OPTIONAL what I'd keep / change
 //   repo                  OPTIONAL { url, public }; the button shows only when public
 //   draft                 true = excluded from the site until filled in
-//   visual variants       modules, agents, selfserve, dashboards, monetization,
-//                         ledger, workout
+//   note                  OPTIONAL callout, e.g. for work under NDA
+//   visual variants       redacted, ledger, workout, dashboards, monetization
 //
 // To strengthen a case study, add `decisions` and `learnings`. Sections render
 // only when present.
@@ -34,7 +35,7 @@
  *   period: string, team: string, problem: string, approach: string[],
  *   shipped: string[], outcomes?: Outcome[], decisions?: Decision[],
  *   learnings?: string[], status?: string, audience?: string,
- *   needs?: string[], repo?: { url: string, public: boolean },
+ *   needs?: string[], repo?: { url: string, public: boolean }, note?: string,
  *   draft?: boolean
  * }} Project
  */
@@ -42,38 +43,32 @@
 /** @type {Project[]} */
 export const projects = [
   {
-    slug: "ai-live-services-platform",
-    visual: "modules",
-    title: "AI-Native Gaming Analytics & Live-Services Platform",
+    // Unreleased product under NDA. Describe the role and the way of working
+    // only: no product names, features, modules, numbers or clients.
+    slug: "ai-platform-under-nda",
+    visual: "redacted",
+    status: "Under NDA",
+    title: "A 0-1 AI Platform for Live Games",
     context: "Liquidnitro Games · Acting Product Manager",
     description:
-      "Led the product function for the 0-1 build of an AI-native platform for gaming analytics and live services, shipping six core modules from the ground up: analytics dashboard, player segmentation, A/B experimentation, remote configuration, AI insights engine, and live-ops console.",
-    tags: ["0-1 Product", "Platform", "Live Services", "AI"],
+      "Acting PM on an unreleased, AI-native platform for live games, built from zero at a Series A studio. The product is under NDA, so this page covers how I work rather than what we built.",
+    tags: ["0-1 Product", "AI Product", "Live Services", "Platform"],
     company: "Liquidnitro Games",
-    role: "Acting Product Manager",
+    role: "Acting Product Manager (Senior Product Analyst)",
     period: "2024 - Present",
-    team: "Engineers, UX/UI designers, data analysts, data engineers, AI engineers, data architects",
+    team: "Engineering, design, data and AI",
     problem:
-      "Live games run on a loop of measure, decide, change, repeat. Doing that well normally means stitching together separate tools for analytics, segmentation, experiments and config. The goal was one AI-native platform that covers the whole loop, built from zero.",
+      "A founding team building an AI-native product from zero, with no product function in place. Someone had to turn ambition into specs, decide what to build first, and keep a cross-functional team pointed at the same thing.",
     approach: [
-      "Owned the product function end to end as acting PM, working with a cross-functional team across engineering, design, data and AI.",
-      "Authored all PRDs, feature specs and UX requirements.",
-      "Built functional prototypes with AI to validate concepts before engineering committed to them.",
-      "Owned prioritization and tradeoff decisions across sprints.",
+      "Joined as the studio's first data hire and stepped into the PM role, owning the product function end to end.",
+      "Wrote the PRDs, feature specs and UX requirements, and owned prioritization and tradeoffs across sprints.",
+      "Built working AI prototypes to test ideas before engineering committed time to them.",
+      "Designed multi-agent AI workflows and self-serve AI tools so non-technical teammates could get answers without waiting on the data team.",
+      "Partnered with the founders on client pitches, GTM and early hiring.",
     ],
-    shipped: [
-      "Analytics dashboard",
-      "Player segmentation",
-      "A/B experimentation",
-      "Remote configuration",
-      "AI insights engine",
-      "Live-ops console",
-    ],
-    outcomes: [
-      { value: "6", label: "Core modules scoped and shipped from zero" },
-      { value: "0-1", label: "Product function led end to end" },
-      { value: "<5 → 20+", label: "Internal product tech team growth" },
-    ],
+    shipped: [],
+    note:
+      "Product details are confidential. Happy to walk through how I made decisions and tradeoffs on this work in conversation, within what I can share.",
   },
   {
     // Source: ajaynss6/finance_tracker (private for now). Personal project:
@@ -205,53 +200,6 @@ export const projects = [
       "History and progress",
     ],
     repo: { url: "https://github.com/ajaynss6/Workout-Log", public: false },
-  },
-  {
-    slug: "multi-agent-insights",
-    visual: "agents",
-    title: "Multi-Agent AI Insights System",
-    context: "Liquidnitro Games · Product & System Design",
-    description:
-      "Designed a multi-agent AI system with specialized roles (Performance Analyst, Monetization Specialist, Hypothesis Builder) that automates insight generation for live game operations.",
-    tags: ["AI", "LLM", "Automation"],
-    company: "Liquidnitro Games",
-    role: "Designer of the agent system",
-    period: "2024 - Present",
-    team: "AI engineers, data engineers, data analysts",
-    problem:
-      "Insight generation for live games depended on analyst time. Live ops needs several specific lenses on the same data: performance, monetization, and what to test next.",
-    approach: [
-      "Split the analyst's job into specialized agent roles, each with its own focus.",
-      "Performance Analyst reads game health; Monetization Specialist reads revenue; Hypothesis Builder turns findings into testable ideas.",
-      "Designed the system to automate insight generation for live game operations.",
-    ],
-    shipped: ["Performance Analyst agent", "Monetization Specialist agent", "Hypothesis Builder agent"],
-    outcomes: [
-      { value: "3", label: "Specialized agent roles automating live-ops insight" },
-    ],
-  },
-  {
-    slug: "self-serve-ai-analytics",
-    visual: "selfserve",
-    title: "Self-Serve AI Analytics Tools",
-    context: "Liquidnitro Games · Internal Tools",
-    description:
-      "Built self-serve, AI-powered tools that let non-technical stakeholders run their own analyses, reducing dependency on data-team bandwidth.",
-    tags: ["AI", "Internal Tools", "Self-Serve"],
-    company: "Liquidnitro Games",
-    role: "Builder and product owner",
-    period: "2024 - Present",
-    team: "Data function (founding hire)",
-    problem:
-      "With one data hire serving the whole studio, from CXOs down, data-team bandwidth was the bottleneck.",
-    approach: [
-      "Established the studio's founding data function: competitive analysis, player insights and BI for CXOs.",
-      "Built AI-powered tools so non-technical stakeholders could answer their own questions.",
-    ],
-    shipped: ["Self-serve AI analysis tools for non-technical stakeholders"],
-    outcomes: [
-      { value: "1st", label: "Data hire, founding the data function" },
-    ],
   },
   {
     slug: "ea-live-services-analytics",
