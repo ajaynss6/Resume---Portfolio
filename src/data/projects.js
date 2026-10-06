@@ -2,7 +2,7 @@
 // Projects / case studies.
 // Professional work maps to the resume; personal projects map to their own
 // repos. Nothing is invented. Liquidnitro work is unreleased and under NDA:
-// never name its features, modules, agents, clients or numbers. Each project gets a page at /work/<slug>/.
+// it has no case study and must not be described on the website. Each project gets a page at /work/<slug>/.
 //
 // Fields
 //   slug, visual          URL and artwork variant (see ProjectVisual.astro)
@@ -20,7 +20,7 @@
 //   repo                  OPTIONAL { url, public }; the button shows only when public
 //   draft                 true = excluded from the site until filled in
 //   note                  OPTIONAL callout, e.g. for work under NDA
-//   visual variants       redacted, ledger, workout, dashboards, monetization
+//   visual variants       ledger, workout, dashboards, monetization
 //
 // To strengthen a case study, add `decisions` and `learnings`. Sections render
 // only when present.
@@ -42,34 +42,6 @@
 
 /** @type {Project[]} */
 export const projects = [
-  {
-    // Unreleased product under NDA. Describe the role and the way of working
-    // only: no product names, features, modules, numbers or clients.
-    slug: "ai-platform-under-nda",
-    visual: "redacted",
-    status: "Under NDA",
-    title: "A 0-1 AI Platform for Live Games",
-    context: "Liquidnitro Games · Acting Product Manager",
-    description:
-      "Acting PM on an unreleased, AI-native platform for live games, built from zero at a Series A studio. The product is under NDA, so this page covers how I work rather than what we built.",
-    tags: ["0-1 Product", "AI Product", "Live Services", "Platform"],
-    company: "Liquidnitro Games",
-    role: "Acting Product Manager (Senior Product Analyst)",
-    period: "2024 - Present",
-    team: "Engineering, design, data and AI",
-    problem:
-      "A founding team building an AI-native product from zero, with no product function in place. Someone had to turn ambition into specs, decide what to build first, and keep a cross-functional team pointed at the same thing.",
-    approach: [
-      "Joined as the studio's first data hire and stepped into the PM role, owning the product function end to end.",
-      "Wrote the PRDs, feature specs and UX requirements, and owned prioritization and tradeoffs across sprints.",
-      "Built working AI prototypes to test ideas before engineering committed time to them.",
-      "Designed multi-agent AI workflows and self-serve AI tools so non-technical teammates could get answers without waiting on the data team.",
-      "Partnered with the founders on client pitches, GTM and early hiring.",
-    ],
-    shipped: [],
-    note:
-      "Product details are confidential. Happy to walk through how I made decisions and tradeoffs on this work in conversation, within what I can share.",
-  },
   {
     // Source: ajaynss6/finance_tracker (private for now). Personal project:
     // no numbers on purpose.

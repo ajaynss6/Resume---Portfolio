@@ -15,24 +15,24 @@ export const profile = {
 
   // One-line positioning used in the hero, meta tags and social cards.
   positioning:
-    "Product analyst who builds, and already does the PM job: PRDs, prioritization, shipping. Eight years across live games played by millions, a 0-1 AI platform, and consumer apps I build with AI. Now moving into product management.",
+    "Product analyst who builds, and already does the PM job: PRDs, prioritization, shipping. Eight years across live games played by millions, startup product work, and consumer apps I build with AI. Now moving into product management.",
 
   // Short, scannable pitch for recruiters (30-second read).
   pitch: [
-    "Acting PM at a Series A gaming startup on an unreleased 0-1 AI platform (under NDA): PRDs, AI prototypes, prioritization, shipping.",
+    "Acting PM at a Series A gaming startup: owns the product function end to end, from PRDs and AI prototypes to prioritization.",
     "2+ years at Electronic Arts on Bejeweled, Plants vs. Zombies, NFS No Limits and The Sims Mobile (5M+ DAU, $45M+ annual revenue).",
     "Experimentation and monetization by trade: A/B tests, telemetry, ad monetization, $500K+ incremental revenue.",
-    "Builds with AI: designs multi-agent AI workflows at work, and builds consumer app projects end to end with AI coding agents.",
+    "Builds with AI: prototypes with AI before engineering at work, and builds consumer app projects end to end with AI coding agents.",
   ],
 
   summary:
-    "Senior Product Analyst with 8 years across gaming, analytics, and platform systems, transitioning into Product Management. Founding team member at a Series A gaming startup, acting as product manager and owning the product function end to end across 0-1 platform builds, live services, AI-enabled internal tools, and GTM. Strong background in experimentation, monetization strategy, and scalable system design across global game portfolios exceeding 5M+ DAU and $45M+ in annual revenue. Skilled in product vision, PRDs, prioritizing tradeoffs, and shipping MVPs in founder-led environments.",
+    "Senior Product Analyst with 8 years across gaming, analytics, and platform systems, transitioning into Product Management. Founding team member at a Series A gaming startup, acting as product manager and owning the product function end to end, from PRDs and AI prototypes to prioritization and GTM. Strong background in experimentation, monetization strategy, and scalable system design across global game portfolios exceeding 5M+ DAU and $45M+ in annual revenue. Skilled in product vision, PRDs, prioritizing tradeoffs, and shipping MVPs in founder-led environments.",
 
   // First-person story for the About section. Facts only, from the resume.
   story: [
     "I started in decision science at Mu Sigma, building forecasts and models for Fortune 100 and 500 clients. That taught me to start from the decision, not the dashboard.",
     "At Electronic Arts I moved inside live games: Bejeweled, Plants vs. Zombies, Need for Speed No Limits, The Sims Mobile. Telemetry, A/B tests, ad monetization, and the weekly rhythm of live ops across a portfolio of 5M+ daily players.",
-    "At Liquidnitro Games I joined as the first data hire and ended up doing the PM job on an unreleased AI platform: writing the PRDs, prototyping with AI before engineering touched it, and owning prioritization as the team grew.",
+    "At Liquidnitro Games I joined as the first data hire and ended up doing the PM job: writing the PRDs, prototyping with AI before engineering touched it, and owning prioritization as the team grew.",
     "Outside work I build consumer app projects with AI coding agents: a finance tracker for Indian iPhone users and a gym log for beginners. I write the PRD and the product rules, direct the build, and test every version on my own phone. It keeps my product instincts close to real users and real code.",
   ],
 
