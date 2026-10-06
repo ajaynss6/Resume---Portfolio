@@ -27,6 +27,13 @@ export const profile = {
   summary:
     "Senior Product Analyst with 7 years across gaming, analytics, and platform systems, transitioning into Product Management. Founding team member at a Series A gaming startup, acting as product manager and owning the product function end to end across 0-1 platform builds, live services, AI-enabled internal tools, and GTM. Strong background in experimentation, monetization strategy, and scalable system design across global game portfolios exceeding 5M+ DAU and $45M+ in annual revenue. Skilled in product vision, PRDs, prioritizing tradeoffs, and shipping MVPs in founder-led environments.",
 
+  // First-person story for the About section. Facts only, from the resume.
+  story: [
+    "I started in decision science at Mu Sigma, building forecasts and models for Fortune 100 and 500 clients. That taught me to start from the decision, not the dashboard.",
+    "At Electronic Arts I moved inside live games: Bejeweled, Plants vs. Zombies, Need for Speed No Limits, The Sims Mobile. Telemetry, A/B tests, ad monetization, and the weekly rhythm of live ops across a portfolio of 5M+ daily players.",
+    "At Liquidnitro Games I joined as the first data hire and ended up running product. I wrote every PRD, prototyped with AI before engineering touched it, and shipped six modules of a 0-1 platform while the team grew from under 5 to 20+.",
+  ],
+
   // What I'm looking for. Shown in the contact section.
   seeking:
     "Product Manager roles in consumer apps and gaming: live services, growth, monetization, or AI-powered player experiences.",

@@ -1,13 +1,14 @@
 ---
 // Build-time word splitter for masked text reveals.
 // Words wrapped in *asterisks* render in the editorial serif italic.
-// The full string is exposed via aria-label; visual spans are hidden from AT.
+// The full string is exposed as visually hidden text; visual spans are hidden from AT.
 const { text = "", as: Tag = "span", class: className = "" } = Astro.props;
 
 const words = /** @type {string[]} */ (text.split(/\s+/).filter(Boolean));
 ---
 
-<Tag class:list={["split", className]} data-split aria-label={text}>
+<Tag class:list={["split", className]} data-split>
+  <span class="visually-hidden">{`${text.replace(/\*/g, "")} `}</span>
   {
     words.map((word: string, i: number) => {
       const accent = word.startsWith("*") && word.endsWith("*") && word.length > 2;

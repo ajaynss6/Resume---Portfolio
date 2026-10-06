@@ -3,57 +3,97 @@ import SplitText from "../ui/SplitText.astro";
 import { profile, bookingHref } from "../../data/profile.js";
 
 const base = import.meta.env.BASE_URL.replace(/\/?$/, "/");
+
+// Headline proof, shown right under the pitch.
+const proof = [
+  { value: "5M+", label: "Daily players supported" },
+  { value: "$45M+", label: "Annual revenue portfolio" },
+  { value: "6", label: "Modules shipped, 0-1" },
+];
 ---
 
-<section class="hero" id="top">
+<section class="hero" id="top" data-player-host>
+  <canvas class="hero__field" data-player-field data-total="5000000" aria-hidden="true"></canvas>
+
   <div class="container hero__inner">
     <div class="hero__top" data-reveal>
-      <span class="eyebrow">Product Manager · Consumer Apps &amp; Gaming</span>
-      <span class="hero__location mono">{profile.location}</span>
+      <span class="eyebrow">{profile.headline}</span>
+      <span class="hero__avail mono">
+        <span class="hero__dot" aria-hidden="true"></span>
+        Open to PM roles
+      </span>
     </div>
 
     <h1 class="hero__title display">
-      <SplitText text={profile.name} />
+      <SplitText text={profile.firstName} class="hero__line" />
+      <SplitText text={profile.lastName} class="hero__line hero__line--indent" />
     </h1>
 
-    <p class="hero__statement" data-reveal data-reveal-delay="0.15">
-      I build <span class="serif">live products</span> people come back to.
-      Seven years across games played by millions, experimentation, and a 0-1
-      AI-native platform I led as acting PM.
-    </p>
+    <div class="hero__body">
+      <p class="hero__statement" data-reveal data-reveal-delay="0.15">
+        I build <span class="serif">live products</span> people come back to.
+        Seven years across games played by millions, experimentation, and a 0-1
+        AI-native platform I led as acting PM.
+      </p>
 
-    <div class="hero__actions" data-reveal data-reveal-delay="0.25">
-      <a class="button button--primary" href="#work">Selected work</a>
-      <a class="button" href={`${base}${profile.resumePdf}`} download>
-        Download resume
-      </a>
-      <a class="button" href={bookingHref}>Book a call</a>
+      <div class="hero__actions" data-reveal data-reveal-delay="0.25">
+        <a class="button button--primary" href="#work">
+          See the work
+          <span aria-hidden="true">↓</span>
+        </a>
+        <a class="button" href={`${base}${profile.resumePdf}`} download>Resume (PDF)</a>
+        <a class="button button--ghost" href={bookingHref}>Book a call</a>
+      </div>
     </div>
   </div>
 
   <div class="hero__foot container" data-reveal data-reveal-delay="0.35">
-    <span class="mono">7 years in product & analytics</span>
-    <span class="hero__scroll mono" aria-hidden="true">
-      Scroll
-      <span class="hero__scroll-line"></span>
-    </span>
+    <dl class="hero__proof">
+      {
+        proof.map((item) => (
+          <div class="hero__stat">
+            <dt class="mono">{item.label}</dt>
+            <dd>{item.value}</dd>
+          </div>
+        ))
+      }
+    </dl>
+    <p class="hero__legend mono">
+      <span class="hero__legend-swatch" aria-hidden="true"></span>
+      <span data-player-legend>1 dot = 1,000 daily players</span>
+    </p>
   </div>
 </section>
+
+<script>
+  import "../../scripts/player-field.js";
+</script>
 
 <style>
   .hero {
     position: relative;
-    min-height: calc(100svh - var(--header-h));
+    min-height: 100svh;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     gap: var(--space-8);
-    padding-block: clamp(5rem, 12vh, 8rem) var(--space-7);
+    padding-block: calc(var(--header-h) + clamp(2rem, 6vh, 4rem)) var(--space-6);
+    overflow: hidden;
+    isolation: isolate;
+  }
+
+  .hero__field {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    touch-action: pan-y;
   }
 
   .hero__inner {
     display: grid;
-    gap: clamp(1.5rem, 4vh, 3rem);
+    gap: clamp(1.5rem, 4vh, 2.75rem);
   }
 
   .hero__top {
@@ -64,95 +104,128 @@ const base = import.meta.env.BASE_URL.replace(/\/?$/, "/");
     gap: var(--space-4);
   }
 
-  .hero__location {
-    color: var(--text-secondary);
+  .hero__avail {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    color: var(--text);
+  }
+
+  .hero__dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 12px var(--accent);
   }
 
   .hero__title {
     font-size: var(--display-lg);
+    font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: -0.05em;
-    line-height: 0.92;
+    letter-spacing: -0.055em;
+    line-height: 0.84;
+    pointer-events: none;
+  }
+
+  .hero__title :global(.hero__line--indent) {
+    padding-left: 0.62em;
+  }
+
+  .hero__body {
+    display: grid;
+    gap: var(--space-6);
+    max-width: 40rem;
   }
 
   .hero__statement {
-    max-width: 34ch;
+    max-width: 32ch;
     font-size: var(--text-xl);
-    line-height: 1.35;
-    color: var(--text-secondary);
+    line-height: 1.3;
     letter-spacing: var(--tracking-tight);
+    color: var(--text-secondary);
   }
 
   .hero__statement .serif {
     color: var(--text);
-    font-size: 1.08em;
+    font-size: 1.1em;
   }
 
   .hero__actions {
     display: flex;
     flex-wrap: wrap;
     gap: var(--space-3);
-    padding-top: var(--space-2);
   }
 
   .hero__foot {
     display: flex;
+    flex-wrap: wrap;
     align-items: flex-end;
     justify-content: space-between;
-    gap: var(--space-4);
+    gap: var(--space-6);
   }
 
-  .hero__foot .mono {
-    color: var(--text-tertiary);
+  .hero__proof {
+    display: flex;
+    flex-wrap: wrap;
+    gap: clamp(1.5rem, 5vw, 4rem);
   }
 
-  .hero__scroll {
+  .hero__stat {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: var(--space-1);
+    padding-left: var(--space-4);
+    border-left: 1px solid var(--accent-line);
+  }
+
+  .hero__stat dd {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: clamp(1.75rem, 1.2rem + 1.8vw, 2.75rem);
+    font-weight: 500;
+    letter-spacing: var(--tracking-tighter);
+    line-height: 1;
+  }
+
+  .hero__legend {
     display: inline-flex;
     align-items: center;
-    gap: var(--space-3);
+    gap: 0.6rem;
   }
 
-  .hero__scroll-line {
-    position: relative;
-    display: block;
-    width: 4rem;
-    height: 1px;
-    background: var(--border-strong);
-    overflow: hidden;
+  .hero__legend-swatch {
+    width: 4px;
+    height: 4px;
+    background: var(--text);
+    box-shadow: 8px 0 0 var(--accent);
+    margin-right: 8px;
   }
 
-  .hero__scroll-line::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: var(--accent-strong);
-    transform: translateX(-100%);
-    animation: scroll-hint 2.6s var(--ease-in-out) infinite;
-  }
-
-  @keyframes scroll-hint {
-    0% {
-      transform: translateX(-100%);
+  @media (max-width: 899px) {
+    .hero__inner {
+      padding-top: 38svh;
     }
-    50%,
-    100% {
-      transform: translateX(100%);
-    }
-  }
 
-  @media (prefers-reduced-motion: reduce) {
-    .hero__scroll-line::after {
-      animation: none;
+    .hero__top {
+      position: absolute;
+      top: calc(var(--header-h) + 1.25rem);
+      left: var(--gutter);
+      right: var(--gutter);
     }
   }
 
   @media (max-width: 640px) {
+    .hero__title {
+      font-size: 21vw;
+    }
+
     .hero__statement {
       font-size: var(--text-lg);
     }
 
-    .hero__scroll-line {
-      width: 2.5rem;
+    .hero__legend {
+      display: none;
     }
   }
 </style>

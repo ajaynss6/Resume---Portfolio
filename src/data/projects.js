@@ -1,11 +1,13 @@
 // ---------------------------------------------------------------------------
 // Projects / product work.
-// Derived from the resume experience section: no invented details. Each item
+// Derived from the resume experience section, no invented details. Each item
 // maps to work described in the resume. Add more projects here as they arise.
 // ---------------------------------------------------------------------------
 
 export const projects = [
   {
+    slug: "ai-live-services-platform",
+    visual: "modules",
     title: "AI-Native Gaming Analytics & Live-Services Platform",
     context: "Liquidnitro Games · Acting Product Manager",
     description:
@@ -13,6 +15,8 @@ export const projects = [
     tags: ["0-1 Product", "Platform", "Live Services", "AI"],
   },
   {
+    slug: "multi-agent-insights",
+    visual: "agents",
     title: "Multi-Agent AI Insights System",
     context: "Liquidnitro Games",
     description:
@@ -20,6 +24,8 @@ export const projects = [
     tags: ["AI", "LLM", "Automation"],
   },
   {
+    slug: "self-serve-ai-analytics",
+    visual: "selfserve",
     title: "Self-Serve AI Analytics Tools",
     context: "Liquidnitro Games",
     description:
@@ -27,6 +33,8 @@ export const projects = [
     tags: ["AI", "Internal Tools", "Self-Serve"],
   },
   {
+    slug: "ea-live-services-analytics",
+    visual: "dashboards",
     title: "Live-Services Analytics Across EA Mobile Titles",
     context: "Electronic Arts (EA)",
     description:
@@ -34,6 +42,8 @@ export const projects = [
     tags: ["Analytics", "Live Services", "Dashboards"],
   },
   {
+    slug: "ea-ad-monetization",
+    visual: "monetization",
     title: "Ad Monetization & Telemetry Analytics",
     context: "Electronic Arts (EA)",
     description:

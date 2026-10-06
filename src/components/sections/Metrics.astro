@@ -5,16 +5,15 @@ import metrics from "../../data/metrics.js";
 
 <Section
   id="metrics"
-  index="04"
-  label="Impact"
-  title="Outcomes, not output."
-  aside="Measured impact drawn from product, analytics, and live-services roles."
+  title="Outcomes, *not* output."
+  aside="Numbers from shipped work across EA live services, a 0-1 AI platform, and enterprise analytics."
 >
-  <div class="metrics" data-reveal-group data-stagger="0.07">
+  <ol class="impact" data-reveal-group data-stagger="0.07">
     {
-      metrics.map((metric) => (
-        <div class="metric" data-reveal>
-          <span class="metric__value">
+      metrics.map((metric, i) => (
+        <li class="impact__row" data-reveal>
+          <span class="impact__index mono">{String(i + 1).padStart(2, "0")}</span>
+          <span class="impact__value">
             <span
               data-count-to={metric.value}
               data-count-prefix={metric.prefix || ""}
@@ -23,66 +22,97 @@ import metrics from "../../data/metrics.js";
               {`${metric.prefix || ""}${metric.value}${metric.suffix || ""}`}
             </span>
           </span>
-          <span class="metric__label">{metric.label}</span>
-          {metric.detail && <span class="metric__detail">{metric.detail}</span>}
-        </div>
+          <span class="impact__text">
+            <span class="impact__label">{metric.label}</span>
+            {metric.detail && <span class="impact__detail mono">{metric.detail}</span>}
+          </span>
+        </li>
       ))
     }
-  </div>
+  </ol>
 </Section>
 
 <style>
-  .metrics {
+  .impact {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 1px;
-    background: var(--border);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-md);
-    overflow: hidden;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: clamp(2rem, 6vw, 6rem);
   }
 
-  .metric {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-2);
-    padding: clamp(1.75rem, 4vw, 3rem);
-    background: var(--bg);
+  .impact__row {
+    position: relative;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    grid-template-areas:
+      "index index"
+      "value text";
+    align-items: end;
+    gap: var(--space-3) var(--space-5);
+    padding-block: clamp(1.5rem, 3.5vw, 2.5rem);
+    border-top: 1px solid var(--border);
   }
 
-  .metric__value {
+  .impact__row::before {
+    content: "";
+    position: absolute;
+    top: -1px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: var(--accent);
+    transition: width var(--dur-slow) var(--ease-out);
+  }
+
+  .impact__row:hover::before {
+    width: 100%;
+  }
+
+  .impact__index {
+    grid-area: index;
+  }
+
+  .impact__value {
+    grid-area: value;
     font-family: var(--font-display);
-    font-size: clamp(2.25rem, 1rem + 4.5vw, 4.5rem);
+    font-size: clamp(3rem, 1.5rem + 5vw, 6.5rem);
     font-weight: 500;
-    letter-spacing: var(--tracking-tighter);
-    line-height: 1;
+    letter-spacing: -0.06em;
+    line-height: 0.85;
     font-variant-numeric: tabular-nums;
+    min-width: 4.2ch;
   }
 
-  .metric__label {
-    margin-top: var(--space-2);
-    font-size: var(--text-sm);
-    color: var(--text-secondary);
+  .impact__row:hover .impact__value {
+    color: var(--accent);
+  }
+
+  .impact__text {
+    grid-area: text;
+    display: grid;
+    gap: var(--space-1);
+    padding-bottom: 0.3em;
+  }
+
+  .impact__label {
     max-width: 22ch;
-  }
-
-  .metric__detail {
-    font-family: var(--font-mono);
-    font-size: var(--text-xs);
-    letter-spacing: var(--tracking-wide);
-    text-transform: uppercase;
-    color: var(--text-tertiary);
+    font-size: var(--text-md);
+    line-height: 1.3;
+    color: var(--text);
   }
 
   @media (max-width: 900px) {
-    .metrics {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+    .impact {
+      grid-template-columns: minmax(0, 1fr);
     }
   }
 
-  @media (max-width: 560px) {
-    .metrics {
+  @media (max-width: 480px) {
+    .impact__row {
       grid-template-columns: minmax(0, 1fr);
+      grid-template-areas:
+        "index"
+        "value"
+        "text";
     }
   }
 </style>

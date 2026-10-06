@@ -4,26 +4,16 @@ import TagList from "../ui/TagList.astro";
 import ProjectVisual from "./ProjectVisual.astro";
 import projects from "../../data/projects.js";
 
-const palettes = [
-  { accent: "#8ea6ff", tone: "#1b2440" },
-  { accent: "#e9dcc4", tone: "#2a2620" },
-  { accent: "#9fe8d8", tone: "#0f2a26" },
-  { accent: "#d3b9ff", tone: "#241a33" },
-  { accent: "#ffc9a8", tone: "#2e1d14" },
-];
 ---
 
 <Section
   id="work"
-  index="01"
-  label="Selected Work"
-  title="Product work, shipped end to end."
+  title="Product work, *shipped* end to end."
   aside="0-1 platform builds and live-services analytics from Liquidnitro Games and Electronic Arts."
 >
   <ol class="work-list" data-work-list data-reveal-group data-stagger="0.09">
     {
       projects.map((project, i) => {
-        const palette = palettes[i % palettes.length];
         const number = String(i + 1).padStart(2, "0");
         return (
           <li class="work-row" data-work-row data-reveal>
@@ -52,12 +42,7 @@ const palettes = [
               </div>
 
               <div class="work-visual" data-work-visual>
-                <ProjectVisual
-                  index={number}
-                  accent={palette.accent}
-                  tone={palette.tone}
-                  label={project.tags[0]}
-                />
+                <ProjectVisual index={number} variant={project.visual} />
               </div>
             </article>
           </li>

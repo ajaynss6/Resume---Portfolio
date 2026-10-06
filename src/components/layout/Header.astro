@@ -1,7 +1,7 @@
 ---
 const home = import.meta.env.BASE_URL.replace(/\/?$/, "/");
 import navigation from "../../data/navigation.js";
-import { profile } from "../../data/profile.js";
+import { profile, bookingHref } from "../../data/profile.js";
 
 const linkedin = profile.links.find((link) => link.label === "LinkedIn");
 ---
@@ -12,7 +12,7 @@ const linkedin = profile.links.find((link) => link.label === "LinkedIn");
     <span class="hud__progress" data-scroll-progress aria-hidden="true"></span>
 
     <a class="hud__brand" href={`${home}#top`} aria-label={`${profile.name}: back to top`}>
-      <span class="hud__mark" aria-hidden="true">AJ</span>
+      <span class="hud__mark" aria-hidden="true">AK</span>
       <span class="hud__name">{profile.name}</span>
     </a>
 
@@ -38,8 +38,10 @@ const linkedin = profile.links.find((link) => link.label === "LinkedIn");
         <span class="hud__tz" aria-hidden="true">IST</span>
       </span>
 
-      <a class="hud__cta" href={`mailto:${profile.contact.email}`}>
-        <span class="hud__cta-text">Get in touch</span>
+      <a class="hud__resume" href={`${home}resume/`}>Resume</a>
+
+      <a class="hud__cta" href={bookingHref}>
+        <span class="hud__cta-text">Let's talk</span>
         <svg class="hud__cta-arrow" viewBox="0 0 16 16" width="12" height="12" aria-hidden="true">
           <path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" />
         </svg>
@@ -186,7 +188,7 @@ const linkedin = profile.links.find((link) => link.label === "LinkedIn");
 
   .hud__brand:hover .hud__mark {
     border-color: var(--accent-line);
-    color: #fff;
+    color: var(--text);
   }
 
   .hud__name {
@@ -255,6 +257,7 @@ const linkedin = profile.links.find((link) => link.label === "LinkedIn");
 
   /* --- Right cluster --------------------------------------------------- */
   .hud__right {
+    margin-left: auto;
     display: flex;
     align-items: center;
     gap: 0.5rem;
@@ -283,19 +286,30 @@ const linkedin = profile.links.find((link) => link.label === "LinkedIn");
 
   @keyframes hud-pulse {
     0% {
-      box-shadow: 0 0 0 0 rgba(142, 166, 255, 0.45);
+      box-shadow: 0 0 0 0 rgba(200, 255, 61, 0.45);
     }
     70% {
-      box-shadow: 0 0 0 6px rgba(142, 166, 255, 0);
+      box-shadow: 0 0 0 6px rgba(200, 255, 61, 0);
     }
     100% {
-      box-shadow: 0 0 0 0 rgba(142, 166, 255, 0);
+      box-shadow: 0 0 0 0 rgba(200, 255, 61, 0);
     }
   }
 
   .hud__time {
     color: var(--text-secondary);
     font-variant-numeric: tabular-nums;
+  }
+
+  .hud__resume {
+    padding-inline: 0.6rem;
+    font-size: var(--text-sm);
+    color: var(--text-secondary);
+    transition: color var(--dur-fast) var(--ease-out);
+  }
+
+  .hud__resume:hover {
+    color: var(--text);
   }
 
   .hud__cta {
@@ -313,7 +327,7 @@ const linkedin = profile.links.find((link) => link.label === "LinkedIn");
   }
 
   .hud__cta:hover {
-    background: #fff;
+    background: var(--text);
   }
 
   .hud__cta-arrow {
@@ -439,17 +453,34 @@ const linkedin = profile.links.find((link) => link.label === "LinkedIn");
   }
 
   @media (max-width: 720px) {
-    .hud__status {
+    .hud__status,
+    .hud__resume {
       display: none;
     }
   }
 
   @media (max-width: 520px) {
     .hud__cta-text {
-      display: none;
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+      white-space: nowrap;
     }
 
-    .hud__cta {
+    .hud__resume {
+    padding-inline: 0.6rem;
+    font-size: var(--text-sm);
+    color: var(--text-secondary);
+    transition: color var(--dur-fast) var(--ease-out);
+  }
+
+  .hud__resume:hover {
+    color: var(--text);
+  }
+
+  .hud__cta {
       padding-inline: 0.75rem;
     }
 

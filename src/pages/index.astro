@@ -7,14 +7,27 @@ import Capabilities from "../components/sections/Capabilities.astro";
 import Metrics from "../components/sections/Metrics.astro";
 import About from "../components/sections/About.astro";
 import Contact from "../components/sections/Contact.astro";
+import Ticker from "../components/ui/Ticker.astro";
+
+const franchises = [
+  "Bejeweled",
+  "Plants vs. Zombies",
+  "Need for Speed No Limits",
+  "The Sims Mobile",
+  "Electronic Arts",
+  "Liquidnitro Games",
+  "0-1 AI platform",
+  "Live services",
+];
 ---
 
 <BaseLayout>
   <Hero />
+  <Ticker items={franchises} label="Games and teams worked on" />
+  <Metrics />
   <Work />
   <Experience />
   <Capabilities />
-  <Metrics />
   <About />
   <Contact />
 </BaseLayout>

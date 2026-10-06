@@ -6,27 +6,28 @@
 
 :root {
   /* --- Colour ---------------------------------------------------------- */
-  --bg: #08090a;
-  --bg-elev: #0e1013;
-  --bg-elev-2: #14171b;
+  /* Warm ink + bone paper, one electric "signal" accent used sparingly. */
+  --bg: #0b0b0c;
+  --bg-elev: #121212;
+  --bg-elev-2: #19191a;
 
-  --surface: rgba(255, 255, 255, 0.028);
-  --surface-hover: rgba(255, 255, 255, 0.05);
+  --surface: rgba(241, 237, 228, 0.03);
+  --surface-hover: rgba(241, 237, 228, 0.06);
 
-  --border: rgba(255, 255, 255, 0.09);
-  --border-strong: rgba(255, 255, 255, 0.16);
+  --border: rgba(241, 237, 228, 0.09);
+  --border-strong: rgba(241, 237, 228, 0.17);
 
-  --text: #ecedf0;
-  --text-secondary: #a3a9b2;
-  --text-tertiary: #70767e;
-  --text-inverse: #08090a;
+  --text: #f1ede4;
+  --text-secondary: #aca89f;
+  --text-tertiary: #7d7a73;
+  --text-inverse: #0b0b0c;
 
-  --accent: #8ea6ff;
-  --accent-strong: #b3c3ff;
-  --accent-soft: rgba(142, 166, 255, 0.14);
-  --accent-line: rgba(142, 166, 255, 0.35);
+  --accent: #c8ff3d;
+  --accent-strong: #d9ff73;
+  --accent-soft: rgba(200, 255, 61, 0.12);
+  --accent-line: rgba(200, 255, 61, 0.38);
 
-  --highlight: #e9dcc4; /* warm editorial accent, used sparingly */
+  --highlight: #ff7a45; /* warm counterpoint, used for rare emphasis */
 
   /* --- Typography ------------------------------------------------------ */
   --font-display: "Space Grotesk Variable", "Inter Variable", system-ui,
@@ -47,7 +48,8 @@
 
   --display-sm: clamp(1.75rem, 1.2rem + 2.2vw, 2.875rem);
   --display-md: clamp(2.25rem, 1.3rem + 4vw, 4.5rem);
-  --display-lg: clamp(3rem, 1rem + 9vw, 9rem);
+  --display-lg: clamp(3.25rem, 0.5rem + 11vw, 11.5rem);
+  --display-xl: clamp(4rem, 1rem + 15vw, 17rem);
 
   --leading-tight: 1.02;
   --leading-snug: 1.18;
@@ -75,7 +77,7 @@
   --container-max: 78rem;
   --container-narrow: 46rem;
   --gutter: clamp(1.25rem, 5vw, 4rem);
-  --section-pad: clamp(5rem, 12vw, 11rem);
+  --section-pad: clamp(4rem, 9vw, 8rem);
   --header-h: 4.5rem;
 
   /* --- Shape ----------------------------------------------------------- */
