@@ -1,6 +1,8 @@
 ---
 import Section from "../ui/Section.astro";
-import { profile } from "../../data/profile.js";
+import { profile, bookingHref } from "../../data/profile.js";
+
+const base = import.meta.env.BASE_URL.replace(/\/?$/, "/");
 
 const { email, phone, location } = profile.contact;
 const linkedin = profile.links.find((link) => link.label === "LinkedIn");
@@ -8,10 +10,8 @@ const linkedin = profile.links.find((link) => link.label === "LinkedIn");
 
 <Section
   id="contact"
-  index="06"
-  label="Contact"
-  title="Let's build something."
-  aside="Transitioning into product management, with a background across AI, gaming, and platform systems."
+  title="Let's build what players *come back to.*"
+  aside={profile.seeking}
 >
   <div class="contact">
     <ul class="channels" data-reveal-group data-stagger="0.12">
@@ -21,6 +21,9 @@ const linkedin = profile.links.find((link) => link.label === "LinkedIn");
           <span class="channel__value">{email}</span>
           <span class="channel__arrow" aria-hidden="true">→</span>
         </a>
+        <button class="channel__copy mono" type="button" data-copy={email}>
+          <span data-copy-label>Copy email</span>
+        </button>
       </li>
 
       {
@@ -35,6 +38,12 @@ const linkedin = profile.links.find((link) => link.label === "LinkedIn");
         )
       }
     </ul>
+
+    <div class="contact__actions" data-reveal>
+      <a class="button button--primary" href={bookingHref}>Book a call</a>
+      <a class="button" href={`${base}${profile.resumePdf}`} download>Download resume (PDF)</a>
+      <a class="button" href={`${base}resume/`}>View resume</a>
+    </div>
 
     <ul class="contact__meta" data-reveal>
       <li>
@@ -104,6 +113,26 @@ const linkedin = profile.links.find((link) => link.label === "LinkedIn");
 
   .channel__link:hover .channel__arrow {
     transform: translateX(0.18em);
+  }
+
+  .channel__copy {
+    width: fit-content;
+    padding: 0.35rem 0.8rem;
+    color: var(--text-secondary);
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-pill);
+    transition: color var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out);
+  }
+
+  .channel__copy:hover {
+    color: var(--accent);
+    border-color: var(--accent-line);
+  }
+
+  .contact__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
   }
 
   .contact__meta {

@@ -9,15 +9,17 @@
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "check": "astro check"
+    "check": "astro check",
+    "assets": "astro build && node scripts/render-assets.mjs"
   },
   "engines": {
-    "node": ">=18.17.0"
+    "node": ">=22"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.10",
     "@types/node": "^26.5.1",
     "astro": "^7.3.2",
+    "playwright-core": "^1.63.0",
     "typescript": "^6.0.3"
   },
   "dependencies": {

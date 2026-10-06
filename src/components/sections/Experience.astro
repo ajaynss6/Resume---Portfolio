@@ -1,37 +1,57 @@
 ---
 import Section from "../ui/Section.astro";
 import experience from "../../data/experience.js";
+
+// Show the strongest few bullets per role; the rest sit behind a disclosure
+// so the page stays scannable without hiding anything from the resume.
+const VISIBLE = 3;
 ---
 
 <Section
   id="experience"
-  index="02"
-  label="Experience"
-  title="Seven years across product, analytics, and platform systems."
-  aside="From decision science to product management — spanning gaming, live services, and AI-native platforms."
+  title="Eight years, *three* chapters."
+  aside="Decision science, then live-services analytics at EA, then acting PM on a 0-1 AI platform. Each chapter added a layer: data, players, product."
 >
   <ol class="xp" data-reveal-group data-stagger="0.12">
     {
-      experience.map((role) => (
-        <li class="xp__item" data-reveal>
-          <div class="xp__aside">
-            <span class="xp__period">
-              {role.start} — {role.end}
-            </span>
-            <span class="xp__company">{role.company}</span>
-            <span class="xp__location">{role.location}</span>
-          </div>
+      experience.map((role, i) => {
+        const shown = role.highlights.slice(0, VISIBLE);
+        const more = role.highlights.slice(VISIBLE);
+        return (
+          <li class="xp__item" data-reveal>
+            <div class="xp__aside">
+              <span class="xp__chapter mono">Chapter {String(experience.length - i).padStart(2, "0")}</span>
+              <span class="xp__company">{role.company}</span>
+              <span class="xp__period mono">
+                {role.start} - {role.end}
+              </span>
+              {role.current && <span class="xp__now mono">Now</span>}
+            </div>
 
-          <div class="xp__main">
-            <h3 class="xp__role">{role.title}</h3>
-            <ul class="xp__highlights">
-              {role.highlights.map((highlight) => (
-                <li>{highlight}</li>
-              ))}
-            </ul>
-          </div>
-        </li>
-      ))
+            <div class="xp__main">
+              <h3 class="xp__role">{role.title}</h3>
+              <ul class="xp__highlights">
+                {shown.map((highlight) => (
+                  <li>{highlight}</li>
+                ))}
+              </ul>
+              {more.length > 0 && (
+                <details class="xp__more">
+                  <summary>
+                    <span class="xp__more-open">Show {more.length} more</span>
+                    <span class="xp__more-close">Show less</span>
+                  </summary>
+                  <ul class="xp__highlights">
+                    {more.map((highlight) => (
+                      <li>{highlight}</li>
+                    ))}
+                  </ul>
+                </details>
+              )}
+            </div>
+          </li>
+        );
+      })
     }
   </ol>
 </Section>
@@ -39,7 +59,7 @@ import experience from "../../data/experience.js";
 <style>
   .xp__item {
     display: grid;
-    grid-template-columns: minmax(0, 14rem) minmax(0, 1fr);
+    grid-template-columns: minmax(0, 18rem) minmax(0, 1fr);
     gap: clamp(1.5rem, 5vw, 5rem);
     padding-block: clamp(2rem, 5vw, 3.5rem);
     border-top: 1px solid var(--border);
@@ -54,32 +74,35 @@ import experience from "../../data/experience.js";
     top: 6rem;
     align-self: start;
     display: grid;
+    justify-items: start;
     gap: var(--space-2);
   }
 
-  .xp__period {
-    font-family: var(--font-mono);
-    font-size: var(--text-xs);
-    letter-spacing: var(--tracking-wide);
+  .xp__chapter {
     color: var(--accent);
   }
 
   .xp__company {
     font-family: var(--font-display);
-    font-size: var(--text-lg);
-    letter-spacing: var(--tracking-tight);
+    font-size: clamp(1.6rem, 1.1rem + 1.6vw, 2.5rem);
+    font-weight: 500;
+    letter-spacing: var(--tracking-tighter);
+    line-height: 1;
   }
 
-  .xp__location {
-    font-size: var(--text-sm);
-    color: var(--text-tertiary);
+  .xp__now {
+    padding: 0.2rem 0.55rem;
+    color: var(--text-inverse);
+    background: var(--accent);
+    border-radius: var(--radius-pill);
   }
 
   .xp__role {
-    font-family: var(--font-display);
-    font-size: clamp(1.25rem, 1rem + 1.2vw, 1.75rem);
-    font-weight: 500;
-    letter-spacing: var(--tracking-tight);
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: clamp(1.5rem, 1.1rem + 1.4vw, 2.25rem);
+    font-weight: 400;
+    letter-spacing: 0;
   }
 
   .xp__highlights {
@@ -92,7 +115,6 @@ import experience from "../../data/experience.js";
   .xp__highlights li {
     position: relative;
     padding-left: 1.5rem;
-    font-size: var(--text-sm);
     line-height: var(--leading-relaxed);
     color: var(--text-secondary);
   }
@@ -101,10 +123,54 @@ import experience from "../../data/experience.js";
     content: "";
     position: absolute;
     left: 0;
-    top: 0.72em;
-    width: 0.5rem;
+    top: 0.8em;
+    width: 0.6rem;
     height: 1px;
     background: var(--accent-line);
+  }
+
+  .xp__more {
+    margin-top: var(--space-4);
+  }
+
+  .xp__more summary {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: 0.4rem 0.9rem;
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-pill);
+    cursor: pointer;
+    list-style: none;
+    transition: color var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out);
+  }
+
+  .xp__more summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .xp__more summary:hover {
+    color: var(--text);
+    border-color: var(--accent-line);
+  }
+
+  .xp__more-close,
+  .xp__more[open] .xp__more-open {
+    display: none;
+  }
+
+  .xp__more[open] .xp__more-close {
+    display: inline;
+  }
+
+  .xp__more[open] .xp__highlights {
+    margin-top: var(--space-3);
+    margin-bottom: var(--space-4);
   }
 
   @media (max-width: 860px) {
@@ -115,14 +181,12 @@ import experience from "../../data/experience.js";
 
     .xp__aside {
       position: static;
-      display: flex;
-      flex-wrap: wrap;
-      align-items: baseline;
-      gap: var(--space-3);
     }
+  }
 
-    .xp__location {
-      margin-left: auto;
+  @media print {
+    .xp__more summary {
+      display: none;
     }
   }
 </style>

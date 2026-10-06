@@ -1,0 +1,47 @@
+---
+import BaseLayout from "../components/layout/BaseLayout.astro";
+import { profile } from "../data/profile.js";
+
+const home = import.meta.env.BASE_URL.replace(/\/?$/, "/");
+---
+
+<BaseLayout title={`Page not found | ${profile.name}`} noindex>
+  <section class="lost container" id="top">
+    <span class="eyebrow">Error 404 · Player not found</span>
+    <h1 class="lost__title display">This level <span class="serif">doesn't exist.</span></h1>
+    <p class="lost__copy">
+      The link may be stale, or the page moved during a redesign. Respawn at the start.
+    </p>
+    <div class="lost__actions">
+      <a class="button button--primary" href={home}>Back to portfolio</a>
+      <a class="button" href={`${home}resume/`}>View resume</a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .lost {
+    display: grid;
+    align-content: center;
+    gap: var(--space-6);
+    min-height: 100svh;
+    padding-block: var(--space-10);
+  }
+
+  .lost__title {
+    max-width: 14ch;
+    font-size: var(--display-md);
+  }
+
+  .lost__copy {
+    max-width: 42ch;
+    font-size: var(--text-lg);
+    color: var(--text-secondary);
+  }
+
+  .lost__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+  }
+</style>

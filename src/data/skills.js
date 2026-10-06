@@ -44,6 +44,7 @@ export const skills = [
       "Amplitude",
       "Looker",
       "Tableau",
+      "Claude Code",
     ],
   },
   {

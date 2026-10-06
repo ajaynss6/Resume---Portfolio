@@ -1,7 +1,16 @@
 ---
 // Section shell: consistent landmark, container and editorial header.
-const { id, index, label, title, aside } = Astro.props;
+// Wrap words in *asterisks* in `title` to set them in the serif italic.
+import navigation from "../../data/navigation.js";
+
+const { id, title = "", aside } = Astro.props;
+const nav = navigation.find((item) => item.id === id);
+const { index = nav?.index, label = nav?.label } = Astro.props;
 const headingId = `${id}-heading`;
+
+const parts = title.split(/(\*[^*]+\*)/g).filter(Boolean).map((part: string) =>
+  part.startsWith("*") ? { text: part.slice(1, -1), serif: true } : { text: part, serif: false },
+);
 ---
 
 <section
@@ -17,8 +26,14 @@ const headingId = `${id}-heading`;
         <span class="section-head__rule"></span>
         <span class="section-head__label">{label}</span>
       </div>
-      <h2 class="section-head__title" id={headingId} data-reveal>{title}</h2>
-      {aside && <p class="section-head__aside" data-reveal data-reveal-delay="0.08">{aside}</p>}
+      <div class="section-head__body">
+        <h2 class="section-head__title" id={headingId} data-reveal>
+          {parts.map((part: { text: string; serif: boolean }) =>
+            part.serif ? <span class="serif">{part.text}</span> : part.text,
+          )}
+        </h2>
+        {aside && <p class="section-head__aside" data-reveal data-reveal-delay="0.08">{aside}</p>}
+      </div>
     </header>
     <slot />
   </div>

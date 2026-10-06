@@ -40,7 +40,7 @@ function init() {
       animate(row, { x: 6 }, SPRING);
       if (title) animate(title, { y: -4 }, SPRING);
       if (visualInner) animate(visualInner, { scale: 1.06 }, SPRING);
-      if (index) animate(index, { opacity: 1, color: "var(--accent-strong)" }, { duration: 0.35, ease: EASE });
+      if (index) animate(index, { color: "var(--accent-strong)" }, { duration: 0.35, ease: EASE });
       if (meta) animate(meta, { opacity: 1 }, { duration: 0.35, ease: EASE });
       animate(siblings, { opacity: 0.32 }, { duration: 0.4, ease: EASE });
 
@@ -48,7 +48,7 @@ function init() {
         animate(row, { x: 0 }, SPRING);
         if (title) animate(title, { y: 0 }, SPRING);
         if (visualInner) animate(visualInner, { scale: 1 }, SPRING);
-        if (index) animate(index, { opacity: 0.45, color: "var(--text-tertiary)" }, { duration: 0.4, ease: EASE });
+        if (index) animate(index, { color: "var(--text-tertiary)" }, { duration: 0.4, ease: EASE });
         resetTilt();
         animate(siblings, { opacity: 1 }, { duration: 0.5, ease: EASE });
       };

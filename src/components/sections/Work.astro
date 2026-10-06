@@ -4,26 +4,18 @@ import TagList from "../ui/TagList.astro";
 import ProjectVisual from "./ProjectVisual.astro";
 import projects from "../../data/projects.js";
 
-const palettes = [
-  { accent: "#8ea6ff", tone: "#1b2440" },
-  { accent: "#e9dcc4", tone: "#2a2620" },
-  { accent: "#9fe8d8", tone: "#0f2a26" },
-  { accent: "#d3b9ff", tone: "#241a33" },
-  { accent: "#ffc9a8", tone: "#2e1d14" },
-];
+const home = import.meta.env.BASE_URL.replace(/\/?$/, "/");
+
 ---
 
 <Section
   id="work"
-  index="01"
-  label="Selected Work"
-  title="Product work, shipped end to end."
-  aside="0-1 platform builds and live-services analytics from Liquidnitro Games and Electronic Arts."
+  title="Product work, *shipped* end to end."
+  aside="A 0-1 AI platform, consumer app projects I build with AI, and live-services work at Electronic Arts."
 >
   <ol class="work-list" data-work-list data-reveal-group data-stagger="0.09">
     {
       projects.map((project, i) => {
-        const palette = palettes[i % palettes.length];
         const number = String(i + 1).padStart(2, "0");
         return (
           <li class="work-row" data-work-row data-reveal>
@@ -34,12 +26,18 @@ const palettes = [
                     {number}
                   </span>
                   <h3 class="work-row__title" data-work-title>
-                    {project.title}
+                    <a
+                      class="work-row__link"
+                      href={`${home}work/${project.slug}/`}
+                      style={`view-transition-name: title-${project.slug}`}
+                    >
+                      {project.title}
+                    </a>
                   </h3>
                 </div>
                 {project.context && (
                   <p class="work-row__context" data-work-meta>
-                    {project.context}
+                    {project.status ? `${project.status} · ${project.context}` : project.context}
                   </p>
                 )}
                 <p class="work-row__desc">{project.description}</p>
@@ -49,15 +47,17 @@ const palettes = [
                     label={`${project.title} tags`}
                   />
                 </div>
+                <span class="work-row__more mono" aria-hidden="true">
+                  Read case study <span class="work-row__arrow">→</span>
+                </span>
               </div>
 
-              <div class="work-visual" data-work-visual>
-                <ProjectVisual
-                  index={number}
-                  accent={palette.accent}
-                  tone={palette.tone}
-                  label={project.tags[0]}
-                />
+              <div
+                class="work-visual"
+                data-work-visual
+                style={`view-transition-name: visual-${project.slug}`}
+              >
+                <ProjectVisual index={number} variant={project.visual} />
               </div>
             </article>
           </li>
@@ -81,6 +81,7 @@ const palettes = [
   }
 
   .work-row__inner {
+    position: relative;
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(14rem, 20rem);
     gap: clamp(2rem, 5vw, 5rem);
@@ -99,7 +100,6 @@ const palettes = [
     font-family: var(--font-mono);
     font-size: var(--text-xs);
     color: var(--text-tertiary);
-    opacity: 0.45;
     transition: color var(--dur-fast) var(--ease-out);
   }
 
@@ -110,6 +110,39 @@ const palettes = [
     letter-spacing: var(--tracking-tighter);
     line-height: 1.08;
     will-change: transform;
+  }
+
+  .work-row__link::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+  }
+
+  .work-row__link:focus-visible {
+    outline: none;
+  }
+
+  .work-row__link:focus-visible::after {
+    outline: 2px solid var(--accent);
+    outline-offset: 4px;
+    border-radius: var(--radius-sm);
+  }
+
+  .work-row__more {
+    display: inline-flex;
+    gap: 0.5rem;
+    margin-top: var(--space-5);
+    color: var(--text);
+  }
+
+  .work-row__arrow {
+    color: var(--accent);
+    transition: transform var(--dur) var(--ease-out);
+  }
+
+  .work-row:hover .work-row__arrow {
+    transform: translateX(4px);
   }
 
   .work-row__context {
