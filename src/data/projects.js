@@ -1,6 +1,6 @@
 // ---------------------------------------------------------------------------
 // Projects / case studies.
-// Professional work maps to the resume; personal prototypes map to their own
+// Professional work maps to the resume; personal projects map to their own
 // repos. Nothing is invented. Each project gets a page at /work/<slug>/.
 //
 // Fields
@@ -8,7 +8,7 @@
 //   title, context        list heading and one-line context
 //   description           list summary
 //   company, role, period, team
-//   status                OPTIONAL short label, e.g. "Prototype"
+//   status                OPTIONAL short label, e.g. "Personal project"
 //   audience, needs[]     OPTIONAL who it's for and what they need
 //   problem               why it mattered (stated or directly implied by the source)
 //   approach[]            what I did
@@ -76,17 +76,17 @@ export const projects = [
     ],
   },
   {
-    // Source: ajaynss6/finance_tracker (private for now). Prototype: no
-    // numbers on purpose.
+    // Source: ajaynss6/finance_tracker (private for now). Personal project:
+    // no numbers on purpose.
     slug: "finance-tracker",
     visual: "ledger",
-    status: "AI prototype",
+    status: "Personal project",
     title: "Finance Tracker: One Clean Ledger for Your Money",
     context: "iOS · Consumer fintech",
     description:
       "An iPhone app that turns bank alerts, receipts and statements into one clean, de-duplicated ledger, scores your money habits every day, and answers questions about your spending in plain English. Everything runs on the phone.",
     tags: ["AI Product", "Consumer", "Fintech", "iOS", "Gamification"],
-    company: "Personal prototype",
+    company: "Personal project",
     role: "Product owner and builder",
     period: "2026",
     team: "Solo, with Claude Code as the engineering team",
@@ -142,17 +142,17 @@ export const projects = [
     repo: { url: "https://github.com/ajaynss6/finance_tracker", public: false },
   },
   {
-    // Source: ajaynss6/Workout-Log (private for now). Prototype: no numbers
-    // on purpose; the PRD's success metrics are targets, not results.
+    // Source: ajaynss6/Workout-Log (private for now). Personal project: no
+    // numbers on purpose; the PRD's success metrics are targets, not results.
     slug: "workout-log",
     visual: "workout",
-    status: "AI prototype",
+    status: "Personal project",
     title: "Workout Log: A Gym Tracker Built for Beginners",
     context: "iOS · Consumer fitness",
     description:
       "A workout tracker designed around the beginner lifter: log the set you just did in as few taps as possible, with sensible defaults and early signs of progress, so new lifters keep showing up long enough for the habit to stick.",
     tags: ["AI Product", "Consumer", "Fitness", "iOS", "UX Research"],
-    company: "Personal prototype",
+    company: "Personal project",
     role: "Product owner and builder",
     period: "2026",
     team: "Solo, AI-assisted build",
