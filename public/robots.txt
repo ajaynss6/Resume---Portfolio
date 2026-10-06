@@ -1,2 +1,4 @@
 User-agent: *
 Allow: /
+
+Sitemap: https://ajaynss6.github.io/Resume---Portfolio/sitemap.xml

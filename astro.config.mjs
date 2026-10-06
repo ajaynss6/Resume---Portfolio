@@ -17,4 +17,6 @@ const base = process.env.BASE_PATH || "/Resume---Portfolio";
 export default defineConfig({
   site,
   base,
+  // The CSS is small; inlining it removes a render-blocking request.
+  build: { inlineStylesheets: "always" },
 });

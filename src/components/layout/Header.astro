@@ -11,9 +11,10 @@ const linkedin = profile.links.find((link) => link.label === "LinkedIn");
     <span class="hud__glow" aria-hidden="true"></span>
     <span class="hud__progress" data-scroll-progress aria-hidden="true"></span>
 
-    <a class="hud__brand" href={`${home}#top`} aria-label={`${profile.name}: back to top`}>
+    <a class="hud__brand" href={`${home}#top`}>
       <span class="hud__mark" aria-hidden="true">AK</span>
-      <span class="hud__name">{profile.name}</span>
+      <span class="hud__name" aria-hidden="true">{profile.name}</span>
+      <span class="visually-hidden">{profile.name}, back to top</span>
     </a>
 
     <nav class="hud__nav" aria-label="Primary">
