@@ -38,6 +38,10 @@ const linkedin = profile.links.find((link) => link.label === "LinkedIn");
         <span class="hud__tz" aria-hidden="true">IST</span>
       </span>
 
+      <button class="hud__brief" type="button" data-brief-open aria-haspopup="dialog">
+        TL;DR
+      </button>
+
       <a class="hud__resume" href={`${home}resume/`}>Resume</a>
 
       <a class="hud__cta" href={bookingHref}>
@@ -301,6 +305,22 @@ const linkedin = profile.links.find((link) => link.label === "LinkedIn");
     font-variant-numeric: tabular-nums;
   }
 
+  .hud__brief {
+    height: 2.25rem;
+    padding-inline: 0.8rem;
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: var(--tracking-wide);
+    color: var(--accent);
+    border: 1px dashed var(--accent-line);
+    border-radius: var(--radius-pill);
+    transition: background var(--dur-fast) var(--ease-out);
+  }
+
+  .hud__brief:hover {
+    background: var(--accent-soft);
+  }
+
   .hud__resume {
     padding-inline: 0.6rem;
     font-size: var(--text-sm);
@@ -460,6 +480,10 @@ const linkedin = profile.links.find((link) => link.label === "LinkedIn");
   }
 
   @media (max-width: 520px) {
+    .hud {
+      gap: var(--space-2);
+    }
+
     .hud__cta-text {
       position: absolute;
       width: 1px;
@@ -469,18 +493,7 @@ const linkedin = profile.links.find((link) => link.label === "LinkedIn");
       white-space: nowrap;
     }
 
-    .hud__resume {
-    padding-inline: 0.6rem;
-    font-size: var(--text-sm);
-    color: var(--text-secondary);
-    transition: color var(--dur-fast) var(--ease-out);
-  }
-
-  .hud__resume:hover {
-    color: var(--text);
-  }
-
-  .hud__cta {
+    .hud__cta {
       padding-inline: 0.75rem;
     }
 
