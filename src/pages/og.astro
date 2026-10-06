@@ -1,0 +1,118 @@
+---
+// 1200x630 social card, rendered to public/og.png by `npm run assets`.
+import "@fontsource-variable/space-grotesk";
+import "@fontsource/instrument-serif/latin-400-italic.css";
+import "@fontsource-variable/jetbrains-mono";
+import { profile } from "../data/profile.js";
+
+// Deterministic dot field: same art as the hero, frozen.
+let seed = 7;
+const rand = () => ((seed = (seed * 16807) % 2147483647) - 1) / 2147483646;
+const dots = Array.from({ length: 1400 }, () => {
+  const a = rand() * Math.PI * 2;
+  const r = Math.sqrt(rand()) * 300;
+  return {
+    x: 900 + Math.cos(a) * r * 1.15,
+    y: 315 + Math.sin(a) * r,
+    s: rand() < 0.04 ? 3.2 : 1.6,
+    lit: rand() < 0.035,
+  };
+});
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="robots" content="noindex" />
+    <title>{profile.name} social card</title>
+  </head>
+  <body>
+    <div class="card">
+      <svg class="field" viewBox="0 0 1200 630" aria-hidden="true">
+        {
+          dots.map((d) => (
+            <circle cx={d.x} cy={d.y} r={d.s} fill={d.lit ? "#c8ff3d" : "rgba(241,237,228,0.32)"} />
+          ))
+        }
+      </svg>
+      <div class="copy">
+        <span class="kicker">Portfolio · {profile.location}</span>
+        <h1>Ajay<br />Krishna</h1>
+        <p>Product Manager for <em>consumer apps</em> &amp; games</p>
+        <span class="stat">5M+ DAU · $45M+ revenue · 0-1 AI platform</span>
+      </div>
+    </div>
+  </body>
+</html>
+
+<style is:global>
+  * {
+    margin: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    width: 1200px;
+    height: 630px;
+    background: #0b0b0c;
+    color: #f1ede4;
+    font-family: "Space Grotesk Variable", sans-serif;
+  }
+
+  .card {
+    position: relative;
+    width: 1200px;
+    height: 630px;
+    overflow: hidden;
+    background:
+      radial-gradient(60% 80% at 80% 50%, rgba(200, 255, 61, 0.08), transparent 70%),
+      #0b0b0c;
+  }
+
+  .field {
+    position: absolute;
+    inset: 0;
+  }
+
+  .copy {
+    position: absolute;
+    left: 72px;
+    top: 64px;
+    bottom: 64px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .kicker,
+  .stat {
+    font-family: "JetBrains Mono Variable", monospace;
+    font-size: 18px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(241, 237, 228, 0.6);
+  }
+
+  .stat {
+    color: #c8ff3d;
+  }
+
+  h1 {
+    font-size: 148px;
+    font-weight: 600;
+    line-height: 0.86;
+    letter-spacing: -0.055em;
+    text-transform: uppercase;
+  }
+
+  p {
+    font-size: 34px;
+    letter-spacing: -0.02em;
+  }
+
+  em {
+    font-family: "Instrument Serif", serif;
+    font-size: 1.15em;
+  }
+</style>

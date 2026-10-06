@@ -1,17 +1,17 @@
-# Ajay Krishna — Portfolio
+# Ajay Krishna | Portfolio
 
-A premium, dark-first personal portfolio for Ajay Krishna — built as a fully
+A premium, dark-first personal portfolio for Ajay Krishna, built as a fully
 static site that deploys to GitHub Pages.
 
 **Live:** https://ajaynss6.github.io/Resume---Portfolio/
 
 ## Stack
 
-- **[Astro](https://astro.build)** — static HTML output, component-based, no
+- **[Astro](https://astro.build)**: static HTML output, component-based, no
   runtime framework.
-- **[Motion](https://motion.dev)** (vanilla) — scroll reveals, text reveals,
+- **[Motion](https://motion.dev)** (vanilla): scroll reveals, text reveals,
   parallax, count-ups, hover and micro-interactions.
-- **Plain CSS with design tokens** — dark-first system in `src/styles/tokens.css`.
+- **Plain CSS with design tokens**: dark-first system in `src/styles/tokens.css`.
 - **Self-hosted fonts** (Fontsource, latin-subsetted): Space Grotesk (display),
   Inter (body), JetBrains Mono (metadata), Instrument Serif (editorial accents).
 - Build-time dependencies only. No UI framework, no CSS framework.
@@ -33,14 +33,14 @@ static site that deploys to GitHub Pages.
 │   │   ├── motion-system.js       # attribute-driven animation engine
 │   │   ├── nav.js                 # scroll progress, active section, mobile menu
 │   │   └── projects.js            # work-section hover interactions
-│   ├── pages/index.astro          # homepage — assembles the sections
+│   ├── pages/index.astro          # homepage: assembles the sections
 │   └── styles/                    # tokens.css, base.css, utilities.css, global.css
 └── astro.config.mjs
 ```
 
 ### Content
 
-All professional content lives in `src/data/` — components never hardcode it:
+All professional content lives in `src/data/`: components never hardcode it:
 
 | File                 | Contents                          |
 | -------------------- | --------------------------------- |

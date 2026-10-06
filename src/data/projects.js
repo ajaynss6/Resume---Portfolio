@@ -1,6 +1,6 @@
 // ---------------------------------------------------------------------------
 // Projects / product work.
-// Derived from the resume experience section — no invented details. Each item
+// Derived from the resume experience section: no invented details. Each item
 // maps to work described in the resume. Add more projects here as they arise.
 // ---------------------------------------------------------------------------
 
@@ -37,7 +37,7 @@ export const projects = [
     title: "Ad Monetization & Telemetry Analytics",
     context: "Electronic Arts (EA)",
     description:
-      "Ran analytics for the Ad Monetization team across multiple titles — tracking network trends, detecting anomalies, and running deep-dive performance analyses — and deployed telemetry ensuring precise, reliable data collection portfolio-wide.",
+      "Ran analytics for the Ad Monetization team across multiple titles: tracking network trends, detecting anomalies, and running deep-dive performance analyses: and deployed telemetry ensuring precise, reliable data collection portfolio-wide.",
     tags: ["Monetization", "Telemetry", "A/B Testing"],
   },
 ];

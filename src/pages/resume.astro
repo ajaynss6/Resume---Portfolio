@@ -1,0 +1,280 @@
+---
+// Print-first, ATS-friendly resume rendered from the same data as the site.
+// `npm run resume:pdf` prints this page to public/<profile.resumePdf>.
+import { profile } from "../data/profile.js";
+import experience from "../data/experience.js";
+import education from "../data/education.js";
+import certifications from "../data/certifications.js";
+import skills from "../data/skills.js";
+
+const base = import.meta.env.BASE_URL.replace(/\/?$/, "/");
+const linkedin = profile.links.find((link) => link.label === "LinkedIn");
+const title = `${profile.name} | Resume`;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={profile.positioning} />
+    <meta name="robots" content="noindex" />
+    <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
+  </head>
+  <body>
+    <nav class="toolbar" aria-label="Resume actions">
+      <a href={base}>Back to portfolio</a>
+      <a href={`${base}${profile.resumePdf}`} download>Download PDF</a>
+    </nav>
+
+    <main class="page">
+      <header class="head">
+        <h1>{profile.name}</h1>
+        <p class="head__role">{profile.headline}</p>
+        <p class="head__contact">
+          <span>{profile.contact.phone}</span>
+          <a href={`mailto:${profile.contact.email}`}>{profile.contact.email}</a>
+          <span>{profile.contact.location}</span>
+          {linkedin && <a href={linkedin.href}>{linkedin.handle}</a>}
+        </p>
+      </header>
+
+      <section>
+        <h2>Professional Summary</h2>
+        <p>{profile.summary}</p>
+      </section>
+
+      <section>
+        <h2>Experience</h2>
+        {
+          experience.map((role) => (
+            <article class="role">
+              <div class="row">
+                <h3>{role.title}</h3>
+                <span class="muted">
+                  {role.start} - {role.end}
+                </span>
+              </div>
+              <div class="row">
+                <span class="org">{role.company}</span>
+                <span class="org">{role.location}</span>
+              </div>
+              <ul>
+                {role.highlights.map((item) => (
+                  <li>{item}</li>
+                ))}
+              </ul>
+            </article>
+          ))
+        }
+      </section>
+
+      <section>
+        <h2>Education</h2>
+        {
+          certifications.map((item) => (
+            <article class="role">
+              <div class="row">
+                <h3>
+                  {item.issuer} · <span class="org">{item.name}</span>
+                </h3>
+                <span class="muted">{item.year}</span>
+              </div>
+            </article>
+          ))
+        }
+        {
+          education.map((item) => (
+            <article class="role">
+              <div class="row">
+                <h3>
+                  {item.institution} · <span class="org">{item.qualification}</span>
+                </h3>
+                <span class="muted">{item.period}</span>
+              </div>
+            </article>
+          ))
+        }
+      </section>
+
+      <section>
+        <h2>Skills</h2>
+        {
+          skills.map((group) => (
+            <p class="skills">
+              <strong>{group.category}:</strong> {group.items.join(", ")}
+            </p>
+          ))
+        }
+      </section>
+    </main>
+  </body>
+</html>
+
+<style is:global>
+  :root {
+    --ink: #111827;
+    --ink-2: #374151;
+    --ink-3: #6b7280;
+    --brand: #1f3a5f;
+    color-scheme: light;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+  }
+
+  body {
+    font-family: Arial, "Liberation Sans", Helvetica, sans-serif;
+    font-size: 9pt;
+    line-height: 1.27;
+    color: var(--ink);
+    background: #e5e7eb;
+  }
+
+  a {
+    color: var(--brand);
+    text-decoration: none;
+  }
+
+  .toolbar {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    padding: 1rem;
+    font-size: 0.875rem;
+  }
+
+  .toolbar a {
+    padding: 0.5rem 1rem;
+    border: 1px solid #9ca3af;
+    border-radius: 999px;
+    background: #fff;
+    color: var(--ink);
+  }
+
+  .page {
+    width: min(100%, 210mm);
+    margin: 0 auto 2rem;
+    padding: 10mm 12mm;
+    background: #fff;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+  }
+
+  .head h1 {
+    font-size: 20pt;
+    letter-spacing: -0.02em;
+    color: var(--brand);
+  }
+
+  .head__role {
+    margin-top: 2pt;
+    font-weight: 600;
+    color: var(--ink-2);
+  }
+
+  .head__contact {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 12pt;
+    margin-top: 4pt;
+    font-size: 9pt;
+    color: var(--ink-2);
+  }
+
+  section {
+    margin-top: 7pt;
+  }
+
+  h2 {
+    padding-bottom: 2pt;
+    margin-bottom: 4pt;
+    font-size: 10pt;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--brand);
+    border-bottom: 1.2pt solid var(--brand);
+  }
+
+  h3 {
+    font-size: 10pt;
+  }
+
+  .role + .role {
+    margin-top: 4pt;
+  }
+
+  .row {
+    display: flex;
+    justify-content: space-between;
+    gap: 8pt;
+  }
+
+  .muted {
+    font-style: italic;
+    color: var(--ink-3);
+    white-space: nowrap;
+  }
+
+  .org {
+    font-weight: 600;
+    color: var(--brand);
+  }
+
+  ul {
+    margin-top: 3pt;
+    padding-left: 13pt;
+  }
+
+  li {
+    margin-top: 1pt;
+    color: var(--ink-2);
+  }
+
+  .skills + .skills {
+    margin-top: 3pt;
+  }
+
+  @page {
+    size: A4;
+    margin: 8mm 12mm;
+  }
+
+  @media print {
+    body {
+      background: #fff;
+    }
+
+    .toolbar {
+      display: none;
+    }
+
+    .page {
+      width: auto;
+      margin: 0;
+      padding: 0;
+      box-shadow: none;
+    }
+
+    .role {
+      break-inside: avoid;
+    }
+
+    h2 {
+      break-after: avoid;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .page {
+      padding: 1.25rem;
+    }
+
+    .row {
+      flex-direction: column;
+      gap: 0;
+    }
+  }
+</style>
