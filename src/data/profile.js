@@ -19,10 +19,10 @@ export const profile = {
 
   // Short, scannable pitch for recruiters (30-second read).
   pitch: [
-    "Acting PM at a Series A gaming startup: led a 0-1 AI-native live-services platform from PRD to six shipped modules.",
+    "Acting PM at a Series A gaming startup on an unreleased 0-1 AI platform (under NDA): PRDs, AI prototypes, prioritization, shipping.",
     "2+ years at Electronic Arts on Bejeweled, Plants vs. Zombies, NFS No Limits and The Sims Mobile (5M+ DAU, $45M+ annual revenue).",
     "Experimentation and monetization by trade: A/B tests, telemetry, ad monetization, $500K+ incremental revenue.",
-    "Builds with AI: designed a multi-agent insights system at work, and builds consumer app projects end to end with AI coding agents.",
+    "Builds with AI: designs multi-agent AI workflows at work, and builds consumer app projects end to end with AI coding agents.",
   ],
 
   summary:
@@ -32,7 +32,7 @@ export const profile = {
   story: [
     "I started in decision science at Mu Sigma, building forecasts and models for Fortune 100 and 500 clients. That taught me to start from the decision, not the dashboard.",
     "At Electronic Arts I moved inside live games: Bejeweled, Plants vs. Zombies, Need for Speed No Limits, The Sims Mobile. Telemetry, A/B tests, ad monetization, and the weekly rhythm of live ops across a portfolio of 5M+ daily players.",
-    "At Liquidnitro Games I joined as the first data hire and ended up running product. I wrote every PRD, prototyped with AI before engineering touched it, and shipped six modules of a 0-1 platform while the team grew from under 5 to 20+.",
+    "At Liquidnitro Games I joined as the first data hire and ended up doing the PM job on an unreleased AI platform: writing the PRDs, prototyping with AI before engineering touched it, and owning prioritization as the team grew.",
     "Outside work I build consumer app projects with AI coding agents: a finance tracker for Indian iPhone users and a gym log for beginners. I write the PRD and the product rules, direct the build, and test every version on my own phone. It keeps my product instincts close to real users and real code.",
   ],
 
