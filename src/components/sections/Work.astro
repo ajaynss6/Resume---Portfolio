@@ -4,6 +4,8 @@ import TagList from "../ui/TagList.astro";
 import ProjectVisual from "./ProjectVisual.astro";
 import projects from "../../data/projects.js";
 
+const home = import.meta.env.BASE_URL.replace(/\/?$/, "/");
+
 ---
 
 <Section
@@ -24,7 +26,13 @@ import projects from "../../data/projects.js";
                     {number}
                   </span>
                   <h3 class="work-row__title" data-work-title>
-                    {project.title}
+                    <a
+                      class="work-row__link"
+                      href={`${home}work/${project.slug}/`}
+                      style={`view-transition-name: title-${project.slug}`}
+                    >
+                      {project.title}
+                    </a>
                   </h3>
                 </div>
                 {project.context && (
@@ -39,9 +47,16 @@ import projects from "../../data/projects.js";
                     label={`${project.title} tags`}
                   />
                 </div>
+                <span class="work-row__more mono" aria-hidden="true">
+                  Read case study <span class="work-row__arrow">→</span>
+                </span>
               </div>
 
-              <div class="work-visual" data-work-visual>
+              <div
+                class="work-visual"
+                data-work-visual
+                style={`view-transition-name: visual-${project.slug}`}
+              >
                 <ProjectVisual index={number} variant={project.visual} />
               </div>
             </article>
@@ -66,6 +81,7 @@ import projects from "../../data/projects.js";
   }
 
   .work-row__inner {
+    position: relative;
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(14rem, 20rem);
     gap: clamp(2rem, 5vw, 5rem);
@@ -95,6 +111,39 @@ import projects from "../../data/projects.js";
     letter-spacing: var(--tracking-tighter);
     line-height: 1.08;
     will-change: transform;
+  }
+
+  .work-row__link::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+  }
+
+  .work-row__link:focus-visible {
+    outline: none;
+  }
+
+  .work-row__link:focus-visible::after {
+    outline: 2px solid var(--accent);
+    outline-offset: 4px;
+    border-radius: var(--radius-sm);
+  }
+
+  .work-row__more {
+    display: inline-flex;
+    gap: 0.5rem;
+    margin-top: var(--space-5);
+    color: var(--text);
+  }
+
+  .work-row__arrow {
+    color: var(--accent);
+    transition: transform var(--dur) var(--ease-out);
+  }
+
+  .work-row:hover .work-row__arrow {
+    transform: translateX(4px);
   }
 
   .work-row__context {

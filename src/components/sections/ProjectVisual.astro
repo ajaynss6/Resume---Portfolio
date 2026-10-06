@@ -39,7 +39,7 @@ const bars = [38, 64, 52, 88, 71, 112, 96];
               <g class:list={["tile", i === 4 && "tile--lit"]} style={`--d:${i * 0.12}s`}>
                 <rect x={x} y={y} width="104" height="92" rx="10" />
                 <text x={x + 12} y={y + 24} class="t-mono">{`0${i + 1}`}</text>
-                <text x={x + 12} y={y + 78} class="t-label">{label}</text>
+                <text x={x + 12} y={y + 78} class="t-label t-small">{label}</text>
               </g>
             );
           })}
@@ -148,6 +148,10 @@ const bars = [38, 64, 52, 88, 71, 112, 96];
     font-family: var(--font-display);
     font-size: 14px;
     fill: var(--text);
+  }
+
+  .t-small {
+    font-size: 12px;
   }
 
   .t-dark {

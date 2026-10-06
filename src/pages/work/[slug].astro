@@ -1,0 +1,370 @@
+---
+import BaseLayout from "../../components/layout/BaseLayout.astro";
+import ProjectVisual from "../../components/sections/ProjectVisual.astro";
+import TagList from "../../components/ui/TagList.astro";
+import { publishedProjects } from "../../data/projects.js";
+import { profile, bookingHref } from "../../data/profile.js";
+
+export function getStaticPaths() {
+  return publishedProjects.map((project, i) => ({
+    params: { slug: project.slug },
+    props: {
+      project,
+      number: String(i + 1).padStart(2, "0"),
+      next: publishedProjects[(i + 1) % publishedProjects.length],
+    },
+  }));
+}
+
+const { project, number, next } = Astro.props;
+const decisions = project.decisions ?? [];
+const learnings = project.learnings ?? [];
+const home = import.meta.env.BASE_URL.replace(/\/?$/, "/");
+
+const facts = [
+  { label: "Company", value: project.company },
+  { label: "Role", value: project.role },
+  { label: "Period", value: project.period },
+  { label: "Team", value: project.team },
+].filter((fact) => fact.value);
+---
+
+<BaseLayout title={`${project.title} | ${profile.name}`} description={project.description}>
+  <article class="case">
+    <header class="case__hero container" id="top">
+      <a class="case__back mono" href={`${home}#work`}>← All work</a>
+      <span class="eyebrow">Case study {number} · {project.context}</span>
+      <h1 class="case__title display" style={`view-transition-name: title-${project.slug}`}>
+        {project.title}
+      </h1>
+      <p class="case__lede" data-reveal>{project.description}</p>
+      <dl class="case__facts" data-reveal data-reveal-delay="0.1">
+        {
+          facts.map((fact) => (
+            <div class="case__fact">
+              <dt class="mono">{fact.label}</dt>
+              <dd>{fact.value}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </header>
+
+    <div class="case__visual container" data-reveal style={`view-transition-name: visual-${project.slug}`}>
+      <ProjectVisual index={number} variant={project.visual} />
+    </div>
+
+    {
+      project.outcomes.length > 0 && (
+        <section class="case__outcomes container" aria-label="Outcomes">
+          {project.outcomes.map((outcome) => (
+            <div class="case__outcome" data-reveal>
+              <span class="case__outcome-value">{outcome.value}</span>
+              <span class="case__outcome-label">{outcome.label}</span>
+            </div>
+          ))}
+        </section>
+      )
+    }
+
+    <div class="case__body container">
+      {
+        project.problem && (
+          <section class="case__block" data-reveal>
+            <h2 class="case__label mono">The problem</h2>
+            <p class="case__statement">{project.problem}</p>
+          </section>
+        )
+      }
+
+      {
+        project.approach.length > 0 && (
+          <section class="case__block" data-reveal>
+            <h2 class="case__label mono">What I did</h2>
+            <ol class="case__steps">
+              {project.approach.map((step) => (
+                <li>{step}</li>
+              ))}
+            </ol>
+          </section>
+        )
+      }
+
+      {
+        decisions.length > 0 && (
+          <section class="case__block" data-reveal>
+            <h2 class="case__label mono">Key decisions</h2>
+            <div class="case__decisions">
+              {decisions.map((decision) => (
+                <div class="case__decision">
+                  <h3>{decision.title}</h3>
+                  <p>{decision.body}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+        )
+      }
+
+      {
+        project.shipped.length > 0 && (
+          <section class="case__block" data-reveal>
+            <h2 class="case__label mono">What shipped</h2>
+            <ul class="case__shipped">
+              {project.shipped.map((item) => (
+                <li>{item}</li>
+              ))}
+            </ul>
+          </section>
+        )
+      }
+
+      {
+        learnings.length > 0 && (
+          <section class="case__block" data-reveal>
+            <h2 class="case__label mono">What I learned</h2>
+            <ul class="case__steps">
+              {learnings.map((item) => (
+                <li>{item}</li>
+              ))}
+            </ul>
+          </section>
+        )
+      }
+
+      <section class="case__block" data-reveal>
+        <h2 class="case__label mono">Tags</h2>
+        <TagList tags={project.tags} label={`${project.title} tags`} />
+      </section>
+    </div>
+
+    <nav class="case__next container" aria-label="Next case study">
+      <a class="case__next-link" href={`${home}work/${next.slug}/`}>
+        <span class="mono">Next case study</span>
+        <span class="case__next-title">{next.title}</span>
+        <span class="case__next-arrow" aria-hidden="true">→</span>
+      </a>
+      <div class="case__cta">
+        <p>Want the details behind the numbers?</p>
+        <a class="button button--primary" href={bookingHref}>Book a call</a>
+      </div>
+    </nav>
+  </article>
+</BaseLayout>
+
+<style>
+  .case {
+    padding-top: calc(var(--header-h) + var(--space-8));
+  }
+
+  .case__hero {
+    display: grid;
+    gap: var(--space-5);
+  }
+
+  .case__back {
+    width: fit-content;
+    color: var(--text-secondary);
+    transition: color var(--dur-fast) var(--ease-out);
+  }
+
+  .case__back:hover {
+    color: var(--accent);
+  }
+
+  .case__title {
+    max-width: 18ch;
+    font-size: var(--display-md);
+    line-height: 0.98;
+  }
+
+  .case__lede {
+    max-width: 56ch;
+    font-size: var(--text-lg);
+    color: var(--text-secondary);
+  }
+
+  .case__facts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+    gap: var(--space-5);
+    padding-top: var(--space-5);
+    border-top: 1px solid var(--border);
+  }
+
+  .case__fact dd {
+    margin: var(--space-2) 0 0;
+    font-size: var(--text-sm);
+    color: var(--text);
+  }
+
+  .case__visual {
+    margin-block: var(--space-8);
+  }
+
+  .case__visual :global(.visual) {
+    aspect-ratio: 16 / 8;
+  }
+
+  .case__outcomes {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+    gap: 1px;
+    margin-bottom: var(--space-9);
+  }
+
+  .case__outcome {
+    display: grid;
+    gap: var(--space-2);
+    padding: var(--space-5) var(--space-5) var(--space-5) 0;
+    border-top: 1px solid var(--accent-line);
+  }
+
+  .case__outcome-value {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 1.5rem + 3vw, 4.5rem);
+    font-weight: 500;
+    letter-spacing: -0.05em;
+    line-height: 1;
+  }
+
+  .case__outcome-label {
+    max-width: 24ch;
+    color: var(--text-secondary);
+  }
+
+  .case__body {
+    display: grid;
+    gap: var(--space-8);
+  }
+
+  .case__block {
+    display: grid;
+    grid-template-columns: minmax(0, 14rem) minmax(0, 1fr);
+    gap: var(--space-5) clamp(2rem, 6vw, 6rem);
+    padding-top: var(--space-5);
+    border-top: 1px solid var(--border);
+  }
+
+  .case__label {
+    color: var(--accent);
+  }
+
+  .case__statement {
+    max-width: 34ch;
+    font-family: var(--font-display);
+    font-size: clamp(1.4rem, 1rem + 1.5vw, 2.25rem);
+    line-height: 1.2;
+    letter-spacing: var(--tracking-tight);
+  }
+
+  .case__steps {
+    display: grid;
+    gap: var(--space-4);
+    max-width: 62ch;
+    counter-reset: step;
+  }
+
+  .case__steps li {
+    position: relative;
+    padding-left: 2.75rem;
+    font-size: var(--text-md);
+    color: var(--text-secondary);
+    counter-increment: step;
+  }
+
+  .case__steps li::before {
+    content: counter(step, decimal-leading-zero);
+    position: absolute;
+    left: 0;
+    top: 0.2em;
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--text-tertiary);
+  }
+
+  .case__shipped {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+  }
+
+  .case__shipped li {
+    padding: 0.7rem 1.1rem;
+    font-size: var(--text-sm);
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-sm);
+    background: var(--surface);
+  }
+
+  .case__decisions {
+    display: grid;
+    gap: var(--space-5);
+  }
+
+  .case__decision h3 {
+    font-size: var(--text-lg);
+  }
+
+  .case__decision p {
+    margin-top: var(--space-2);
+    max-width: 62ch;
+    color: var(--text-secondary);
+  }
+
+  .case__next {
+    display: grid;
+    gap: var(--space-7);
+    padding-block: var(--space-10) var(--space-9);
+  }
+
+  .case__next-link {
+    display: grid;
+    gap: var(--space-3);
+    padding-block: var(--space-6);
+    border-block: 1px solid var(--border);
+  }
+
+  .case__next-title {
+    max-width: 20ch;
+    font-family: var(--font-display);
+    font-size: var(--display-sm);
+    letter-spacing: var(--tracking-tighter);
+    line-height: 1;
+    transition: color var(--dur) var(--ease-out);
+  }
+
+  .case__next-arrow {
+    font-size: var(--display-sm);
+    color: var(--accent);
+    transition: transform var(--dur) var(--ease-out);
+  }
+
+  .case__next-link:hover .case__next-title {
+    color: var(--accent);
+  }
+
+  .case__next-link:hover .case__next-arrow {
+    transform: translateX(0.3em);
+  }
+
+  .case__cta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    font-size: var(--text-lg);
+    color: var(--text-secondary);
+  }
+
+  @media (max-width: 760px) {
+    .case__block {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .case__visual :global(.visual) {
+      aspect-ratio: 4 / 3;
+    }
+  }
+</style>

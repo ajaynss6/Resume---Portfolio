@@ -148,6 +148,21 @@ textarea {
   border: 0;
 }
 
+/* --- Page transitions ------------------------------------------------ */
+/* Native cross-document view transitions: project titles and visuals morph
+   between the work list and case study pages. No JS router. */
+
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition {
+    navigation: auto;
+  }
+
+  ::view-transition-group(*) {
+    animation-duration: 0.55s;
+    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+}
+
 /* --- Motion initial states -------------------------------------------- */
 /* Hidden states are applied only when JS is active *and* the user has not
    requested reduced motion, so reduced-motion and no-JS users always see
