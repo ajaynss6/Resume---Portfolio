@@ -1,0 +1,27 @@
+---
+// The Thread: scroll-revealed particle stream from the hero galaxy to the
+// footer. Fixed behind the page content; purely decorative.
+---
+
+<canvas class="thread" data-thread aria-hidden="true"></canvas>
+
+<script>
+  import "../../scripts/thread.js";
+</script>
+
+<style>
+  .thread {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+  }
+
+  @media print {
+    .thread {
+      display: none;
+    }
+  }
+</style>

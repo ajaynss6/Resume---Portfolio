@@ -15,7 +15,7 @@ export const experience = [
     // describe the product, its features, AI systems or numbers here. The full
     // detail belongs only on the resume sent directly to employers.
     highlights: [
-      "As acting product manager, owned the product function end to end at a Series A gaming studio, working with a cross-functional team across engineering, design, data and AI.",
+      "Owned the product function end to end at a Series A gaming studio, working with a cross-functional team across engineering, design, data and AI.",
       "Authored the PRDs, feature specs and UX requirements, and owned prioritization and tradeoff decisions across sprints.",
       "Built functional prototypes with AI to validate concepts before engineering committed to them.",
       "Established the studio's founding data function as its first data hire: competitive analysis, player insights and business intelligence for leadership.",
