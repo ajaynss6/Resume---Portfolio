@@ -58,7 +58,7 @@ export const projects = [
     period: "2026",
     team: "Solo, with Claude Code as the engineering team",
     audience:
-      "Salaried iPhone users in India juggling UPI, cards and EMIs across several banks, who want to know where their money goes without becoming bookkeepers.",
+      "Busy professionals juggling UPI, cards and EMIs across several banks, who want to know where their money goes without becoming bookkeepers.",
     needs: [
       "See where the money went without typing every payment in.",
       "Trust the totals: no double counting, no guessed merges.",
