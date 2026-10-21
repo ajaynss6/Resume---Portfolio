@@ -3,7 +3,10 @@ import { publishedProjects } from "../data/projects.js";
 
 export function GET({ site }) {
   const base = import.meta.env.BASE_URL.replace(/\/?$/, "/");
-  const paths = ["", "resume/", ...publishedProjects.map((project) => `work/${project.slug}/`)];
+  const docs = Object.keys(import.meta.glob("./docs/*.md")).map(
+    (file) => `docs/${file.replace("./docs/", "").replace(/\.md$/, "")}/`,
+  );
+  const paths = ["", "resume/", ...publishedProjects.map((project) => `work/${project.slug}/`), ...docs];
   const urls = paths
     .map((path) => `  <url><loc>${new URL(`${base}${path}`, site).href}</loc></url>`)
     .join("\n");

@@ -1,0 +1,229 @@
+---
+// A real product screen, framed for its kind:
+//   phone    device frame         desktop  browser chrome
+//   slide    portrait card        chart    light card for charts
+// `cover` fills the 4:3 tile used in the work list; otherwise the image keeps
+// its natural shape (case study galleries). A cover with `stack` (2-3 phones or
+// slides) fans them out, the middle one in front.
+const { media, cover = false, eager = false, stack = [] } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/?$/, "/");
+const src = `${base}${media.src}`;
+const fan = cover && stack.length > 1;
+---
+
+<figure
+  class:list={["media", `media--${media.kind}`, cover && "media--cover", fan && "media--fan"]}
+  data-work-visual-inner
+>
+  <div class="media__stage">
+    {
+      fan &&
+        stack.map((item: { src: string; alt: string }, i: number) => (
+          <img
+            class:list={["media__img", "media__fan", `media__fan--${i}`]}
+            src={`${base}${item.src}`}
+            alt={i === 1 ? media.alt : ""}
+            loading={eager ? "eager" : "lazy"}
+            decoding="async"
+          />
+        ))
+    }
+    {
+      media.kind === "desktop" && (
+        <div class="media__chrome" aria-hidden="true">
+          <span />
+          <span />
+          <span />
+        </div>
+      )
+    }
+    {!fan && <img
+      class="media__img"
+      src={src}
+      alt={media.alt}
+      loading={eager ? "eager" : "lazy"}
+      decoding="async"
+    />}
+  </div>
+  {!cover && media.caption && <figcaption class="media__caption mono">{media.caption}</figcaption>}
+</figure>
+
+<style>
+  .media {
+    margin: 0;
+  }
+
+  .media__stage {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .media__img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .media__caption {
+    margin-top: var(--space-3);
+    color: var(--text-secondary);
+    text-transform: none;
+    letter-spacing: 0.02em;
+  }
+
+  /* Phone: device frame with a rounded screen. */
+  .media--phone .media__stage {
+    padding: 10px;
+    background: #050506;
+    border: 1px solid var(--border-strong);
+    border-radius: 44px;
+    box-shadow:
+      0 30px 60px -30px rgba(0, 0, 0, 0.9),
+      inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+  }
+
+  .media--phone .media__img {
+    border-radius: 34px;
+  }
+
+  /* Desktop: browser chrome. */
+  .media--desktop .media__stage {
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-md);
+    background: #0d1117;
+    box-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.9);
+  }
+
+  .media__chrome {
+    display: flex;
+    gap: 6px;
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .media__chrome span {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--border-strong);
+  }
+
+  /* Slide and chart: card. */
+  .media--slide .media__stage,
+  .media--chart .media__stage {
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-md);
+    box-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.9);
+  }
+
+  .media--chart .media__stage {
+    padding: var(--space-3);
+    background: #ffffff;
+  }
+
+  /* Cover: a 4:3 tile for the work list, the screen composed inside it. */
+  .media--cover .media__stage {
+    aspect-ratio: 4 / 3;
+    display: grid;
+    place-items: center;
+    padding: 0;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    background:
+      radial-gradient(90% 80% at 50% 0%, rgba(200, 255, 61, 0.08), transparent 70%),
+      var(--bg-elev);
+    box-shadow: none;
+  }
+
+  .media--cover.media--phone .media__img {
+    width: auto;
+    height: 118%;
+    margin-top: 22%;
+    border-radius: 22px;
+    border: 6px solid #050506;
+    outline: 1px solid var(--border-strong);
+  }
+
+  .media--cover.media--slide .media__img {
+    width: auto;
+    height: 112%;
+    margin-top: 16%;
+    border-radius: 10px;
+    box-shadow: 0 20px 40px -20px rgba(0, 0, 0, 0.9);
+  }
+
+  .media--cover.media--desktop .media__chrome {
+    display: none;
+  }
+
+  .media--cover.media--desktop .media__img,
+  .media--cover.media--chart .media__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 40%;
+  }
+
+  .media--cover.media--chart .media__img {
+    object-fit: contain;
+    padding: var(--space-3);
+  }
+
+  /* Charts adopt the dark theme: invert, then rotate hue back. */
+  .media--chart .media__stage {
+    background: #ffffff;
+    filter: invert(0.92) hue-rotate(180deg);
+  }
+
+  /* Fan of phones or slides. */
+  .media--fan .media__stage {
+    position: relative;
+    display: block;
+  }
+
+  .media--fan .media__stage .media__fan {
+    position: absolute;
+    top: 9%;
+    left: 50%;
+    width: auto;
+    height: 118%;
+    margin: 0;
+    transition: transform var(--dur-slow) var(--ease-out);
+  }
+
+  .media--fan.media--phone .media__stage .media__fan {
+    border-radius: 18px;
+    border: 5px solid #050506;
+    outline: 1px solid var(--border-strong);
+  }
+
+  .media--fan.media--slide .media__stage .media__fan {
+    top: 10%;
+    height: 104%;
+    border-radius: 8px;
+  }
+
+  .media__fan--0 {
+    transform: translateX(-118%) rotate(-7deg) scale(0.86);
+    opacity: 0.85;
+  }
+
+  .media__fan--1 {
+    z-index: 2;
+    transform: translateX(-50%);
+    box-shadow: 0 24px 50px -20px rgba(0, 0, 0, 0.95);
+  }
+
+  .media__fan--2 {
+    transform: translateX(18%) rotate(7deg) scale(0.86);
+    opacity: 0.85;
+  }
+
+  :global(.work-row:hover) .media__fan--0 {
+    transform: translateX(-128%) rotate(-10deg) scale(0.86);
+  }
+
+  :global(.work-row:hover) .media__fan--2 {
+    transform: translateX(28%) rotate(10deg) scale(0.86);
+  }
+</style>

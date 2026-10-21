@@ -1,0 +1,173 @@
+---
+// Layout for published working documents (PRDs, audits, research) from my
+// personal projects. Markdown pages in src/pages/docs/ use it.
+import BaseLayout from "../components/layout/BaseLayout.astro";
+import { profile } from "../data/profile.js";
+
+const { frontmatter } = Astro.props;
+const home = import.meta.env.BASE_URL.replace(/\/?$/, "/");
+---
+
+<BaseLayout title={`${frontmatter.title} | ${profile.name}`} description={frontmatter.summary}>
+  <article class="doc container">
+    <header class="doc__head" id="top">
+      <a class="doc__back mono" href={`${home}work/${frontmatter.projectSlug}/`}>
+        ← {frontmatter.project} case study
+      </a>
+      <span class="eyebrow">{frontmatter.kind} · {frontmatter.project}</span>
+      <h1 class="doc__title display">{frontmatter.title}</h1>
+      <p class="doc__summary">{frontmatter.summary}</p>
+      <p class="doc__note mono">Working document from a personal project, lightly edited for the web.</p>
+    </header>
+
+    <div class="doc__body">
+      <slot />
+    </div>
+
+    <footer class="doc__foot">
+      <a class="button" href={`${home}work/${frontmatter.projectSlug}/`}>Back to the case study</a>
+      <a class="button button--ghost" href={`${home}#work`}>All work</a>
+    </footer>
+  </article>
+</BaseLayout>
+
+<style>
+  .doc {
+    padding-top: calc(var(--header-h) + var(--space-8));
+    padding-bottom: var(--space-9);
+  }
+
+  .doc__head {
+    display: grid;
+    gap: var(--space-4);
+    max-width: 52rem;
+    padding-bottom: var(--space-6);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .doc__back {
+    width: fit-content;
+    color: var(--text-secondary);
+  }
+
+  .doc__back:hover {
+    color: var(--accent);
+  }
+
+  .doc__title {
+    font-size: var(--display-sm);
+    line-height: 1.02;
+  }
+
+  .doc__summary {
+    font-size: var(--text-lg);
+    color: var(--text-secondary);
+  }
+
+  .doc__note {
+    color: var(--accent);
+  }
+
+  .doc__body {
+    max-width: 52rem;
+    padding-top: var(--space-6);
+    font-size: var(--text-md);
+    line-height: 1.7;
+    color: var(--text-secondary);
+  }
+
+  .doc__body :global(h2) {
+    margin: var(--space-8) 0 var(--space-3);
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    color: var(--text);
+  }
+
+  .doc__body :global(h3) {
+    margin: var(--space-6) 0 var(--space-2);
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    color: var(--text);
+  }
+
+  .doc__body :global(p),
+  .doc__body :global(ul),
+  .doc__body :global(ol),
+  .doc__body :global(blockquote),
+  .doc__body :global(table) {
+    margin-bottom: var(--space-4);
+  }
+
+  .doc__body :global(ul),
+  .doc__body :global(ol) {
+    padding-left: 1.25rem;
+  }
+
+  .doc__body :global(ul) {
+    list-style: disc;
+  }
+
+  .doc__body :global(ol) {
+    list-style: decimal;
+  }
+
+  .doc__body :global(li + li) {
+    margin-top: var(--space-1);
+  }
+
+  .doc__body :global(strong) {
+    color: var(--text);
+  }
+
+  .doc__body :global(blockquote) {
+    padding-left: var(--space-4);
+    border-left: 2px solid var(--accent);
+    color: var(--text);
+  }
+
+  .doc__body :global(hr) {
+    margin: var(--space-6) 0;
+    border: 0;
+    border-top: 1px solid var(--border);
+  }
+
+  .doc__body :global(code) {
+    padding: 0.1em 0.35em;
+    font-family: var(--font-mono);
+    font-size: 0.85em;
+    background: var(--surface-hover);
+    border-radius: var(--radius-xs);
+  }
+
+  .doc__body :global(table) {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    border-collapse: collapse;
+    font-size: var(--text-sm);
+  }
+
+  .doc__body :global(th),
+  .doc__body :global(td) {
+    padding: 0.6rem 0.8rem;
+    text-align: left;
+    vertical-align: top;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .doc__body :global(th) {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    color: var(--text-tertiary);
+    white-space: nowrap;
+  }
+
+  .doc__foot {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin-top: var(--space-8);
+  }
+</style>

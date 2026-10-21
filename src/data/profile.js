@@ -33,7 +33,7 @@ export const profile = {
     "I started in decision science at Mu Sigma, building forecasts and models for Fortune 100 and 500 companies. It gave me the habit I still work by: start from the decision, not the dashboard.",
     "At Electronic Arts I went inside live games that millions of people play every day: Bejeweled, Plants vs. Zombies, Need for Speed No Limits, The Sims Mobile. I instrumented them, tested them and tuned how they earn, and learned what actually brings a player back tomorrow.",
     "At Liquidnitro Games I joined a Series A studio as its first data hire and kept pulling the thread from insight to product: writing the specs, prototyping ideas with AI before engineering spent a sprint on them, and deciding what got built next.",
-    "In my own time I build apps end to end with AI coding agents: a money tracker that turns scattered bank alerts into one ledger you can trust, and a gym log for people walking into a gym for the first time. I write the spec and the rules, direct the build and test every version on my own phone. It is the fastest way I know to stay honest about what users actually need.",
+    "In my own time I build products end to end with AI coding agents: an app that remembers your days without a diary, a money tracker that turns scattered bank alerts into one ledger you can trust, a gym log for first-timers, and a weekly read on the mobile games market. I write the spec and the rules, direct the build and test every version myself. It is the fastest way I know to stay honest about what users actually need.",
   ],
 
   // What I'm looking for. Shown in the contact section.
