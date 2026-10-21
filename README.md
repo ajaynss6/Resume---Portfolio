@@ -11,6 +11,7 @@ games. A fully static site deployed to GitHub Pages.
 | -------------------- | ----------------------------------------------------------------- |
 | `/`                  | Hero (interactive player field), impact, work, experience, toolkit, about, contact |
 | `/work/<slug>/`      | One case study per published project                              |
+| `/docs/<slug>/`      | Working documents (PRDs, UX audit, research) from personal projects |
 | `/resume/`           | Print-first, ATS-readable resume rendered from the same data      |
 | `/#brief`            | Opens the TL;DR dialog (30-second version for recruiters)         |
 | `/sitemap.xml`       | Generated from published pages                                    |
@@ -53,6 +54,11 @@ Common edits:
 - **Booking link:** set `bookingUrl` in `profile.js`. Empty falls back to a prefilled email.
 - **New case study:** add an entry to `projects.js`. `decisions` and `learnings`
   are optional and render only when present. `draft: true` hides it.
+- **Real screens:** put images in `public/work/<slug>/` and list them in the
+  project's `cover`, `coverStack` and `gallery` (kind: phone, desktop, slide
+  or chart). Never use screens that show real places, people or money.
+- **Documents:** add a markdown page in `src/pages/docs/` with the
+  `DocLayout` frontmatter and link it from the project's `docs`.
 - **Repo links:** personal projects carry `repo: { url, public: false }`.
   Flip `public` to `true` once the GitHub repo is public and a
   "View the code" button appears on the case study.
