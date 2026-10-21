@@ -48,6 +48,7 @@ export const experience = [
     current: false,
     highlights: [
       "Delivered forecasting, optimization, and predictive analytics for Fortune 100/500 clients.",
+      "Projects across search advertising, US retail and US energy: KPI forecasting, seasonality and event tracking, distribution center capacity planning, and predictive maintenance for wind turbines.",
       "Built executive dashboards and models supporting strategic decision-making across business units.",
       "Improved data pipeline reliability, reducing operational errors by 70%.",
     ],

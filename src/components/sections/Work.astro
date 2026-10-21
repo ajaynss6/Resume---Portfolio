@@ -7,19 +7,46 @@ import projects from "../../data/projects.js";
 
 const home = import.meta.env.BASE_URL.replace(/\/?$/, "/");
 
+const filters = [
+  { id: "all", label: "All" },
+  { id: "personal", label: "Personal projects" },
+  { id: "ea", label: "Electronic Arts" },
+  { id: "musigma", label: "Mu Sigma" },
+].map((f) => ({
+  ...f,
+  count: f.id === "all" ? projects.length : projects.filter((p) => p.group === f.id).length,
+}));
+
 ---
 
 <Section
   id="work"
   title="Product work, *shipped* end to end."
-  aside="Consumer apps, data products and tools I build end to end with AI, plus live-services work at Electronic Arts."
+  aside="Consumer apps, data products and tools I build end to end with AI, live-services work at Electronic Arts, and decision science for Fortune 500 clients at Mu Sigma."
 >
+  <div class="work-filters" role="group" aria-label="Filter work" data-work-filters>
+    {
+      filters.map((f, i) => (
+        <button
+          class="work-filter"
+          type="button"
+          data-filter={f.id}
+          aria-pressed={i === 0 ? "true" : "false"}
+        >
+          {f.label}
+          <span class="work-filter__count mono">{f.count}</span>
+        </button>
+      ))
+    }
+  </div>
+  <p class="visually-hidden" aria-live="polite" data-work-filter-status></p>
+
   <ol class="work-list" data-work-list data-reveal-group data-stagger="0.09">
     {
       projects.map((project, i) => {
         const number = String(i + 1).padStart(2, "0");
         return (
-          <li class="work-row" data-work-row data-reveal>
+          <li class="work-row" data-work-row data-reveal data-group={project.group}>
             <article class="work-row__inner">
               <div class="work-row__body">
                 <div class="work-row__head">
@@ -79,6 +106,48 @@ const home = import.meta.env.BASE_URL.replace(/\/?$/, "/");
 </Section>
 
 <style>
+  .work-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin-bottom: var(--space-6);
+  }
+
+  .work-filter {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: 0.55rem 1rem;
+    font-size: var(--text-sm);
+    color: var(--text-secondary);
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-pill);
+    transition:
+      color var(--dur-fast) var(--ease-out),
+      background var(--dur-fast) var(--ease-out),
+      border-color var(--dur-fast) var(--ease-out);
+  }
+
+  .work-filter:hover {
+    color: var(--text);
+    border-color: var(--accent-line);
+  }
+
+  .work-filter[aria-pressed="true"] {
+    color: var(--text-inverse);
+    background: var(--accent);
+    border-color: var(--accent);
+  }
+
+  .work-filter__count {
+    color: inherit;
+    opacity: 0.7;
+  }
+
+  .work-row[hidden] {
+    display: none;
+  }
+
   .work-list {
     display: grid;
   }
@@ -209,4 +278,27 @@ const home = import.meta.env.BASE_URL.replace(/\/?$/, "/");
 
 <script>
   import "../../scripts/projects.js";
+
+  // Work filters: show one group at a time; "All" shows everything.
+  const bar = document.querySelector("[data-work-filters]");
+  const status = document.querySelector("[data-work-filter-status]");
+  const rows = Array.from(document.querySelectorAll("[data-work-row]"));
+  bar?.addEventListener("click", (event) => {
+    const button = (event.target as HTMLElement).closest("[data-filter]");
+    if (!button) return;
+    const filter = button.getAttribute("data-filter");
+    bar.querySelectorAll("[data-filter]").forEach((b) => b.setAttribute("aria-pressed", String(b === button)));
+    let shown = 0;
+    rows.forEach((row) => {
+      const match = filter === "all" || row.getAttribute("data-group") === filter;
+      row.toggleAttribute("hidden", !match);
+      if (match) {
+        shown++;
+        row.setAttribute("data-animate-done", "");
+        (row as HTMLElement).style.opacity = "";
+      }
+    });
+    if (status) status.textContent = `Showing ${shown} projects`;
+    window.dispatchEvent(new Event("resize"));
+  });
 </script>

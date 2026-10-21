@@ -28,8 +28,10 @@
 //                         kind is phone, desktop, slide or chart. Files live
 //                         in public/work/<slug>/
 //   docs[]                OPTIONAL { title, slug, kind } pages in src/pages/docs/
-//   visual variants       ledger, workout, dashboards, monetization (used
-//                         when there is no cover)
+//   group                 personal | ea | musigma (filters on the work list)
+//   visual variants       ledger, workout, dashboards, monetization,
+//                         forecast, events, capacity, turbine (used when
+//                         there is no cover)
 //
 // To strengthen a case study, add `decisions` and `learnings`. Sections render
 // only when present.
@@ -49,7 +51,7 @@
  *   needs?: string[], repo?: { url: string, public: boolean }, note?: string,
  *   value?: string, cover?: Media, coverStack?: { src: string, alt: string }[],
  *   gallery?: Media[], docs?: Doc[],
- *   draft?: boolean
+ *   group?: string, draft?: boolean
  * }} Project
  */
 
@@ -59,6 +61,7 @@ export const projects = [
     // Source: ajaynss6/project_life (private). Only screens with no personal
     // data (no places, routines or people). Personal project: no numbers.
     slug: "life-archivist",
+    group: "personal",
     visual: "ledger",
     status: "Personal project",
     title: "Life Archivist: Your Life, Automatically Remembered",
@@ -141,6 +144,7 @@ export const projects = [
     // Source: ajaynss6/finance_tracker (private for now). Personal project:
     // no numbers on purpose.
     slug: "finance-tracker",
+    group: "personal",
     visual: "ledger",
     status: "Personal project",
     title: "Finance Tracker: One Clean Ledger for Your Money",
@@ -210,6 +214,7 @@ export const projects = [
     // Source: ajaynss6/content-pipeline (private). Slides rendered by the
     // pipeline from its bundled sample data (badged as such).
     slug: "mobile-games-pulse",
+    group: "personal",
     visual: "dashboards",
     status: "Personal project",
     title: "Mobile Games Pulse: A Weekly Read on the Top-Grossing Chart",
@@ -286,6 +291,7 @@ export const projects = [
     // Source: ajaynss6/Workout-Log (private for now). Personal project: no
     // numbers on purpose; the PRD's success metrics are targets, not results.
     slug: "workout-log",
+    group: "personal",
     visual: "workout",
     status: "Personal project",
     title: "Workout Log: A Gym Tracker Built for Beginners",
@@ -357,6 +363,7 @@ export const projects = [
     // Source: ajaynss6/heyj-ai (private). Screens captured from a local run on
     // live GitHub data.
     slug: "jarvis",
+    group: "personal",
     visual: "dashboards",
     status: "Personal project",
     title: "Jarvis: One Command Center for Every Project",
@@ -422,6 +429,7 @@ export const projects = [
     // Source: ajaynss6/trading-tool (private). Research framing only: no
     // amounts, brokers, holdings or personal trading.
     slug: "market-research",
+    group: "personal",
     visual: "monetization",
     status: "Personal project",
     title: "Market Research Engine: Letting the Data Say No",
@@ -472,6 +480,7 @@ export const projects = [
   },
   {
     slug: "ea-live-services-analytics",
+    group: "ea",
     visual: "dashboards",
     title: "Live-Services Analytics Across EA Mobile Titles",
     context: "Electronic Arts (EA) · Product Analyst",
@@ -506,6 +515,7 @@ export const projects = [
   },
   {
     slug: "ea-ad-monetization",
+    group: "ea",
     visual: "monetization",
     title: "Ad Monetization & Telemetry Analytics",
     context: "Electronic Arts (EA) · Ad Monetization",
@@ -529,6 +539,128 @@ export const projects = [
     outcomes: [
       { value: "$45M+", label: "Annual revenue portfolio supported" },
     ],
+  },
+  {
+    // Mu Sigma client work. Clients stay anonymous; team projects are
+    // described as team work. Source: Ajay's LinkedIn project list.
+    slug: "kpi-forecasting",
+    group: "musigma",
+    visual: "forecast",
+    title: "KPI Forecasting for a Search Advertising Leader",
+    context: "Mu Sigma · Fortune 500 search advertising client",
+    description:
+      "Quarterly forecasts and weekly projections of the client's most important business KPIs across markets and segments, with a dashboard that turned the numbers into a story leadership could act on.",
+    tags: ["Forecasting", "Time Series", "Dashboards", "Storytelling"],
+    value:
+      "Gave every market a forward view of its KPIs, so planning started from a forecast instead of last quarter's actuals.",
+    company: "Mu Sigma, for a Fortune 500 search advertising company",
+    role: "Decision Scientist",
+    period: "2018 - 2021",
+    team: "Mu Sigma analytics team, client business leads",
+    audience: "Market and segment leads planning the quarter ahead.",
+    needs: [
+      "Know where key metrics are heading in each market, early enough to act.",
+      "One shared forecast instead of every market planning on its own assumptions.",
+      "Diagnose quickly why a market is drifting from plan.",
+    ],
+    problem:
+      "A global business with many markets and segments needs to know where its key metrics are heading before the quarter plays out. Without a shared, regular forecast, planning runs on gut feel and last quarter's numbers.",
+    approach: [
+      "Produced quarterly forecasts and weekly projections of key business KPIs for different markets and segments.",
+      "Built and maintained a dashboard around the key business metrics for market diagnosis.",
+      "Shaped the dashboard for storytelling, so leaders could see not just the number but why it moved.",
+    ],
+    shipped: ["Quarterly KPI forecasts", "Weekly projections", "KPI and market diagnosis dashboard"],
+  },
+  {
+    slug: "seasonality-event-tracker",
+    group: "musigma",
+    visual: "events",
+    title: "Seasonality and Event Tracker",
+    context: "Mu Sigma · Fortune 500 search advertising client",
+    description:
+      "Studied how users and advertisers behave across seasons and events, and built season-by-season dashboards that showed the impact of each event on key business metrics.",
+    tags: ["Seasonality", "Event Analysis", "Dashboards"],
+    value:
+      "Separated what the calendar did from what the business did, so a holiday spike was never mistaken for a trend.",
+    company: "Mu Sigma, for a Fortune 500 search advertising company",
+    role: "Decision Scientist",
+    period: "2018 - 2021",
+    team: "Mu Sigma analytics team, client business leads",
+    audience: "Business teams reading weekly and seasonal performance.",
+    needs: [
+      "Know how much of a change is seasonal and how much is real.",
+      "See the impact of each event on the metrics that matter.",
+      "Compare this season with the same season before.",
+    ],
+    problem:
+      "Search advertising swings with holidays, shopping seasons and big events. Without separating seasonal effects, a normal holiday spike looks like growth and a seasonal dip looks like a problem.",
+    approach: [
+      "Studied user and customer seasonality and its impact on the market.",
+      "Created and maintained multiple dashboards, one per season, with the key business metrics.",
+      "Showed the impact of specific events against the seasonal baseline.",
+    ],
+    shipped: ["Seasonality study", "Season-specific dashboards", "Event impact views"],
+  },
+  {
+    slug: "distribution-capacity-planning",
+    group: "musigma",
+    visual: "capacity",
+    title: "Workforce and Capacity Planning for Distribution Centers",
+    context: "Mu Sigma · Fortune 500 US retail client",
+    description:
+      "Forecast the volume moving in and out of distribution centers, planned the workforce needed to handle it, and flagged the days when expected volume would exceed capacity so they could be planned for in advance.",
+    tags: ["Forecasting", "Optimization", "Operations", "Retail"],
+    value:
+      "Turned volume forecasts into staffing plans, so peak days were planned for instead of discovered.",
+    company: "Mu Sigma, for a Fortune 500 US retailer",
+    role: "Decision Scientist, team member",
+    period: "2018 - 2021",
+    team: "Mu Sigma forecasting and optimization team",
+    audience: "Distribution center operations and workforce planners.",
+    needs: [
+      "Know how much volume is coming in and going out, and when.",
+      "Staff to the volume: not too few, not too many.",
+      "See capacity crunches days ahead, not on the day.",
+    ],
+    problem:
+      "Distribution centers live and die by peak days. Too few people and shipments back up; too many and labor cost balloons. A capacity problem found on the day is too late to fix.",
+    approach: [
+      "As part of the team, planned the workforce required to handle the volume expected to come into and move out of the distribution centers.",
+      "Identified days where expected volume was beyond the capacity that could be handled.",
+      "Planned how those over-capacity days would be handled, ahead of time.",
+    ],
+    shipped: ["Inbound and outbound volume forecasts", "Workforce plans", "Over-capacity day alerts and handling plans"],
+  },
+  {
+    slug: "wind-turbine-predictive-maintenance",
+    group: "musigma",
+    visual: "turbine",
+    title: "Predictive Maintenance for Wind Turbines",
+    context: "Mu Sigma · US electricity producer and distributor",
+    description:
+      "Anomaly detection and classification models that predict failures of wind turbine components, an automated diagnostic dashboard for the program, and site-level power generation forecasts for business planning.",
+    tags: ["Anomaly Detection", "Classification", "Forecasting", "Energy"],
+    value:
+      "Moved maintenance from fixing failures to preventing them, and told planners how much power each site would produce.",
+    company: "Mu Sigma, for a US electricity producer and distributor",
+    role: "Decision Scientist, team member",
+    period: "2018 - 2021",
+    team: "Mu Sigma predictive maintenance team",
+    audience: "Maintenance engineers and business planners at the utility.",
+    needs: [
+      "Know which turbine components are likely to fail before they do.",
+      "One diagnostic view of the whole program, kept up to date automatically.",
+      "Plan around how much power each site will generate.",
+    ],
+    problem:
+      "An unplanned turbine failure means downtime, expensive emergency repairs and lost generation. Maintenance on a fixed schedule misses failures in between and services parts that are fine.",
+    approach: [
+      "As part of the team, built anomaly detection and classification models to predict the failure of wind turbine components.",
+      "Created and automated an all-inclusive diagnostic dashboard for the predictive maintenance program.",
+      "Forecast power generation at site level for business planning.",
+    ],
+    shipped: ["Failure prediction models", "Automated diagnostic dashboard", "Site-level generation forecasts"],
   },
 ];
 
