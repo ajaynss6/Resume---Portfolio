@@ -149,8 +149,8 @@ function initMobileMenu() {
     animate(
       items,
       open
-        ? { opacity: [0, 1], transform: ["translate3d(0, 24px, 0)", "none"] }
-        : { opacity: 0, transform: "translate3d(0, 12px, 0)" },
+        ? { opacity: [0, 1], y: [24, 0] }
+        : { opacity: 0, y: 12 },
       open
         ? { duration: 0.6, delay: stagger(0.045, { startDelay: 0.1 }), ease: EASE }
         : { duration: 0.2, ease: EASE },

@@ -45,6 +45,17 @@ const enterView = (el, handler, options) => {
 
 // --- Reveals ---------------------------------------------------------------
 
+// Fraction of an element that must be visible before it reveals. Capped so a
+// tall element (taller than the screen) can always reach it: never more than
+// a quarter of the viewport's height worth of the element.
+const revealAmount = (el, preferred) =>
+  Math.max(0.01, Math.min(preferred, (window.innerHeight * 0.25) / Math.max(el.offsetHeight, 1)));
+
+// Animate with independent transforms (y), not transform strings: Motion
+// cannot interpolate "translate3d(...)" to "none" cleanly.
+const reveal = (targets, y, options) =>
+  animate(targets, { opacity: [0, 1], y: [y, 0] }, { duration: REVEAL_DURATION, ease: EASE, ...options });
+
 function initGroupReveals(root) {
   root.querySelectorAll("[data-reveal-group]").forEach((group) => {
     if (group.hasAttribute("data-reveal-bound")) return;
@@ -57,21 +68,29 @@ function initGroupReveals(root) {
 
     const interval = parseFloat(group.dataset.stagger || "0.08");
 
+    // Long lists (taller than the screen) reveal item by item as each one
+    // scrolls in; short groups stagger in together.
+    if (group.offsetHeight > window.innerHeight * 0.9) {
+      items.forEach((item) => {
+        enterView(
+          item,
+          () => {
+            if (!prefersReducedMotion()) reveal(item, 28);
+            markDone(item);
+          },
+          { amount: revealAmount(item, 0.15) },
+        );
+      });
+      return;
+    }
+
     enterView(
       group,
       () => {
-        if (prefersReducedMotion()) {
-          items.forEach(markDone);
-          return;
-        }
-        animate(
-          items,
-          { opacity: [0, 1], transform: ["translate3d(0, 28px, 0)", "none"] },
-          { duration: REVEAL_DURATION, delay: stagger(interval), ease: EASE },
-        );
+        if (!prefersReducedMotion()) reveal(items, 28, { delay: stagger(interval) });
         items.forEach(markDone);
       },
-      { amount: 0.15 },
+      { amount: revealAmount(group, 0.15) },
     );
   });
 }
@@ -88,18 +107,10 @@ function initReveals(root) {
     enterView(
       el,
       () => {
-        if (prefersReducedMotion()) {
-          markDone(el);
-          return;
-        }
-        animate(
-          el,
-          { opacity: [0, 1], transform: [`translate3d(0, ${y}px, 0)`, "none"] },
-          { duration: REVEAL_DURATION, delay, ease: EASE },
-        );
+        if (!prefersReducedMotion()) reveal(el, y, { delay });
         markDone(el);
       },
-      { amount: 0.2 },
+      { amount: revealAmount(el, 0.2) },
     );
   });
 }
@@ -200,6 +211,35 @@ function initCounters(root) {
   });
 }
 
+// --- Safety net -------------------------------------------------------------
+// Nothing may stay hidden once it is on screen. If a reveal trigger misses
+// (odd layouts, very tall elements, fast jumps), show it on the next scroll.
+
+function initRevealSafetyNet() {
+  let queued = false;
+  const check = () => {
+    queued = false;
+    const vh = window.innerHeight;
+    document
+      .querySelectorAll("[data-reveal]:not([data-animate-done]), [data-split-word]:not([data-animate-done])")
+      .forEach((el) => {
+        const rect = el.getBoundingClientRect();
+        if (rect.top < vh * 0.92 && rect.bottom > 0) {
+          if (!prefersReducedMotion()) animate(el, { opacity: [0, 1] }, { duration: 0.5, ease: EASE });
+          markDone(el);
+        }
+      });
+  };
+  const queue = () => {
+    if (queued) return;
+    queued = true;
+    window.setTimeout(check, 400);
+  };
+  window.addEventListener("scroll", queue, { passive: true });
+  window.addEventListener("resize", queue);
+  queue();
+}
+
 // --- Boot ------------------------------------------------------------------
 
 function init() {
@@ -221,6 +261,7 @@ function init() {
   initSplitReveals(root);
   initParallax(root);
   initCounters(root);
+  initRevealSafetyNet();
 }
 
 if (document.readyState === "loading") {
