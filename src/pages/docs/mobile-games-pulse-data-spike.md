@@ -38,14 +38,6 @@ Run date: 2026-10-20, from a cloud sandbox (datacenter IP, similar to GitHub Act
 6. **The review mean skews positive.** 5-star reviews make up 72 to 76% of the samples. Week-over-week changes will be small, so most weeks the rating shift slide will show a change of about 0.1 to 0.3, not "4.4 to 3.8".
 7. **Card and casino-style games rank high in India** (for example Teen Patti at #9). Consider a genre denylist option (Casino, Card). It's empty by default; your call.
 
-## Instagram (Meta docs, read 2026-10-20)
-
-- Two options: Instagram Login (`graph.instagram.com`, scopes `instagram_business_basic` and `instagram_business_content_publish`) or Facebook Login (needs a Page).
-- **Instagram Login fits your setup** (Business account, no Page). Its token table lists no Page token.
-- Carousel: one item container per image (`is_carousel_item=true`), then a `CAROUSEL` container with `children`, then `media_publish`. Up to 20 items.
-- Images must be JPEG at a public URL. Cropping follows the first image's aspect ratio, so all 4 slides are 4:5.
-- Rate limit: the docs say both 100 and 50 posts per 24 h. Either is far above 1 a week.
-
 ## OpenRouter models (live prices, per 1M tokens)
 
 | Role | Model | Input | Output | Why |

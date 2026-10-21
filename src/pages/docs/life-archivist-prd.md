@@ -120,7 +120,7 @@ Spec: 5 tabs (Today, Map, Search, Insights, Me). **Built:** Today, Map, Ask, Ins
 | D45 | Same route, not same distance | Comparing modes over equal distances on different roads misleads; trips are compared between the same two places, direction included |
 | D41 | Workouts suggest, never label | A workout during an unnamed stay offers the place where that activity usually happens as the one-tap answer (ask, don't guess, D11) |
 | D46 | Journal first, three tabs: Journal, Explore, Ask (search tab); Me behind an avatar | **Built in v0.9, device tests pending.** Founder decision, from the UX study. Revises D24. The day in words is the product; Map, Places, People and Insights move into Explore, nothing is removed |
-| D47 | Guess visibly, confirm in one tap | **Built in v0.9, device tests pending.** Founder decision. Bends D11: unconfirmed suggestions appear in the journal in italics ("maybe Third Wave Coffee"). Nothing becomes a label without a tap, so uncertain inference is never stated as fact |
+| D47 | Guess visibly, confirm in one tap | **Built in v0.9, device tests pending.** Founder decision. Bends D11: unconfirmed suggestions appear in the journal in italics ("maybe a coffee shop"). Nothing becomes a label without a tap, so uncertain inference is never stated as fact |
 | D48 | Nearby place names from Apple Maps, opt-in | **Built in v0.9, device tests pending.** Founder decision. Amends D10: typing names is the biggest tagging cost. Off by default; one location per new spot, only when the user is asked about it, cached per spot; names are offered, never applied |
 | D49 | Questions during a visit arrive silently | **Built in v0.9, device tests pending.** Founder decision. Revises D26: same timing (15 minutes into a 2nd visit) and cap of 4, but passive interruption level: no sound, no screen wake |
 | D50 | Unrecorded gaps are questions only when over 1 hour | **Built in v0.9, device tests pending.** Founder decision. Shorter gaps are muted rows and do not count in the review. No auto-fill: A2 (never guess across missing data) holds |
@@ -146,4 +146,4 @@ Email, messaging, browser history, screen time, finance, cloud sync, multi-user,
 ## Open questions
 1. Does region/visit relaunch survive force-quit on your iPhone and iOS version? (T5)
 2. Real battery cost of Balanced and Detailed on your commute? (T6)
-3. Is 100 m stay clustering right for your places (e.g. table tennis academy vs nearby shops)? (T7)
+3. Is 100 m stay clustering right for your places (for example a venue next to a row of shops)? (T7)
