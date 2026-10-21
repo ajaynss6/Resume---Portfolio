@@ -56,8 +56,8 @@
 /** @type {Project[]} */
 export const projects = [
   {
-    // Source: ajaynss6/project_life (private). Screens from simulator testing,
-    // chosen to show no real places. Personal project: no numbers on purpose.
+    // Source: ajaynss6/project_life (private). Only screens with no personal
+    // data (no places, routines or people). Personal project: no numbers.
     slug: "life-archivist",
     visual: "ledger",
     status: "Personal project",
@@ -123,17 +123,15 @@ export const projects = [
       "Privacy Center and Face ID",
       "Encrypted backups",
     ],
-    cover: { src: "work/life-archivist/ask.jpg", alt: "Life Archivist screens: patterns, Ask your life and permissions", kind: "phone" },
+    cover: { src: "work/life-archivist/welcome.jpg", alt: "Life Archivist screens: permissions, welcome and tracking settings", kind: "phone" },
     coverStack: [
-      { src: "work/life-archivist/patterns.jpg", alt: "" },
-      { src: "work/life-archivist/ask.jpg", alt: "" },
       { src: "work/life-archivist/permissions.jpg", alt: "" },
+      { src: "work/life-archivist/welcome.jpg", alt: "" },
+      { src: "work/life-archivist/settings.jpg", alt: "" },
     ],
     gallery: [
       { src: "work/life-archivist/welcome.jpg", alt: "Welcome screen", kind: "phone", caption: "The promise in one line" },
       { src: "work/life-archivist/permissions.jpg", alt: "Permissions screen with a reason for each source", kind: "phone", caption: "Every permission explained, all optional" },
-      { src: "work/life-archivist/patterns.jpg", alt: "Explore patterns: where your time went", kind: "phone", caption: "Patterns from your own days" },
-      { src: "work/life-archivist/ask.jpg", alt: "Ask your life: answers with how they were read", kind: "phone", caption: "Answers that show their source" },
       { src: "work/life-archivist/settings.jpg", alt: "Tracking settings", kind: "phone", caption: "You decide what is recorded" },
     ],
     docs: [{ title: "Product requirements", slug: "life-archivist-prd", kind: "PRD" }],
@@ -421,53 +419,54 @@ export const projects = [
     repo: { url: "https://github.com/ajaynss6/heyj-ai", public: false },
   },
   {
-    // Source: ajaynss6/trading-tool (private). No amounts, brokers or holdings.
+    // Source: ajaynss6/trading-tool (private). Research framing only: no
+    // amounts, brokers, holdings or personal trading.
     slug: "market-research",
     visual: "monetization",
     status: "Personal project",
     title: "Market Research Engine: Letting the Data Say No",
-    context: "Data · Experimentation · Personal finance",
+    context: "Data · Experimentation · Indian markets",
     description:
-      "A personal research system for Indian markets that tests trading strategies honestly against simply holding the index, watches a long-term portfolio's health and sends one daily brief. Its most valuable output so far was a no.",
+      "A research system that tests trading strategies for Indian markets honestly against simply holding the index, and sends one short daily brief. Its most valuable output so far was a no.",
     tags: ["Experimentation", "Backtesting", "Data", "Automation"],
     value:
-      "Protects real money by making every strategy prove itself on data it has never seen before a rupee is risked.",
+      "Makes every strategy prove itself on data it has never seen, before anyone acts on it.",
     company: "Personal project",
     role: "Owner and builder",
     period: "2026",
     team: "Solo, AI-assisted build",
-    audience: "A retail investor who wants rules and evidence instead of tips.",
+    audience: "Retail investors who want rules and evidence instead of tips.",
     needs: [
       "Know whether a strategy beats simply holding the index, after costs and tax.",
-      "Catch portfolio problems before they get expensive.",
+      "Trust that a backtest is not just fitted to the past.",
       "Get one short daily brief instead of noise.",
     ],
     problem:
-      "Retail traders act on tips and on backtests that quietly overfit. Strategies that look great on past data often fail on new data, and the losses are real money.",
+      "Retail traders act on tips and on backtests that quietly overfit. Strategies that look great on past data often fail on new data, and the losses are real.",
     approach: [
-      "Set the rules before testing: success meant beating the index after all costs and tax, with a hard limit on how far it may fall from its peak.",
+      "Set the bar before testing: beat the index after all costs and tax, within a hard limit on how far a strategy may fall from its peak.",
       "Tested several strategy families with walk-forward and holdout periods, so every result comes from data the strategy never saw.",
-      "Kept it advice only: the system recommends, a person decides.",
-      "Built the portfolio side as tracking and health checks, with no stock picks.",
+      "Kept the output advisory: the system recommends, a person decides.",
+      "Wrapped it in a daily brief: market regime and system health in one message.",
     ],
     decisions: [
       {
         title: "Gates before go-live",
-        body: "No strategy trades without first passing gates agreed in advance, on out-of-sample data.",
+        body: "No strategy is acted on without first passing gates agreed in advance, on out-of-sample data.",
       },
       {
         title: "The data said no",
-        body: "In the walk-forward test none of the strategies beat holding the index. So the money stays out of them, with paper trading until a scheduled review. Shipping nothing was the right call.",
+        body: "In the walk-forward test none of the strategies beat holding the index, so none went live. Paper trading continues until a scheduled review. Shipping nothing was the right call.",
       },
       {
         title: "Advice, not automation",
-        body: "Orders are placed by hand. Automation would have scaled mistakes faster than it scaled returns.",
+        body: "Automation would scale mistakes faster than it scales returns, so a person stays in the loop.",
       },
     ],
-    shipped: ["Strategy research and backtests", "Portfolio tracking and health checks", "Daily brief", "Dashboard"],
+    shipped: ["Strategy research and backtests", "Walk-forward and holdout testing", "Daily brief", "Dashboard"],
     cover: { src: "work/market-research/walk-forward.jpg", alt: "Walk-forward results: no strategy beat the index", kind: "chart" },
     gallery: [
-      { src: "work/market-research/walk-forward.jpg", alt: "Walk-forward out-of-sample growth of each strategy against the Nifty 50", kind: "chart", caption: "Out of sample, the index (dashed) beat every strategy. The answer was no." },
+      { src: "work/market-research/walk-forward.jpg", alt: "Walk-forward out-of-sample results of five strategies against the Nifty 50", kind: "chart", caption: "Out of sample, the index (dashed) beat every strategy. The answer was no." },
     ],
     repo: { url: "https://github.com/ajaynss6/trading-tool", public: false },
   },
