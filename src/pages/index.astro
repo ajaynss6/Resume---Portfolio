@@ -27,7 +27,22 @@ const franchises = [
   <Hero />
   <Ticker items={franchises} label="Games and teams worked on" />
   <Metrics />
-  <Work />
+  <Work
+    id="work"
+    title="Work that *shipped* at scale."
+    aside="Live-services analytics at Electronic Arts, and decision science for Fortune 500 clients at Mu Sigma."
+    groups={["ea", "musigma"]}
+    filters={[
+      { id: "ea", label: "Electronic Arts" },
+      { id: "musigma", label: "Mu Sigma" },
+    ]}
+  />
+  <Work
+    id="projects"
+    title="Things I *build* on my own."
+    aside="Consumer apps, data products and tools I take from idea to working product with AI coding agents."
+    groups={["personal"]}
+  />
   <Experience />
   <Capabilities />
   <About />

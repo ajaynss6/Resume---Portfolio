@@ -7,17 +7,26 @@ import { publishedProjects } from "../../data/projects.js";
 import { profile, bookingHref } from "../../data/profile.js";
 
 export function getStaticPaths() {
-  return publishedProjects.map((project, i) => ({
-    params: { slug: project.slug },
-    props: {
-      project,
-      number: String(i + 1).padStart(2, "0"),
-      next: publishedProjects[(i + 1) % publishedProjects.length],
-    },
-  }));
+  // Professional work and personal projects are separate sections; number
+  // and "next" stay within the project's own section.
+  const sectionOf = (p: { group?: string }) =>
+    p.group === "personal" ? "projects" : "work";
+  return publishedProjects.map((project) => {
+    const peers = publishedProjects.filter((p) => sectionOf(p) === sectionOf(project));
+    const i = peers.indexOf(project);
+    return {
+      params: { slug: project.slug },
+      props: {
+        project,
+        number: String(i + 1).padStart(2, "0"),
+        next: peers[(i + 1) % peers.length],
+        section: sectionOf(project),
+      },
+    };
+  });
 }
 
-const { project, number, next } = Astro.props;
+const { project, number, next, section } = Astro.props;
 const decisions = project.decisions ?? [];
 const learnings = project.learnings ?? [];
 const outcomes = project.outcomes ?? [];
@@ -43,7 +52,9 @@ const facts = [
 <BaseLayout title={`${project.title} | ${profile.name}`} description={project.description}>
   <article class="case">
     <header class="case__hero container" id="top">
-      <a class="case__back mono" href={`${home}#work`}>← All work</a>
+      <a class="case__back mono" href={`${home}#${section}`}>
+        ← {section === "projects" ? "All projects" : "All work"}
+      </a>
       <div class="case__kicker">
         <span class="eyebrow">Case study {number} · {project.context}</span>
         {project.status && <span class="case__status mono">{project.status}</span>}
@@ -226,7 +237,7 @@ const facts = [
 
     <nav class="case__next container" aria-label="Next case study">
       <a class="case__next-link" href={`${home}work/${next.slug}/`}>
-        <span class="mono">Next case study</span>
+        <span class="mono">{section === "projects" ? "Next project" : "Next case study"}</span>
         <span class="case__next-title">{next.title}</span>
         <span class="case__next-arrow" aria-hidden="true">→</span>
       </a>
