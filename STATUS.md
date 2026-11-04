@@ -1,8 +1,8 @@
 ---
 phase: Live on GitHub Pages
 health: green
-updated: 2026-10-21
-summary: 12 case studies across personal projects, EA and Mu Sigma, with real screens, docs and work filters
+updated: 2026-11-04
+summary: Work (EA, Mu Sigma) and personal Projects in separate sections, 12 case studies with real screens and docs
 ---
 
 <!-- Read by Jarvis (ajaynss6/heyj-ai). Keep it true: see CLAUDE.md. Format: heyj-ai/docs/STATUS_TEMPLATE.md -->
@@ -20,8 +20,8 @@ summary: 12 case studies across personal projects, EA and Mu Sigma, with real sc
 - History purge of confidential details: needs the owner to switch the session to Accept edits and approve the force-push
 
 ## Done recently
+- Split professional Work from personal Projects into two sections
 - Mu Sigma case studies with illustrations, and work filters (#11)
 - Reveal fix: Work and Experience no longer stay invisible on phones (#9)
 - Life Archivist, Games Pulse, Jarvis and market research case studies; five docs (#7, #8)
 - The Thread scroll animation and story rewrite (#5)
-- Removed NDA details and the AI platform work (#2, #3)

@@ -17,10 +17,13 @@ const prefersReducedMotion = () =>
   window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 function init() {
-  const list = document.querySelector("[data-work-list]");
-  if (!list) return;
   if (!supportsHover() || prefersReducedMotion()) return;
+  document.querySelectorAll("[data-work-list]").forEach(initList);
+}
 
+function initList(list) {
+  if (list.hasAttribute("data-hover-bound")) return;
+  list.setAttribute("data-hover-bound", "");
   const rows = Array.from(list.querySelectorAll("[data-work-row]"));
 
   rows.forEach((row) => {
