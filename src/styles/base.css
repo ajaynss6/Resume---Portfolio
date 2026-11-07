@@ -176,7 +176,7 @@ textarea {
   }
 
   html.js [data-reveal]:not([data-animate-done]) {
-    transform: translate3d(0, var(--reveal-y, 28px), 0);
+    transform: translate3d(0, var(--reveal-y, 12px), 0);
   }
 
   html.js [data-split-word]:not([data-animate-done]) {

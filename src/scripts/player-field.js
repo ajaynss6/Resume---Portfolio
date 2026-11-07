@@ -13,12 +13,12 @@
 
 const ARMS = 3;
 const TWIST = 2.2;
-const SPIN = 0.018; // radians per second
+const SPIN = 0.007; // radians per second
 const SPRING = 0.035;
 const DAMPING = 0.86;
-const PUSH_RADIUS = 130;
-const PUSH_FORCE = 2.4;
-const LIT_SHARE = 0.03;
+const PUSH_RADIUS = 110;
+const PUSH_FORCE = 1.1;
+const LIT_SHARE = 0.008;
 
 const prefersReducedMotion = () =>
   window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -147,8 +147,8 @@ function initField(canvas) {
       y[i] += vy[i];
 
       // Sessions: lit dots fade out, new ones occasionally light up.
-      if (glow[i] > 0) glow[i] = Math.max(0, glow[i] - dt * 0.25);
-      else if (Math.random() < LIT_SHARE * dt * 0.25) glow[i] = 1;
+      if (glow[i] > 0) glow[i] = Math.max(0, glow[i] - dt * 0.08);
+      else if (Math.random() < LIT_SHARE * dt * 0.08) glow[i] = 1;
     }
   }
 

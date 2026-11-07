@@ -8,7 +8,6 @@ const linkedin = profile.links.find((link) => link.label === "LinkedIn");
 
 <header class="site-header" data-header>
   <div class="hud" data-hud>
-    <span class="hud__glow" aria-hidden="true"></span>
     <span class="hud__progress" data-scroll-progress aria-hidden="true"></span>
 
     <a class="hud__brand" href={`${home}#top`}>
@@ -137,25 +136,6 @@ const linkedin = profile.links.find((link) => link.label === "LinkedIn");
     border-color: rgba(255, 255, 255, 0.12);
   }
 
-  /* Cursor-following sheen */
-  .hud__glow {
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    pointer-events: none;
-    opacity: 0;
-    background: radial-gradient(
-      200px circle at var(--mx, 50%) var(--my, 50%),
-      var(--accent-soft),
-      transparent 62%
-    );
-    transition: opacity var(--dur) var(--ease-out);
-  }
-
-  .hud:hover .hud__glow {
-    opacity: 1;
-  }
-
   /* Scroll progress, integrated into the capsule edge */
   .hud__progress {
     position: absolute;
@@ -163,7 +143,7 @@ const linkedin = profile.links.find((link) => link.label === "LinkedIn");
     bottom: 0;
     width: 100%;
     height: 1.5px;
-    background: linear-gradient(90deg, var(--accent-line), var(--accent-strong));
+    background: var(--text-tertiary);
     transform: scaleX(0);
     transform-origin: left center;
     will-change: transform;
@@ -185,14 +165,14 @@ const linkedin = profile.links.find((link) => link.label === "LinkedIn");
     height: 2rem;
     font-family: var(--font-mono);
     font-size: 0.68rem;
-    color: var(--accent-strong);
+    color: var(--text);
     border: 1px solid var(--border-strong);
     border-radius: 0.55rem;
     transition: border-color var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out);
   }
 
   .hud__brand:hover .hud__mark {
-    border-color: var(--accent-line);
+    border-color: var(--text-tertiary);
     color: var(--text);
   }
 
@@ -284,21 +264,8 @@ const linkedin = profile.links.find((link) => link.label === "LinkedIn");
     width: 6px;
     height: 6px;
     border-radius: 50%;
-    background: var(--accent);
-    box-shadow: 0 0 0 0 var(--accent-soft);
-    animation: hud-pulse 2.6s var(--ease-in-out) infinite;
-  }
-
-  @keyframes hud-pulse {
-    0% {
-      box-shadow: 0 0 0 0 rgba(200, 255, 61, 0.45);
-    }
-    70% {
-      box-shadow: 0 0 0 6px rgba(200, 255, 61, 0);
-    }
-    100% {
-      box-shadow: 0 0 0 0 rgba(200, 255, 61, 0);
-    }
+    background: var(--text-tertiary);
+    box-shadow: none;
   }
 
   .hud__time {
@@ -312,14 +279,14 @@ const linkedin = profile.links.find((link) => link.label === "LinkedIn");
     font-family: var(--font-mono);
     font-size: var(--text-xs);
     letter-spacing: var(--tracking-wide);
-    color: var(--accent);
-    border: 1px dashed var(--accent-line);
+    color: var(--text-secondary);
+    border: 1px solid var(--border-strong);
     border-radius: var(--radius-pill);
     transition: background var(--dur-fast) var(--ease-out);
   }
 
   .hud__brief:hover {
-    background: var(--accent-soft);
+    background: var(--surface-hover);
   }
 
   .hud__resume {
@@ -444,7 +411,7 @@ const linkedin = profile.links.find((link) => link.label === "LinkedIn");
   .mobile-menu__index {
     font-family: var(--font-mono);
     font-size: var(--text-xs);
-    color: var(--accent);
+    color: var(--text-tertiary);
   }
 
   .mobile-menu__label {

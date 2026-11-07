@@ -268,8 +268,8 @@ const facts = [
 
   .case__status {
     padding: 0.25rem 0.65rem;
-    color: var(--accent);
-    border: 1px dashed var(--accent-line);
+    color: var(--text-secondary);
+    border: 1px solid var(--border-strong);
     border-radius: var(--radius-pill);
   }
 
@@ -294,7 +294,7 @@ const facts = [
     color: var(--text-secondary);
     background: var(--surface);
     border: 1px solid var(--border);
-    border-left: 2px solid var(--accent);
+    border-left: 1px solid var(--border-strong);
     border-radius: var(--radius-xs);
   }
 
@@ -303,13 +303,13 @@ const facts = [
     gap: var(--space-2);
     max-width: 52rem;
     padding: var(--space-5);
-    border: 1px dashed var(--accent-line);
+    border: 1px solid var(--border-strong);
     border-radius: var(--radius-sm);
-    background: var(--accent-soft);
+    background: var(--surface);
   }
 
   .case__note .mono {
-    color: var(--accent);
+    color: var(--text-tertiary);
   }
 
   .case__note p {
@@ -323,7 +323,7 @@ const facts = [
   }
 
   .case__back:hover {
-    color: var(--accent);
+    color: var(--text);
   }
 
   .case__title {
@@ -376,7 +376,7 @@ const facts = [
   }
 
   .case__statement--value {
-    color: var(--accent);
+    color: var(--text);
   }
 
   .case__docs {
@@ -397,12 +397,12 @@ const facts = [
   }
 
   .case__doc:hover {
-    border-color: var(--accent-line);
-    background: var(--accent-soft);
+    border-color: var(--text-tertiary);
+    background: var(--surface-hover);
   }
 
   .case__doc .mono {
-    color: var(--accent);
+    color: var(--text-tertiary);
   }
 
   .case__doc-title {
@@ -412,7 +412,7 @@ const facts = [
   }
 
   .case__doc-arrow {
-    color: var(--accent);
+    color: var(--text-secondary);
   }
 
   @media (max-width: 900px) {
@@ -459,7 +459,7 @@ const facts = [
     display: grid;
     gap: var(--space-2);
     padding: var(--space-5) var(--space-5) var(--space-5) 0;
-    border-top: 1px solid var(--accent-line);
+    border-top: 1px solid var(--border-strong);
   }
 
   .case__outcome-value {
@@ -489,7 +489,7 @@ const facts = [
   }
 
   .case__label {
-    color: var(--accent);
+    color: var(--text-tertiary);
   }
 
   .case__statement {
@@ -578,12 +578,12 @@ const facts = [
 
   .case__next-arrow {
     font-size: var(--display-sm);
-    color: var(--accent);
+    color: var(--text-secondary);
     transition: transform var(--dur) var(--ease-out);
   }
 
   .case__next-link:hover .case__next-title {
-    color: var(--accent);
+    color: var(--text-secondary);
   }
 
   .case__next-link:hover .case__next-arrow {

@@ -13,14 +13,13 @@
 //   data-split               container holding [data-split-word] elements
 //   data-split-delay="0.1"   delay before a split reveal
 //   data-parallax="0.12"     scroll-linked vertical drift
-//   data-count-to="45"       count-up number (+ data-count-prefix/suffix)
 // ---------------------------------------------------------------------------
 
 import { animate, inView, scroll, stagger, cubicBezier } from "motion";
 
 const EASE = cubicBezier(0.16, 1, 0.3, 1);
 const EASE_SOFT = cubicBezier(0.22, 1, 0.36, 1);
-const REVEAL_DURATION = 0.9;
+const REVEAL_DURATION = 0.6;
 
 const prefersReducedMotion = () =>
   window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -75,7 +74,7 @@ function initGroupReveals(root) {
         enterView(
           item,
           () => {
-            if (!prefersReducedMotion()) reveal(item, 28);
+            if (!prefersReducedMotion()) reveal(item, 12);
             markDone(item);
           },
           { amount: revealAmount(item, 0.15) },
@@ -87,7 +86,7 @@ function initGroupReveals(root) {
     enterView(
       group,
       () => {
-        if (!prefersReducedMotion()) reveal(items, 28, { delay: stagger(interval) });
+        if (!prefersReducedMotion()) reveal(items, 12, { delay: stagger(Math.min(interval, 0.05)) });
         items.forEach(markDone);
       },
       { amount: revealAmount(group, 0.15) },
@@ -102,7 +101,7 @@ function initReveals(root) {
     el.setAttribute("data-reveal-bound", "");
 
     const delay = parseFloat(el.dataset.revealDelay || "0");
-    const y = parseFloat(el.dataset.revealY || "28");
+    const y = Math.min(parseFloat(el.dataset.revealY || "12"), 16);
 
     enterView(
       el,
@@ -174,43 +173,6 @@ function initParallax(root) {
   });
 }
 
-// --- Count-up numbers ------------------------------------------------------
-
-function initCounters(root) {
-  root.querySelectorAll("[data-count-to]").forEach((el) => {
-    if (el.hasAttribute("data-count-bound")) return;
-    el.setAttribute("data-count-bound", "");
-
-    const target = parseFloat(el.dataset.countTo || "0");
-    const prefix = el.dataset.countPrefix || "";
-    const suffix = el.dataset.countSuffix || "";
-    const decimals = parseInt(el.dataset.countDecimals || "0", 10);
-
-    const render = (value) => {
-      el.textContent = `${prefix}${value.toFixed(decimals)}${suffix}`;
-    };
-
-    if (prefersReducedMotion()) {
-      render(target);
-      return;
-    }
-
-    // The server-rendered value stays in the DOM (better for SEO and no-JS);
-    // it only counts up once the number actually scrolls into view.
-    enterView(
-      el,
-      () => {
-        animate(0, target, {
-          duration: 1.7,
-          ease: EASE,
-          onUpdate: render,
-        });
-      },
-      { amount: 0.6 },
-    );
-  });
-}
-
 // --- Safety net -------------------------------------------------------------
 // Nothing may stay hidden once it is on screen. If a reveal trigger misses
 // (odd layouts, very tall elements, fast jumps), show it on the next scroll.
@@ -260,7 +222,6 @@ function init() {
   initReveals(root);
   initSplitReveals(root);
   initParallax(root);
-  initCounters(root);
   initRevealSafetyNet();
 }
 

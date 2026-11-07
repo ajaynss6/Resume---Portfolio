@@ -21,16 +21,20 @@ Signature piece: the hero's **player field**, a canvas spiral of dots where
 dots away and a few light up like live sessions. It pauses offscreen and
 renders a single static frame under `prefers-reduced-motion`.
 
-**The Thread** (`src/scripts/thread.js`) continues it: a particle stream
+**The Thread** (`src/scripts/thread.js`) continues it: a hairline that
 leaves the galaxy core and runs the length of the page as you scroll. It
 travels down the page margins, crosses sides only through the empty space
-between sections, lights a checkpoint at each section and ends in a pulse
-under the footer wordmark. Under reduced motion it is drawn statically.
+between sections, fills a quiet checkpoint at each section and ends in a still
+ring under the footer wordmark. It only redraws while you scroll.
+
+**Restraint rules:** the accent colour is reserved for the main call to
+action, focus, availability and data highlights; everything else is cream and
+grey. Nothing animates on its own except the slow galaxy and the turbine.
 
 ## Stack
 
 - **[Astro](https://astro.build)**: static HTML, component-based, no runtime framework.
-- **[Motion](https://motion.dev)** (vanilla): reveals, count-ups, hover interactions.
+- **[Motion](https://motion.dev)** (vanilla): short, small reveals.
 - **Native view transitions**: case study titles and visuals morph between pages, no JS router.
 - **Plain CSS with design tokens** in `src/styles/tokens.css`: warm ink, bone type, one acid-lime accent.
 - **Self-hosted fonts** (Fontsource): Space Grotesk, Inter, JetBrains Mono, Instrument Serif.
@@ -99,7 +103,6 @@ Animations are declared with data attributes and driven by
 | `data-reveal-group`     | Stagger `[data-reveal]` children            |
 | `data-split`            | Animate `[data-split-word]` (via SplitText) |
 | `data-parallax="0.12"`  | Scroll-linked vertical drift                |
-| `data-count-to="45"`    | Count-up number (prefix/suffix supported)   |
 
 Everything respects `prefers-reduced-motion`, and content stays visible
 without JavaScript.

@@ -1,7 +1,7 @@
 ---
-// Fixed, non-interactive ambient background: a faint grid, a slow radial
+// Fixed, non-interactive ambient background: a faint grid, a still radial
 // glow and a fine film grain. Kept extremely subtle so it never competes with
-// content, and disabled under reduced motion.
+// content.
 ---
 
 <div class="bg-layer" aria-hidden="true">
@@ -51,7 +51,7 @@
     background:
       radial-gradient(
         45% 55% at 30% 40%,
-        rgba(200, 255, 61, 0.12) 0%,
+        rgba(241, 237, 228, 0.045) 0%,
         transparent 70%
       ),
       radial-gradient(
@@ -60,7 +60,6 @@
         transparent 70%
       );
     filter: blur(20px);
-    animation: drift 46s var(--ease-in-out) infinite alternate;
   }
 
   /* Film grain */
@@ -72,18 +71,5 @@
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
 
-  @keyframes drift {
-    from {
-      transform: translate3d(-4%, -2%, 0) scale(1);
-    }
-    to {
-      transform: translate3d(4%, 3%, 0) scale(1.12);
-    }
-  }
 
-  @media (prefers-reduced-motion: reduce) {
-    .bg-layer__glow {
-      animation: none;
-    }
-  }
 </style>

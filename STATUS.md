@@ -1,14 +1,14 @@
 ---
 phase: Live on GitHub Pages
 health: green
-updated: 2026-11-04
+updated: 2026-11-07
 summary: Work (EA, Mu Sigma) and personal Projects in separate sections, 12 case studies with real screens and docs
 ---
 
 <!-- Read by Jarvis (ajaynss6/heyj-ai). Keep it true: see CLAUDE.md. Format: heyj-ai/docs/STATUS_TEMPLATE.md -->
 
 ## Now
-- Owner review of the live site on phone and desktop
+- Calmer look on the branch: green only where it matters, far less motion; waiting on the accent pick
 
 ## Next
 - [ ] Set `bookingUrl` in src/data/profile.js (empty, so the booking button falls back to email)
