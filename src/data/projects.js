@@ -27,6 +27,8 @@
 //   gallery[]             OPTIONAL { src, alt, kind, caption? } real screens;
 //                         kind is phone, desktop, slide or chart. Files live
 //                         in public/work/<slug>/
+//   video                 OPTIONAL { src, poster, caption } walkthrough on the
+//                         case page (mp4 in public/work/<slug>/)
 //   docs[]                OPTIONAL { title, slug, kind } pages in src/pages/docs/
 //   group                 personal | ea | musigma (filters on the work list)
 //   visual variants       ledger, workout, dashboards, monetization,
@@ -51,6 +53,7 @@
  *   needs?: string[], repo?: { url: string, public: boolean }, note?: string,
  *   value?: string, cover?: Media, coverStack?: { src: string, alt: string }[],
  *   gallery?: Media[], docs?: Doc[],
+ *   video?: { src: string, poster: string, caption?: string },
  *   group?: string, draft?: boolean
  * }} Project
  */
@@ -58,8 +61,9 @@
 /** @type {Project[]} */
 export const projects = [
   {
-    // Source: ajaynss6/project_life (private). Only screens with no personal
-    // data (no places, routines or people). Personal project: no numbers.
+    // Source: ajaynss6/project_life (private). Cinematic screens from
+    // design/cinematic-ui.html, sample data only, picked to show no names,
+    // habits or real neighbourhoods. Personal project: no numbers.
     slug: "life-archivist",
     group: "personal",
     visual: "ledger",
@@ -125,18 +129,27 @@ export const projects = [
       "Google Timeline import",
       "Privacy Center and Face ID",
       "Encrypted backups",
+      "Cinematic theme, with Glass as an option",
     ],
-    cover: { src: "work/life-archivist/welcome.jpg", alt: "Life Archivist screens: permissions, welcome and tracking settings", kind: "phone" },
+    cover: { src: "work/life-archivist/today.jpg", alt: "Life Archivist in the Cinematic theme: onboarding, Today and a quiet day", kind: "phone" },
     coverStack: [
-      { src: "work/life-archivist/permissions.jpg", alt: "" },
-      { src: "work/life-archivist/welcome.jpg", alt: "" },
-      { src: "work/life-archivist/settings.jpg", alt: "" },
+      { src: "work/life-archivist/onboarding.jpg", alt: "" },
+      { src: "work/life-archivist/today.jpg", alt: "" },
+      { src: "work/life-archivist/quiet-day.jpg", alt: "" },
     ],
+    video: {
+      src: "work/life-archivist/cinematic.mp4",
+      poster: "work/life-archivist/cinematic-poster.jpg",
+      caption: "The Cinematic theme: Today, onboarding, a quiet day, the first day, settings and the trip sheet",
+    },
     gallery: [
-      { src: "work/life-archivist/welcome.jpg", alt: "Welcome screen", kind: "phone", caption: "The promise in one line" },
-      { src: "work/life-archivist/permissions.jpg", alt: "Permissions screen with a reason for each source", kind: "phone", caption: "Every permission explained, all optional" },
-      { src: "work/life-archivist/settings.jpg", alt: "Tracking settings", kind: "phone", caption: "You decide what is recorded" },
+      { src: "work/life-archivist/today.jpg", alt: "Today as a chapter: photo hero, the day in one line, three stats and the timeline", kind: "phone", caption: "Today, as a chapter" },
+      { src: "work/life-archivist/quiet-day.jpg", alt: "A quiet day without photos: the route becomes line art", kind: "phone", caption: "No photo? The route becomes the art" },
+      { src: "work/life-archivist/first-day.jpg", alt: "First day: recording has started, live numbers so far", kind: "phone", caption: "Day one is never a blank screen" },
+      { src: "work/life-archivist/onboarding.jpg", alt: "Onboarding: every permission with its reason, on one screen", kind: "phone", caption: "Every permission, one screen" },
+      { src: "work/life-archivist/trip.jpg", alt: "Trip sheet: one tap per travel mode", kind: "phone", caption: "One tap to tag a trip" },
     ],
+    note: "Screens are from the Cinematic theme's design spec, with sample data. The theme is built into the app and runs in the Simulator; real-iPhone validation is next.",
     docs: [{ title: "Product requirements", slug: "life-archivist-prd", kind: "PRD" }],
     repo: { url: "https://github.com/ajaynss6/project_life", public: false },
   },
@@ -297,7 +310,7 @@ export const projects = [
     title: "Workout Log: A Gym Tracker Built for Beginners",
     context: "iOS · Consumer fitness",
     description:
-      "A workout tracker designed around the beginner lifter: log the set you just did in as few taps as possible, with sensible defaults and early signs of progress, so new lifters keep showing up long enough for the habit to stick.",
+      "A workout and food tracker designed around the beginner: log the set you just did in as few taps as possible, scan a meal with a photo, and see early signs of progress, so new lifters keep showing up long enough for the habit to stick.",
     tags: ["AI Product", "Consumer", "Fitness", "iOS", "UX Research"],
     value:
       "Lowers the cost of showing up: the fastest path to a logged set, so beginners stay long enough for the habit to form.",
@@ -305,6 +318,25 @@ export const projects = [
       { title: "Product requirements", slug: "workout-log-prd", kind: "PRD" },
       { title: "UX audit and design exploration", slug: "workout-log-ux-audit", kind: "UX audit" },
     ],
+    cover: { src: "work/workout-log/home.jpg", alt: "Workout Log screens: active workout with rest timer, home and progress", kind: "phone" },
+    coverStack: [
+      { src: "work/workout-log/active-rest.jpg", alt: "" },
+      { src: "work/workout-log/home.jpg", alt: "" },
+      { src: "work/workout-log/progress.jpg", alt: "" },
+    ],
+    video: {
+      src: "work/workout-log/redesign.mp4",
+      poster: "work/workout-log/redesign-poster.jpg",
+      caption: "The redesign: home, an active set with rest timer, progress, workout complete and food",
+    },
+    gallery: [
+      { src: "work/workout-log/home.jpg", alt: "Home: streak, this week and the next workout pre-filled", kind: "phone", caption: "Start again in one tap" },
+      { src: "work/workout-log/active-rest.jpg", alt: "Active workout with the rest timer", kind: "phone", caption: "Log the set, the timer takes over" },
+      { src: "work/workout-log/progress.jpg", alt: "Progress: heaviest set over time", kind: "phone", caption: "Progress you can see early" },
+      { src: "work/workout-log/summary.jpg", alt: "Workout complete summary with streak", kind: "phone", caption: "A moment worth finishing for" },
+      { src: "work/workout-log/food.jpg", alt: "Food tab with remaining calories and scan meal", kind: "phone", caption: "Scan a meal instead of typing it" },
+    ],
+    note: "Screens are from the iOS Simulator with sample data.",
     company: "Personal project",
     role: "Product owner and builder",
     period: "2026",
@@ -349,6 +381,9 @@ export const projects = [
     ],
     shipped: [
       "List-first workout logger",
+      "Photo-led Food tab with a built-in food list",
+      "Streaks, badges and milestones",
+      "Lime theme in dark and light",
       "Beginner onboarding",
       "Single start button",
       "Encouraging empty states",

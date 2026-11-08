@@ -1,14 +1,14 @@
 ---
 phase: Live on GitHub Pages
 health: green
-updated: 2026-11-07
+updated: 2026-11-08
 summary: Work (EA, Mu Sigma) and personal Projects in separate sections, 12 case studies with real screens and docs
 ---
 
 <!-- Read by Jarvis (ajaynss6/heyj-ai). Keep it true: see CLAUDE.md. Format: heyj-ai/docs/STATUS_TEMPLATE.md -->
 
 ## Now
-- Calmer look on the branch: green only where it matters, far less motion; waiting on the accent pick
+- Owner review of the calmer look and the new project media on a phone
 
 ## Next
 - [ ] Set `bookingUrl` in src/data/profile.js (empty, so the booking button falls back to email)
@@ -20,8 +20,8 @@ summary: Work (EA, Mu Sigma) and personal Projects in separate sections, 12 case
 - History purge of confidential details: needs the owner to switch the session to Accept edits and approve the force-push
 
 ## Done recently
+- Calmer look: lime only where it matters, far less motion
+- Life Archivist: Cinematic theme screens and a walkthrough video
+- Workout Log: redesign screens (Food tab, lime theme) and a walkthrough video
 - Split professional Work from personal Projects into two sections
 - Mu Sigma case studies with illustrations, and work filters (#11)
-- Reveal fix: Work and Experience no longer stay invisible on phones (#9)
-- Life Archivist, Games Pulse, Jarvis and market research case studies; five docs (#7, #8)
-- The Thread scroll animation and story rewrite (#5)

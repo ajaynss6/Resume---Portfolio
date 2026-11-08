@@ -33,6 +33,7 @@ const outcomes = project.outcomes ?? [];
 const needs = project.needs ?? [];
 const repo = project.repo?.public ? project.repo.url : "";
 const gallery = project.gallery ?? [];
+const video = project.video;
 const docs = project.docs ?? [];
 const galleryKind = gallery.every((m) => m.kind === "phone")
   ? "phone"
@@ -82,10 +83,30 @@ const facts = [
       }
     </header>
 
+    {
+      video && (
+        <figure class="case__video container" data-reveal>
+          <div class="case__video-phone">
+            <video
+              src={`${home}${video.src}`}
+              poster={`${home}${video.poster}`}
+              muted
+              loop
+              playsinline
+              preload="metadata"
+              aria-label={video.caption ?? `${project.title} walkthrough`}
+              data-case-video
+            />
+          </div>
+          {video.caption && <figcaption class="case__video-caption mono">Walkthrough · {video.caption}</figcaption>}
+        </figure>
+      )
+    }
+
     <div class="case__visual container" data-reveal style={`view-transition-name: visual-${project.slug}`}>
       {
         gallery.length > 0 ? (
-          <div class:list={["case__gallery", `case__gallery--${galleryKind}`]}>
+          <div class:list={["case__gallery", `case__gallery--${galleryKind}`]} style={`--n:${gallery.length}`}>
             {gallery.map((media, i) => (
               <ProjectMedia media={media} eager={i < 2} />
             ))}
@@ -249,6 +270,22 @@ const facts = [
   </article>
 </BaseLayout>
 
+<script>
+  // Walkthrough videos play silently while on screen. Under reduced motion
+  // they stay on their poster with controls, so playing is a choice.
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  document.querySelectorAll<HTMLVideoElement>("[data-case-video]").forEach((video) => {
+    if (reduce) {
+      video.controls = true;
+      return;
+    }
+    new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) video.play().catch(() => (video.controls = true));
+      else video.pause();
+    }, { threshold: 0.3 }).observe(video);
+  });
+</script>
+
 <style>
   .case {
     padding-top: calc(var(--header-h) + var(--space-8));
@@ -352,6 +389,40 @@ const facts = [
     color: var(--text);
   }
 
+  .case__video {
+    display: grid;
+    justify-items: center;
+    gap: var(--space-3);
+    margin-top: var(--space-8);
+  }
+
+  .case__video-phone {
+    width: min(20rem, 72vw);
+    padding: 8px;
+    background: #050506;
+    border: 1px solid var(--border-strong);
+    border-radius: 40px;
+    overflow: hidden;
+  }
+
+  .case__video-phone video {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 9 / 19.5;
+    object-fit: cover;
+    border-radius: 32px;
+    background: var(--bg);
+  }
+
+  .case__video-caption {
+    max-width: 36rem;
+    text-align: center;
+    color: var(--text-tertiary);
+    text-transform: none;
+    letter-spacing: 0.02em;
+  }
+
   .case__gallery {
     display: grid;
     gap: clamp(1rem, 2.5vw, 2rem);
@@ -359,7 +430,7 @@ const facts = [
   }
 
   .case__gallery--phone {
-    grid-template-columns: repeat(auto-fit, minmax(10rem, 16rem));
+    grid-template-columns: repeat(var(--n), minmax(0, 15rem));
     justify-content: center;
   }
 
