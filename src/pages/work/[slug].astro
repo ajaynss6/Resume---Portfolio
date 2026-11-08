@@ -85,8 +85,8 @@ const facts = [
 
     {
       video && (
-        <figure class="case__video container" data-reveal>
-          <div class="case__video-phone">
+        <figure class:list={["case__video", "container", video.kind === "wide" && "case__video--wide"]} data-reveal>
+          <div class={video.kind === "wide" ? "case__video-film" : "case__video-phone"}>
             <video
               src={`${home}${video.src}`}
               poster={`${home}${video.poster}`}
@@ -94,11 +94,16 @@ const facts = [
               loop
               playsinline
               preload="metadata"
+              controls={video.kind === "wide"}
               aria-label={video.caption ?? `${project.title} walkthrough`}
               data-case-video
             />
           </div>
-          {video.caption && <figcaption class="case__video-caption mono">Walkthrough · {video.caption}</figcaption>}
+          {video.caption && (
+            <figcaption class="case__video-caption mono">
+              {video.kind === "wide" ? "" : "Walkthrough · "}{video.caption}
+            </figcaption>
+          )}
         </figure>
       )
     }
@@ -413,6 +418,21 @@ const facts = [
     object-fit: cover;
     border-radius: 32px;
     background: var(--bg);
+  }
+
+  .case__video-film {
+    width: 100%;
+    overflow: hidden;
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-md);
+    background: #0b0e16;
+  }
+
+  .case__video-film video {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
   }
 
   .case__video-caption {

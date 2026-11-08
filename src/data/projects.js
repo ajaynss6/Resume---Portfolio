@@ -27,8 +27,9 @@
 //   gallery[]             OPTIONAL { src, alt, kind, caption? } real screens;
 //                         kind is phone, desktop, slide or chart. Files live
 //                         in public/work/<slug>/
-//   video                 OPTIONAL { src, poster, caption } walkthrough on the
-//                         case page (mp4 in public/work/<slug>/)
+//   video                 OPTIONAL { src, poster, caption, kind } on the case
+//                         page (mp4 in public/work/<slug>/); kind "wide" is a
+//                         16:9 film with sound, default is a phone walkthrough
 //   docs[]                OPTIONAL { title, slug, kind } pages in src/pages/docs/
 //   group                 personal | ea | musigma (filters on the work list)
 //   visual variants       ledger, workout, dashboards, monetization,
@@ -53,7 +54,7 @@
  *   needs?: string[], repo?: { url: string, public: boolean }, note?: string,
  *   value?: string, cover?: Media, coverStack?: { src: string, alt: string }[],
  *   gallery?: Media[], docs?: Doc[],
- *   video?: { src: string, poster: string, caption?: string },
+ *   video?: { src: string, poster: string, caption?: string, kind?: string },
  *   group?: string, draft?: boolean
  * }} Project
  */
@@ -138,9 +139,10 @@ export const projects = [
       { src: "work/life-archivist/quiet-day.jpg", alt: "" },
     ],
     video: {
-      src: "work/life-archivist/cinematic.mp4",
-      poster: "work/life-archivist/cinematic-poster.jpg",
-      caption: "The Cinematic theme: Today, onboarding, a quiet day, the first day, settings and the trip sheet",
+      src: "work/life-archivist/promo.mp4",
+      poster: "work/life-archivist/promo-poster.jpg",
+      kind: "wide",
+      caption: "Promo: the problem, the automatic timeline, the daily journal, Ask, habits and privacy. Sound on for music.",
     },
     gallery: [
       { src: "work/life-archivist/today.jpg", alt: "Today as a chapter: photo hero, the day in one line, three stats and the timeline", kind: "phone", caption: "Today, as a chapter" },

@@ -21,7 +21,7 @@ summary: Work (EA, Mu Sigma) and personal Projects in separate sections, 12 case
 
 ## Done recently
 - Calmer look: lime only where it matters, far less motion
-- Life Archivist: Cinematic theme screens and a walkthrough video
+- Life Archivist: promo film and Cinematic theme screens
 - Workout Log: redesign screens (Food tab, lime theme) and a walkthrough video
 - Split professional Work from personal Projects into two sections
 - Mu Sigma case studies with illustrations, and work filters (#11)
