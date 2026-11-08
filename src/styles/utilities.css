@@ -35,7 +35,7 @@
 .section-head__index {
   font-family: var(--font-mono);
   font-size: var(--text-xs);
-  color: var(--accent);
+  color: var(--text-tertiary);
   letter-spacing: var(--tracking-wide);
 }
 
@@ -70,7 +70,7 @@
 }
 
 .section-head__title .serif {
-  color: var(--accent);
+  color: var(--text);
   font-size: 1.05em;
 }
 
@@ -102,7 +102,7 @@
   content: "";
   width: 1.75rem;
   height: 1px;
-  background: var(--accent-line);
+  background: var(--border-strong);
 }
 
 /* Display / editorial type */
@@ -180,7 +180,7 @@
 }
 
 .text-link:hover {
-  color: var(--accent-strong);
+  color: var(--text);
 }
 
 .text-link:hover::after {
@@ -214,26 +214,26 @@
 
 .button--primary {
   color: var(--text-inverse);
-  background: var(--accent-strong);
+  background: var(--text);
   border-color: transparent;
 }
 
 .button--primary:hover {
-  background: var(--text);
+  background: #ffffff;
 }
 
 .button--ghost {
   background: transparent;
   border-color: transparent;
   text-decoration: underline;
-  text-decoration-color: var(--accent-line);
+  text-decoration-color: var(--border-strong);
   text-underline-offset: 0.3em;
 }
 
 .button--ghost:hover {
   background: transparent;
   border-color: transparent;
-  text-decoration-color: var(--accent);
+  text-decoration-color: var(--text);
 }
 
 /* Rules / dividers */

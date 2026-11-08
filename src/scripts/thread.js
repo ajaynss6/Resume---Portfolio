@@ -1,17 +1,16 @@
 // ---------------------------------------------------------------------------
-// The Thread: a stream of particles that leaves the hero galaxy and runs the
-// length of the page, revealed by scrolling.
+// The Thread: a hairline that leaves the hero galaxy and runs the length of
+// the page, revealed by scrolling.
 //
 // The path starts at the galaxy core, curls out to a page margin, then runs
 // down the margins, crossing sides only through the empty padding between
-// sections so it never sits on top of text. A glowing head tracks the scroll
-// position, a checkpoint lights as each section is reached, and the line ends
-// in a pulse at the footer.
+// sections so it never sits on top of text. A small dot tracks the scroll
+// position, a checkpoint fills as each section is reached, and the line ends
+// in a still ring at the footer. It only redraws while scrolling.
 //
 //   <canvas data-thread></canvas>   fixed, full viewport, behind content
 //
-// Under reduced motion the revealed path is drawn without particles or
-// animation, and redrawn only on scroll.
+// Under reduced motion the head jumps to the scroll position without easing.
 // ---------------------------------------------------------------------------
 
 const STEP = 6; // px between sampled path points
@@ -82,7 +81,6 @@ function initThread(canvas) {
   let total = 0;
   let nodes = []; // { s, x, y } checkpoints
   let head = 0; // revealed arc length (eased)
-  let particles = [];
   const reduced = prefersReducedMotion();
 
   const docTop = (el) => el.getBoundingClientRect().top + window.scrollY;
@@ -173,8 +171,6 @@ function initThread(canvas) {
       return { x: best.x, y: best.y, s: best.s };
     });
 
-    const count = W < 700 ? 140 : 320;
-    particles = Array.from({ length: count }, () => spawn(0, Math.max(total * 0.1, 1)));
     head = Math.min(head || 0, total);
   }
 
@@ -214,15 +210,6 @@ function initThread(canvas) {
     return path[lo].s;
   }
 
-  function spawn(from, to) {
-    return {
-      s: from + Math.random() * Math.max(1, to - from),
-      v: 60 + Math.random() * 110,
-      o: (Math.random() + Math.random() - 1) * 7,
-      size: Math.random() < 0.08 ? 2 : 1.2,
-      lit: Math.random() < 0.18,
-    };
-  }
 
   function targetHead() {
     const max = document.documentElement.scrollHeight - H;
@@ -236,16 +223,16 @@ function initThread(canvas) {
     return [arcAtY(top), Math.min(head, arcAtY(bottom))];
   }
 
-  function draw(time, dt) {
+  function draw() {
     ctx.clearRect(0, 0, W, H);
     if (!path.length) return;
     const sy = window.scrollY;
     const [s0, s1] = visibleRange();
 
-    // Base line: the revealed path in view.
+    // Base line: the revealed path in view, a hairline.
     if (s1 > s0) {
       ctx.lineWidth = 1;
-      ctx.strokeStyle = ink(0.12);
+      ctx.strokeStyle = ink(0.08);
       ctx.beginPath();
       for (let i = indexAt(s0), started = false; i < path.length && path[i].s <= s1; i++) {
         const p = path[i];
@@ -256,13 +243,13 @@ function initThread(canvas) {
       }
       ctx.stroke();
 
-      // Lit trail behind the head, fading out.
+      // Trail behind the head, fading out.
       const t0 = Math.max(s0, head - TAIL);
-      ctx.lineWidth = 1.5;
+      ctx.lineWidth = 1.25;
       for (let i = indexAt(t0) + 1; i < path.length && path[i].s <= head; i++) {
         const a = path[i - 1];
         const b = path[i];
-        ctx.strokeStyle = accent(((b.s - (head - TAIL)) / TAIL) * 0.7);
+        ctx.strokeStyle = ink(((b.s - (head - TAIL)) / TAIL) * 0.45);
         ctx.beginPath();
         ctx.moveTo(a.x, a.y - sy);
         ctx.lineTo(b.x, b.y - sy);
@@ -270,70 +257,44 @@ function initThread(canvas) {
       }
     }
 
-    // Particles flowing along the revealed path, kept dense in the viewport.
-    if (!reduced && s1 > s0) {
-      for (const p of particles) {
-        p.s += p.v * dt;
-        if (p.s < s0 - 40 || p.s > s1) Object.assign(p, spawn(s0, s1));
-        const q = pointAt(p.s);
-        const wobble = Math.sin(time * 0.002 + p.s * 0.02) * 2;
-        const x = q.x + q.nx * (p.o + wobble);
-        const y = q.y + q.ny * (p.o + wobble) - sy;
-        ctx.fillStyle = p.lit ? accent(0.95) : ink(0.6);
-        ctx.fillRect(x - p.size / 2, y - p.size / 2, p.size, p.size);
-      }
-    }
-
-    // Checkpoints.
+    // Checkpoints: one quiet dot per section, filled once reached.
     for (const n of nodes) {
       const y = n.y - sy;
       if (y < -20 || y > H + 20) continue;
       const reached = n.s <= head;
       ctx.beginPath();
-      ctx.arc(n.x, y, reached ? 4.5 : 3.5, 0, Math.PI * 2);
-      ctx.fillStyle = reached ? accent(1) : "rgba(0,0,0,0)";
-      ctx.strokeStyle = reached ? accent(1) : ink(0.25);
+      ctx.arc(n.x, y, reached ? 3 : 2.5, 0, Math.PI * 2);
+      ctx.fillStyle = reached ? ink(0.85) : "rgba(0,0,0,0)";
+      ctx.strokeStyle = ink(reached ? 0.85 : 0.22);
       ctx.lineWidth = 1;
       ctx.fill();
       ctx.stroke();
-      if (reached && !reduced) {
-        const pulse = (time * 0.0006 + n.s * 0.001) % 1;
-        ctx.beginPath();
-        ctx.arc(n.x, y, 5 + pulse * 14, 0, Math.PI * 2);
-        ctx.strokeStyle = accent(0.5 * (1 - pulse));
-        ctx.stroke();
-      }
     }
 
-    // Head: glow and core.
+    // Head: a small dot with a soft halo.
     if (head > 0) {
       const h = pointAt(head);
       const y = h.y - sy;
-      if (y > -60 && y < H + 60) {
-        const glow = ctx.createRadialGradient(h.x, y, 0, h.x, y, 42);
-        glow.addColorStop(0, accent(0.45));
-        glow.addColorStop(1, accent(0));
-        ctx.fillStyle = glow;
-        ctx.fillRect(h.x - 42, y - 42, 84, 84);
+      if (y > -30 && y < H + 30) {
+        const halo = ctx.createRadialGradient(h.x, y, 0, h.x, y, 16);
+        halo.addColorStop(0, ink(0.14));
+        halo.addColorStop(1, ink(0));
+        ctx.fillStyle = halo;
+        ctx.fillRect(h.x - 16, y - 16, 32, 32);
         ctx.beginPath();
-        ctx.arc(h.x, y, 3, 0, Math.PI * 2);
-        ctx.fillStyle = ink(1);
+        ctx.arc(h.x, y, 2.5, 0, Math.PI * 2);
+        ctx.fillStyle = accent(1);
         ctx.fill();
       }
 
-      // Finale: the line lands under the wordmark and pulses.
+      // End of the line: one still ring under the wordmark.
       if (head >= total - 1) {
         const end = path[path.length - 1];
-        const ey = end.y - sy;
-        const pulse = reduced ? 0.5 : (time * 0.0004) % 1;
-        for (let k = 0; k < 3; k++) {
-          const t = (pulse + k / 3) % 1;
-          ctx.beginPath();
-          ctx.arc(end.x, ey, 6 + t * 120, 0, Math.PI * 2);
-          ctx.strokeStyle = accent(0.35 * (1 - t));
-          ctx.lineWidth = 1;
-          ctx.stroke();
-        }
+        ctx.beginPath();
+        ctx.arc(end.x, end.y - sy, 10, 0, Math.PI * 2);
+        ctx.strokeStyle = ink(0.3);
+        ctx.lineWidth = 1;
+        ctx.stroke();
       }
     }
   }
@@ -345,10 +306,8 @@ function initThread(canvas) {
     window.clearTimeout(rebuildTimer);
     rebuildTimer = window.setTimeout(() => {
       build();
-      if (reduced) {
-        head = targetHead();
-        draw(0, 0);
-      }
+      head = targetHead();
+      draw();
     }, 120);
   };
   new ResizeObserver(rebuild).observe(document.body);
@@ -357,32 +316,30 @@ function initThread(canvas) {
   if (reduced) {
     const render = () => {
       head = targetHead();
-      draw(0, 0);
+      draw();
     };
     render();
     window.addEventListener("scroll", render, { passive: true });
     return;
   }
 
-  let last = performance.now();
+  // Ease the head toward the scroll position, then go idle until the next
+  // scroll or resize: nothing animates on its own.
   let frame = 0;
-  const loop = (now) => {
-    const dt = Math.min((now - last) / 1000, 0.05);
-    last = now;
-    head += (targetHead() - head) * EASE;
-    draw(now, dt);
-    frame = requestAnimationFrame(loop);
+  const loop = () => {
+    const target = targetHead();
+    head += (target - head) * EASE;
+    if (Math.abs(target - head) < 0.5) head = target;
+    draw();
+    frame = head === target ? 0 : requestAnimationFrame(loop);
   };
   const start = () => {
     if (frame || document.hidden) return;
-    last = performance.now();
     frame = requestAnimationFrame(loop);
   };
-  const stop = () => {
-    cancelAnimationFrame(frame);
-    frame = 0;
-  };
-  document.addEventListener("visibilitychange", () => (document.hidden ? stop() : start()));
+  window.addEventListener("scroll", start, { passive: true });
+  window.addEventListener("resize", start);
+  document.addEventListener("visibilitychange", start);
   start();
 }
 

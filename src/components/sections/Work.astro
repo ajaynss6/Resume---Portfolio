@@ -137,13 +137,13 @@ const filters =
 
   .work-filter:hover {
     color: var(--text);
-    border-color: var(--accent-line);
+    border-color: var(--text-tertiary);
   }
 
   .work-filter[aria-pressed="true"] {
     color: var(--text-inverse);
-    background: var(--accent);
-    border-color: var(--accent);
+    background: var(--text);
+    border-color: var(--text);
   }
 
   .work-filter__count {
@@ -224,7 +224,7 @@ const filters =
   }
 
   .work-row__arrow {
-    color: var(--accent);
+    color: var(--text);
     transition: transform var(--dur) var(--ease-out);
   }
 
@@ -238,8 +238,7 @@ const filters =
     font-size: var(--text-xs);
     letter-spacing: var(--tracking-wide);
     text-transform: uppercase;
-    color: var(--accent);
-    opacity: 0.7;
+    color: var(--text-tertiary);
   }
 
   .work-row__desc {
@@ -254,12 +253,12 @@ const filters =
     max-width: 58ch;
     margin-top: var(--space-4);
     padding-left: var(--space-4);
-    border-left: 2px solid var(--accent);
+    border-left: 1px solid var(--border-strong);
     color: var(--text);
   }
 
   .work-row__value .mono {
-    color: var(--accent);
+    color: var(--text-tertiary);
   }
 
   .work-row__tags {
@@ -284,8 +283,6 @@ const filters =
 </style>
 
 <script>
-  import "../../scripts/projects.js";
-
   // Work filters: show one group at a time; "All" shows everything. Each
   // section's chips only affect that section's list.
   document.querySelectorAll("[data-work-filters]").forEach((bar) => {

@@ -1,7 +1,7 @@
 // ---------------------------------------------------------------------------
 // Navigation behaviour for the HUD header: scroll progress, active-section
-// highlighting with a sliding indicator, live local time, cursor sheen,
-// scroll compression and the mobile menu overlay.
+// highlighting with a sliding indicator, live local time, scroll
+// compression and the mobile menu overlay.
 // ---------------------------------------------------------------------------
 
 import { animate, stagger, scroll, cubicBezier } from "motion";
@@ -54,20 +54,6 @@ function initClock() {
 
   tick();
   window.setInterval(tick, 15000);
-}
-
-// --- Cursor sheen ----------------------------------------------------------
-
-function initHudGlow() {
-  const hud = document.querySelector("[data-hud]");
-  if (!hud || prefersReducedMotion()) return;
-  if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
-
-  hud.addEventListener("pointermove", (event) => {
-    const rect = hud.getBoundingClientRect();
-    hud.style.setProperty("--mx", `${event.clientX - rect.left}px`);
-    hud.style.setProperty("--my", `${event.clientY - rect.top}px`);
-  });
 }
 
 // --- Active section + sliding indicator ------------------------------------
@@ -188,7 +174,6 @@ function init() {
   initScrollProgress();
   initHeaderScroll();
   initClock();
-  initHudGlow();
   initActiveSection();
   initMobileMenu();
 }

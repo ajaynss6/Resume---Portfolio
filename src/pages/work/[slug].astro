@@ -33,6 +33,7 @@ const outcomes = project.outcomes ?? [];
 const needs = project.needs ?? [];
 const repo = project.repo?.public ? project.repo.url : "";
 const gallery = project.gallery ?? [];
+const video = project.video;
 const docs = project.docs ?? [];
 const galleryKind = gallery.every((m) => m.kind === "phone")
   ? "phone"
@@ -82,10 +83,30 @@ const facts = [
       }
     </header>
 
+    {
+      video && (
+        <figure class="case__video container" data-reveal>
+          <div class="case__video-phone">
+            <video
+              src={`${home}${video.src}`}
+              poster={`${home}${video.poster}`}
+              muted
+              loop
+              playsinline
+              preload="metadata"
+              aria-label={video.caption ?? `${project.title} walkthrough`}
+              data-case-video
+            />
+          </div>
+          {video.caption && <figcaption class="case__video-caption mono">Walkthrough · {video.caption}</figcaption>}
+        </figure>
+      )
+    }
+
     <div class="case__visual container" data-reveal style={`view-transition-name: visual-${project.slug}`}>
       {
         gallery.length > 0 ? (
-          <div class:list={["case__gallery", `case__gallery--${galleryKind}`]}>
+          <div class:list={["case__gallery", `case__gallery--${galleryKind}`]} style={`--n:${gallery.length}`}>
             {gallery.map((media, i) => (
               <ProjectMedia media={media} eager={i < 2} />
             ))}
@@ -249,6 +270,22 @@ const facts = [
   </article>
 </BaseLayout>
 
+<script>
+  // Walkthrough videos play silently while on screen. Under reduced motion
+  // they stay on their poster with controls, so playing is a choice.
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  document.querySelectorAll<HTMLVideoElement>("[data-case-video]").forEach((video) => {
+    if (reduce) {
+      video.controls = true;
+      return;
+    }
+    new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) video.play().catch(() => (video.controls = true));
+      else video.pause();
+    }, { threshold: 0.3 }).observe(video);
+  });
+</script>
+
 <style>
   .case {
     padding-top: calc(var(--header-h) + var(--space-8));
@@ -268,8 +305,8 @@ const facts = [
 
   .case__status {
     padding: 0.25rem 0.65rem;
-    color: var(--accent);
-    border: 1px dashed var(--accent-line);
+    color: var(--text-secondary);
+    border: 1px solid var(--border-strong);
     border-radius: var(--radius-pill);
   }
 
@@ -294,7 +331,7 @@ const facts = [
     color: var(--text-secondary);
     background: var(--surface);
     border: 1px solid var(--border);
-    border-left: 2px solid var(--accent);
+    border-left: 1px solid var(--border-strong);
     border-radius: var(--radius-xs);
   }
 
@@ -303,13 +340,13 @@ const facts = [
     gap: var(--space-2);
     max-width: 52rem;
     padding: var(--space-5);
-    border: 1px dashed var(--accent-line);
+    border: 1px solid var(--border-strong);
     border-radius: var(--radius-sm);
-    background: var(--accent-soft);
+    background: var(--surface);
   }
 
   .case__note .mono {
-    color: var(--accent);
+    color: var(--text-tertiary);
   }
 
   .case__note p {
@@ -323,7 +360,7 @@ const facts = [
   }
 
   .case__back:hover {
-    color: var(--accent);
+    color: var(--text);
   }
 
   .case__title {
@@ -352,6 +389,40 @@ const facts = [
     color: var(--text);
   }
 
+  .case__video {
+    display: grid;
+    justify-items: center;
+    gap: var(--space-3);
+    margin-top: var(--space-8);
+  }
+
+  .case__video-phone {
+    width: min(20rem, 72vw);
+    padding: 8px;
+    background: #050506;
+    border: 1px solid var(--border-strong);
+    border-radius: 40px;
+    overflow: hidden;
+  }
+
+  .case__video-phone video {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 9 / 19.5;
+    object-fit: cover;
+    border-radius: 32px;
+    background: var(--bg);
+  }
+
+  .case__video-caption {
+    max-width: 36rem;
+    text-align: center;
+    color: var(--text-tertiary);
+    text-transform: none;
+    letter-spacing: 0.02em;
+  }
+
   .case__gallery {
     display: grid;
     gap: clamp(1rem, 2.5vw, 2rem);
@@ -359,7 +430,7 @@ const facts = [
   }
 
   .case__gallery--phone {
-    grid-template-columns: repeat(auto-fit, minmax(10rem, 16rem));
+    grid-template-columns: repeat(var(--n), minmax(0, 15rem));
     justify-content: center;
   }
 
@@ -376,7 +447,7 @@ const facts = [
   }
 
   .case__statement--value {
-    color: var(--accent);
+    color: var(--text);
   }
 
   .case__docs {
@@ -397,12 +468,12 @@ const facts = [
   }
 
   .case__doc:hover {
-    border-color: var(--accent-line);
-    background: var(--accent-soft);
+    border-color: var(--text-tertiary);
+    background: var(--surface-hover);
   }
 
   .case__doc .mono {
-    color: var(--accent);
+    color: var(--text-tertiary);
   }
 
   .case__doc-title {
@@ -412,7 +483,7 @@ const facts = [
   }
 
   .case__doc-arrow {
-    color: var(--accent);
+    color: var(--text-secondary);
   }
 
   @media (max-width: 900px) {
@@ -459,7 +530,7 @@ const facts = [
     display: grid;
     gap: var(--space-2);
     padding: var(--space-5) var(--space-5) var(--space-5) 0;
-    border-top: 1px solid var(--accent-line);
+    border-top: 1px solid var(--border-strong);
   }
 
   .case__outcome-value {
@@ -489,7 +560,7 @@ const facts = [
   }
 
   .case__label {
-    color: var(--accent);
+    color: var(--text-tertiary);
   }
 
   .case__statement {
@@ -578,12 +649,12 @@ const facts = [
 
   .case__next-arrow {
     font-size: var(--display-sm);
-    color: var(--accent);
+    color: var(--text-secondary);
     transition: transform var(--dur) var(--ease-out);
   }
 
   .case__next-link:hover .case__next-title {
-    color: var(--accent);
+    color: var(--text-secondary);
   }
 
   .case__next-link:hover .case__next-arrow {
